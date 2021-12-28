@@ -1,6 +1,9 @@
+import { StatusBar } from "expo-status-bar";
 import React, { Component } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { colors } from "../config/vars";
+import ImageComponent from "../components/product/ImageComponent";
+import ProductInfo from "../components/product/ProductInfo";
 
 export default class ProductDetails extends Component {
   constructor(props) {
@@ -23,9 +26,12 @@ export default class ProductDetails extends Component {
   };
 
   render() {
+    //   console.log(this.state.product)
     return (
       <View style={styles.container}>
-        <Text> ProductDetails </Text>
+        <StatusBar backgroundColor={colors.mainColor} style="light" />
+        <ImageComponent image={this.state.product.image} />
+        <ProductInfo product={this.state.product} />
       </View>
     );
   }
