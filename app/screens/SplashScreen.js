@@ -25,7 +25,7 @@ export default class SplashScreen extends Component {
     return (
       <View style={styles.container}>
         <StatusBar translucent={false} backgroundColor={colors.mainColor} style='light' />
-        <Text> SplashScreen </Text>
+        <Text style={styles.textLogo}> شعار النعيرية </Text>
       </View>
     );
   }
@@ -39,4 +39,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "100%",
   },
+  textLogo:{
+    fontFamily:"Tajawal-Bold",
+    color: '#FFF',
+    fontSize:20
+  }
 });

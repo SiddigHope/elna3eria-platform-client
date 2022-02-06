@@ -20,16 +20,19 @@ export default class StoreCategoriesComponent extends Component {
 
   componentDidMount() {
     this.checkSelected();
-    const navigation= this.props.navigation
-    navigation.addListener('blur', () => {
-        this.setState({
-            itemSelected: false
-        })
-    })
   }
 
+  componentWillReceiveProps(nextProps) {
+    // You don't have to do this check first, but it can help prevent an unneeded render
+    if (nextProps.item.index !== itemSelected && this.state.itemSelected) {
+      this.setState({
+        itemSelected: false,
+      });
+    }
+  }
 
   checkSelected = () => {
+    console.log();
     if (itemSelected == -1 && this.props.item.index == 0) {
       this._setStore();
     } else if (itemSelected == this.props.item.index) {

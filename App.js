@@ -12,6 +12,8 @@ import * as Font from "expo-font";
 import Categories from "./app/screens/Categories";
 import StoreProducts from "./app/screens/StoreProducts";
 import ProductDetails from "./app/screens/ProductDetails";
+import Signin from './app/screens/Signin';
+import Signup from "./app/screens/Signup";
 
 LogBox.ignoreLogs([
   "Non-serializable values were found in the navigation state",
@@ -75,6 +77,20 @@ function Stacks() {
       <Stack.Screen
         name="ProductDetails"
         component={ProductDetails}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Signup"
+        component={Signup}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Signin"
+        component={Signin}
         options={{
           headerShown: false,
         }}
