@@ -28,6 +28,15 @@ export default class CategoryComponent extends Component {
     });
   }
 
+  componentWillReceiveProps(nextProps) {
+    // You don't have to do this check first, but it can help prevent an unneeded render
+    if (nextProps.item.index !== itemSelected && this.state.itemSelected) {
+      this.setState({
+        itemSelected: false,
+      });
+    }
+  }
+
   checkSelected = () => {
     if (itemSelected == -1 && this.props.item.index == 0) {
       this._setStore();

@@ -74,6 +74,7 @@ export default class Home extends Component {
   );
 
   render() {
+    console.log(this.state.stores)
     return (
       <View style={styles.container}>
         <FlatList

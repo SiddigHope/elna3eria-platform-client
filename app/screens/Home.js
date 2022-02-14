@@ -42,6 +42,7 @@ export default class Home extends Component {
   };
 
   goToScreen = (store) => {
+    console.log(store)
     goToScreen("StoreProducts", this.props.navigation, { store });
   };
 

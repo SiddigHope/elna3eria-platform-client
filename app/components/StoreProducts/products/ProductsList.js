@@ -29,7 +29,7 @@ export default class ProductsList extends Component {
       <View style={styles.titleContainer}>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
           <Text style={styles.title}>
-            {this.props.stores.length} {"منتج"}{" "}
+            {"منتج"}
           </Text>
         </View>
         <View style={styles.titleUnderline} />
@@ -37,6 +37,7 @@ export default class ProductsList extends Component {
     </View>
   );
 
+  // {this.props.stores.length} {"منتج"}
   render() {
     return (
       <View style={styles.container}>
