@@ -15,6 +15,7 @@ import ProductDetails from "./app/screens/ProductDetails";
 import Signin from './app/screens/Signin';
 import Signup from "./app/screens/Signup";
 import Verification from "./app/screens/Verification";
+import Cart from "./app/screens/Cart";
 
 LogBox.ignoreLogs([
   "Non-serializable values were found in the navigation state",
@@ -99,6 +100,13 @@ function Stacks() {
       <Stack.Screen
         name="Verification"
         component={Verification}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Cart"
+        component={Cart}
         options={{
           headerShown: false,
         }}

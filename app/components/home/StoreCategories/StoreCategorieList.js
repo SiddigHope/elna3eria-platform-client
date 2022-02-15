@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import StoreCategoriesComponent from "./StoreCategoriesComponent";
-import { storeCategories } from "../../../config/data";
+import { getDepartments } from "../../../config/data";
 import { goToScreen } from "../../../config/functions";
 
 const { width, height } = Dimensions.get("window");
@@ -29,7 +29,7 @@ export default class StoreCategoriesList extends Component {
 
   getData = async () => {
     this.setState({
-      storesAndCategories: await storeCategories(),
+      storesAndCategories: await getDepartments(),
     });
   };
 

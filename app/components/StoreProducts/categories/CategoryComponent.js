@@ -26,7 +26,7 @@ export default class CategoryComponent extends Component {
         itemSelected: false,
       });
     });
-  }
+  } 
 
   componentWillReceiveProps(nextProps) {
     // You don't have to do this check first, but it can help prevent an unneeded render
@@ -36,7 +36,7 @@ export default class CategoryComponent extends Component {
       });
     }
   }
-
+  
   checkSelected = () => {
     if (itemSelected == -1 && this.props.item.index == 0) {
       this._setStore();

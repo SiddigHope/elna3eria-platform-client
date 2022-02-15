@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Pressable } from "react-native";
+import { addToCart } from "../../config/functions";
 import { colors } from '../../config/vars';
 
 export default class OrderButton extends Component {
@@ -8,30 +9,34 @@ export default class OrderButton extends Component {
     this.state = {};
   }
 
+  // _addToCart = async () => {
+  //   addToCart(this.props.item)
+  // }
+
   render() {
     return (
-      <View style={styles.container} >
-        <Text style={styles.btnText}> {"اطلب الأن"} </Text>
-      </View>
+      <Pressable onPress={this.props.onPress} style={styles.container} >
+        <Text style={styles.btnText}> {this.props.title} </Text>
+      </Pressable>
     );
   }
 }
 
 const styles = StyleSheet.create({
-    container:{
-        backgroundColor: colors.mainColor,
-        width: '70%',
-        height: 60,
-        alignSelf: "center",
-        justifyContent: "center",
-        alignItems: "center",
-        borderRadius: 20,
-        elevation: 10,
-        marginBottom: 20,
-    },
-    btnText:{
-        fontFamily: 'Tajawal-Bold',
-        fontSize: 20,
-        color: colors.ebony
-    }
+  container: {
+    backgroundColor: colors.mainColor,
+    width: '80%',
+    height: 60,
+    alignSelf: "center",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 20,
+    elevation: 10,
+    marginBottom: 20,
+  },
+  btnText: {
+    fontFamily: 'Tajawal-Bold',
+    fontSize: 16,
+    color: colors.ebony
+  }
 })

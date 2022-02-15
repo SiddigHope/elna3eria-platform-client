@@ -26,7 +26,7 @@ export default class Home extends Component {
   };
 
   onChangeText = async (text) => {
-    console.log(text);
+    // console.log(text);
     this.setState({
       searchText: text,
       searching: true,
@@ -46,6 +46,8 @@ export default class Home extends Component {
 
   _listHeader = () => (
     <Header
+      store={this.props.route.params.store}
+      navigation={this.props.navigation}
       closeSearching={this.closeSearching}
       searching={this.state.searching}
       onChangeText={this.onChangeText}
@@ -74,7 +76,6 @@ export default class Home extends Component {
   );
 
   render() {
-    console.log(this.state.stores)
     return (
       <View style={styles.container}>
         <FlatList

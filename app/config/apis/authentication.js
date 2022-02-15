@@ -47,7 +47,7 @@ export const login = async (data) => {
             .then((response) => response.data)
             .catch((error) => console.log(error));
 
-        console.log(request)
+        // console.log(request)
         // return
         return request.success ? request.data : [];
     } catch (error) {

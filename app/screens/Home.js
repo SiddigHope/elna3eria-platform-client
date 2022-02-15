@@ -6,7 +6,7 @@ import StoresList from "../components/home/Stores/StoresList";
 import Header from "../components/home/header/Header";
 import StoreCategoriesList from "../components/home/StoreCategories/StoreCategorieList";
 import { colors } from "../config/vars";
-import { storesSearch } from "../config/data";
+import { getStores, storesSearch } from "../config/data";
 import { goToScreen } from "../config/functions";
 
 export default class Home extends Component {
@@ -19,14 +19,20 @@ export default class Home extends Component {
     };
   }
 
-  setStores = (stores) => {
+  setStores = async (id) => {
+    const data = {
+      department_id: id,
+      long: "15.641026068455744",
+      lat: "32.47240696301191"
+    }
+    // console.log(data)
     this.setState({
-      stores,
+      stores: await getStores(data),
     });
   };
 
   onChangeText = async (text) => {
-    console.log(text);
+    // console.log(text);
     // storesSearch(15.641026068455744, 32.47240696301191, text);
     this.setState({
       searchText: text,
@@ -42,7 +48,7 @@ export default class Home extends Component {
   };
 
   goToScreen = (store) => {
-    console.log(store)
+    // console.log(store)
     goToScreen("StoreProducts", this.props.navigation, { store });
   };
 

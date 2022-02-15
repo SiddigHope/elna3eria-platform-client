@@ -5,11 +5,36 @@ import RoundedIcons from "./RoundedIcons";
 import Input from "./Input";
 import Icon from "react-native-vector-icons/Ionicons";
 import Icon1 from "react-native-vector-icons/Feather";
+import { getCartItem, goToScreen } from "../../../config/functions";
 
 export default class Header extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      cartItemsCount: 0
+    };
+  }
+
+  componentDidMount() {
+    // console.log(this.props.store)
+    this.getCartCount()
+    const navigation = this.props.navigation
+
+    this.focusLister = navigation.addListener("focus", () => {
+      this.getCartCount()
+    })
+  }
+
+  componentWillUnmount() {
+    const navigation = this.props.navigation
+    navigation.removeListener("focus")
+  }
+
+  getCartCount = async () => {
+    const cart = await getCartItem(this.props.store.id)
+    this.setState({
+      cartItemsCount: cart.length
+    })
   }
 
   render() {
@@ -18,10 +43,10 @@ export default class Header extends Component {
         style={[styles.container]}
       >
         <View style={styles.headerContainer}>
-          <RoundedIcons items={2} type="cart" />
+          <RoundedIcons onPress={() => goToScreen("Cart", this.props.navigation, { store: this.props.store })} items={this.state.cartItemsCount} type="cart" />
           <View style={styles.headerTextContainer}>
             <Text style={styles.hello}> {"مرحبا بك في"} </Text>
-            <Text style={styles.storeTitle}> {"سوق المعيلق"} </Text>
+            <Text style={styles.storeTitle}> {this.props.store.name} </Text>
           </View>
         </View>
         <View style={styles.headerContainer}>
@@ -30,7 +55,7 @@ export default class Header extends Component {
             onChangeText={this.props.onChangeText}
             searching={this.props.searching}
           />
-          <RoundedIcons items={2} type="chat" />
+          <RoundedIcons onPress={() => console.log("chat icon pressed")} items={2} type="chat" />
         </View>
       </View>
     );

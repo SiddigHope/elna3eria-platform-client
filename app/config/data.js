@@ -3,22 +3,66 @@ import { mainDomain } from "./vars";
 
 
 // getting the main departments of the app + its stores
-export const storeCategories = async () => {
+export const getDepartments = async () => {
   try {
     const options = {
       method: "POST",
       header: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        long: -91.026966,
-        lat: 4.077705,
-      }),
     };
 
     const data = await fetch(mainDomain + "departments", options)
       .then((response) => response.json())
       .catch((error) => console.log(error));
-
+    // console.log(data)
     return data.data;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
+
+export const getStores = async (data) => {
+  try {
+    const options = {
+      method: "POST",
+      url: mainDomain + "departments/stores",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      data,
+    };
+
+    const request = await axios(options)
+      .then((response) => response.data)
+      .catch((error) => console.log(error));
+
+    // console.log(request)
+    return request.data;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
+
+export const getProducts = async (data) => {
+  try {
+    const options = {
+      method: "POST",
+      url: mainDomain + "departments/stores",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      data,
+    };
+
+    const request = await axios(options)
+      .then((response) => response.data)
+      .catch((error) => console.log(error));
+
+    // console.log(request)
+    return request.data;
   } catch (error) {
     console.log(error);
     return [];
@@ -46,7 +90,7 @@ export const storesSearch = async (lat, long, text) => {
       .then((response) => response.data)
       .catch((error) => console.log(error));
 
-    console.log(data.matches);
+    // console.log(data.matches);
 
     return data.data;
   } catch (error) {
@@ -103,7 +147,7 @@ export const productsSearch = async (store_id, search_key) => {
       .then((response) => response.data)
       .catch((error) => console.log(error));
 
-    console.log(store_id);
+    // console.log(store_id);
 
     return data.data;
   } catch (error) {

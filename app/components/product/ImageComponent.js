@@ -12,7 +12,7 @@ export default class ImageComponent extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Image source={require('../../../assets/images/products/coiffeuse_2.png')} style={styles.image} />
+        <Image source={{uri: this.props.image}} style={styles.image} />
       </View>
     );
   }

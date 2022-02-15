@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, Pressable } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import Icon1 from "react-native-vector-icons/MaterialCommunityIcons";
-import { colors } from "../../../config/vars";
+import { colors, fonts } from "../../../config/vars";
 
 export default class RoundedIcons extends Component {
   constructor(props) {
@@ -12,18 +12,20 @@ export default class RoundedIcons extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <Pressable onPress={this.props.onPress} style={styles.container}>
+        {this.props.items != 0 && (
+          <View style={styles.numContainer}>
+            <Text style={styles.numText}>{this.props.items}</Text>
+          </View>
+        )}
         {this.props.type == "cart" ? (
           <>
-            {/* <View>
-              <Text>{this.props.items}</Text>
-            </View> */}
             <Icon1 name={"cart-outline"} size={25} color={colors.ebony} />
           </>
         ) : (
           <Icon name={"md-chatbox-ellipses"} size={25} color={colors.ebony} />
         )}
-      </View>
+      </Pressable>
     );
   }
 }
@@ -38,4 +40,21 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: colors.mainColor,
   },
+  numContainer: {
+    position: 'absolute',
+    backgroundColor: colors.white,
+    height: 20,
+    width: 20,
+    borderRadius: 10,
+    elevation: 5,
+    top: -5,
+    right: -5,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  numText: {
+    fontFamily: fonts.tajawalR,
+    fontSize: 14,
+    color: colors.softBlack
+  }
 });

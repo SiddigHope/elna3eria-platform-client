@@ -15,7 +15,7 @@ export default class SplashScreen extends Component {
 
   checkAuth = () => {
     setTimeout(() => {
-      this.props.navigation.navigate("Signin", {
+      this.props.navigation.navigate("Tabs", {
         navigation: this.props.navigation,
       });
     }, 3000);

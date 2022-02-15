@@ -32,7 +32,7 @@ export default class StoreCategoriesComponent extends Component {
   }
 
   checkSelected = () => {
-    console.log();
+    // console.log();
     if (itemSelected == -1 && this.props.item.index == 0) {
       this._setStore();
     } else if (itemSelected == this.props.item.index) {
@@ -45,7 +45,8 @@ export default class StoreCategoriesComponent extends Component {
   };
 
   _setStore = () => {
-    this.props.setStores(this.props.item.item.stores);
+    // console.log(this.props.item.item.id)
+    this.props.setStores(this.props.item.item.id);
     setItemSelected(this.props.item.index);
     this.setState({
       itemSelected: true,
