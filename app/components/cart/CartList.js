@@ -66,7 +66,7 @@ export default class CartList extends Component {
                     renderItem={this._renderItem}
                 />
                 <View style={styles.checkoutContainer}>
-                    <Pressable style={styles.btn}>
+                    <Pressable onPress={this.props.checkout} style={styles.btn}>
                         <Icon name="logout" size={20} color={colors.white} />
                         <Text style={styles.btnText}> {"الدفع"} </Text>
                     </Pressable>

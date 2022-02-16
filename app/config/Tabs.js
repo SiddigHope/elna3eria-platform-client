@@ -11,6 +11,7 @@ import Icon3 from "react-native-vector-icons/SimpleLineIcons";
 import { StatusBar } from "expo-status-bar";
 import * as Animatable from "react-native-animatable";
 import { colors } from "./vars";
+import Orders from "../screens/Orders";
 
 const { width, height } = Dimensions.get("window");
 
@@ -140,8 +141,8 @@ function Tabs({ navigation }) {
           }}
         />
         <Tab.Screen
-          name="UserProfil"
-          component={UserProfile}
+          name="Orders"
+          component={Orders}
           options={{
             headerShown: false,
             tabBarIcon: ({ focused, color }) => (

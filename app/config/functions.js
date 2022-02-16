@@ -61,6 +61,11 @@ export const removeItemFromCart = async (order_id, store_id) => {
   }
 }
 
+export const removeAllCart = async (store_id) => {
+  AsyncStorage.removeItem("cart" + store_id)
+  return true
+}
+
 export const getCartItem = async (store_id) => {
   const stringCart = await AsyncStorage.getItem("cart" + store_id)
   if (stringCart != null) {
