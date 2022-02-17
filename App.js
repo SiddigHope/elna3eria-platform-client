@@ -16,10 +16,13 @@ import Signin from './app/screens/Signin';
 import Signup from "./app/screens/Signup";
 import Verification from "./app/screens/Verification";
 import Cart from "./app/screens/Cart";
+import OrderDetails from "./app/screens/OrderDetails";
 
 LogBox.ignoreLogs([
   "Non-serializable values were found in the navigation state",
 ]);
+
+console.disableYellowBox = true;
 
 const loadFonts = () => {
   return Font.loadAsync({
@@ -34,9 +37,16 @@ const Stack = createStackNavigator();
 function Stacks() {
   return (
     <Stack.Navigator>
-      <Stack.Screen
+      {/* <Stack.Screen
         name="SplashScreen"
         component={SplashScreen}
+        options={{
+          headerShown: false,
+        }}
+      /> */}
+      <Stack.Screen
+        name="Signin"
+        component={Signin}
         options={{
           headerShown: false,
         }}
@@ -90,13 +100,7 @@ function Stacks() {
           headerShown: false,
         }}
       />
-      <Stack.Screen
-        name="Signin"
-        component={Signin}
-        options={{
-          headerShown: false,
-        }}
-      />
+
       <Stack.Screen
         name="Verification"
         component={Verification}
@@ -107,6 +111,13 @@ function Stacks() {
       <Stack.Screen
         name="Cart"
         component={Cart}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="OrderDetails"
+        component={OrderDetails}
         options={{
           headerShown: false,
         }}

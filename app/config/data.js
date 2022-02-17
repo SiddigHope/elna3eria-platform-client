@@ -10,7 +10,7 @@ export const getDepartments = async () => {
       header: { "Content-Type": "application/json" },
     };
 
-    const data = await fetch(mainDomain + "departments", options)
+    const data = await fetch(mainDomain + "client/departments", options)
       .then((response) => response.json())
       .catch((error) => console.log(error));
     // console.log(data)
@@ -25,7 +25,7 @@ export const getStores = async (data) => {
   try {
     const options = {
       method: "POST",
-      url: mainDomain + "departments/stores",
+      url: mainDomain + "client/departments/stores",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
@@ -49,7 +49,7 @@ export const getProducts = async (data) => {
   try {
     const options = {
       method: "POST",
-      url: mainDomain + "departments/stores",
+      url: mainDomain + "client/departments/stores",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
@@ -74,7 +74,7 @@ export const storesSearch = async (lat, long, text) => {
   try {
     const options = {
       method: "POST",
-      url: mainDomain + "stores/search",
+      url: mainDomain + "client/stores/search",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
@@ -105,7 +105,7 @@ export const productsCategories = async (store_id) => {
   try {
     const options = {
       method: "POST",
-      url: mainDomain + "stores/categories",
+      url: mainDomain + "client/stores/categories",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
@@ -132,7 +132,7 @@ export const productsSearch = async (store_id, search_key) => {
   try {
     const options = {
       method: "POST",
-      url: mainDomain + "products/search",
+      url: mainDomain + "client/products/search",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",

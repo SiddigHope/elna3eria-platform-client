@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
-import { colors } from "../vars";
+import { colors, fonts } from "../vars";
 import Avatar from "./Avatar";
 import Input from "./Input";
 
@@ -12,17 +12,21 @@ export default class Header extends Component {
 
   render() {
     return (
-      <View style={[styles.container, this.props.searching?{height:50}:{}]}>
+      <View style={[styles.container, this.props.searching ? { height: 50 } : {}]}>
         <View style={styles.headerContainer}>
           <Avatar />
-          <Input closeSearching={this.props.closeSearching} onChangeText={this.props.onChangeText} searching={this.props.searching}/>
+          {this.props.screen == "home" ? (
+            <Input closeSearching={this.props.closeSearching} onChangeText={this.props.onChangeText} searching={this.props.searching} />
+          ) : (
+            <Text style={styles.title}> {this.props.title} </Text>
+          )}
           <View style={styles.barsContainer}>
             <View style={styles.bars}></View>
             <View style={[styles.bars, { width: "70%" }]}></View>
             <View style={styles.bars}></View>
           </View>
         </View>
-        {this.props.searching ? null : (
+        {this.props.searching || this.props.screen != "home" ? null : (
           <View style={styles.imageBanner}>
             <Image
               style={styles.image}
@@ -37,7 +41,7 @@ export default class Header extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    height: 170,
+    // height: 170,
     width: "100%",
     // backgroundColor: 'red',
     alignItems: "center",
@@ -76,4 +80,9 @@ const styles = StyleSheet.create({
     height: "100%",
     borderRadius: 20,
   },
+  title:{
+    fontFamily: fonts.tajawalB,
+    fontSize: 22,
+    color:colors.ebony,
+  }
 });
