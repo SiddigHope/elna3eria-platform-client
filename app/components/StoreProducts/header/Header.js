@@ -55,7 +55,7 @@ export default class Header extends Component {
             onChangeText={this.props.onChangeText}
             searching={this.props.searching}
           />
-          <RoundedIcons onPress={() => console.log("chat icon pressed")} items={2} type="chat" />
+          <RoundedIcons onPress={() => console.log("chat icon pressed")} items={0} type="chat" />
         </View>
       </View>
     );

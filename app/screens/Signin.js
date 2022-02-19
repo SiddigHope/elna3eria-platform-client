@@ -17,6 +17,17 @@ export default class Signin extends Component {
     };
   }
 
+  componentDidMount() {
+    this.checkUser()
+  }
+
+  checkUser = async () => {
+    const check = UserClass.isAuthenticated()
+    if (check) {
+      goToScreen("Tabs", this.props.navigation)
+    }
+  }
+
   toggleSnackbar = (text, backgroundColor,) => {
     this.setState({
       text,

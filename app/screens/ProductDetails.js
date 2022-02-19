@@ -29,7 +29,7 @@ export default class ProductDetails extends Component {
     //   console.log(this.state.product)
     return (
       <View style={styles.container}>
-        <StatusBar translucent style="dark" />
+        <StatusBar translucent={false} backgroundColor={colors.white} style="dark" />
         <ImageComponent image={this.state.product.image} />
         <ProductInfo store={this.state.store} product={this.state.product} />
       </View>

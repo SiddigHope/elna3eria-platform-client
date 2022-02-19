@@ -25,7 +25,9 @@ export default class ProductInfo extends Component {
       showModal: false,
       productCount: 1,
       orderText: '',
-      edit: false
+      edit: false,
+      adding: false,
+      added: false
     };
     this.addToCart = this.addToCart.bind(this)
   }
@@ -51,6 +53,9 @@ export default class ProductInfo extends Component {
 
   addToCart() {
     if (this.state.productCount == 0) return
+    this.setState({
+      adding: true
+    })
     if (this.state.edit) {
       this.deleteItem()
     }
@@ -64,11 +69,19 @@ export default class ProductInfo extends Component {
       item.quantity = this.state.productCount
       item.total = total
       addToCart(item, this.props.store.id)
+      this.setState({
+        adding: false,
+        added: true
+      })
       if (this.state.edit) {
       }
       return
     }
-    addToCart({ ...item, order_id, quantity: this.state.productCount, total, order_comment: this.state.orderText }, this.props.store.id)
+    const added = addToCart({ ...item, order_id, quantity: this.state.productCount, total, order_comment: this.state.orderText }, this.props.store.id)
+    this.setState({
+      adding: false,
+      added: true
+    })
   }
 
   buyNow() {
@@ -128,10 +141,10 @@ export default class ProductInfo extends Component {
 
               <View style={styles.modalButtons}>
                 <View style={{ flex: 1 }}>
-                  <OrderButton title={"إضافة للسلة"} onPress={this.addToCart} />
+                  <OrderButton type={"cart"} adding={this.state.adding} added={this.state.added} title={"إضافة للسلة"} onPress={this.addToCart} />
                 </View>
                 <View style={{ flex: 1 }}>
-                  <OrderButton title={"إشتري الأن"} onPress={this.buyNow} />
+                  <OrderButton type={"buy"} adding={this.state.adding} added={this.state.added} title={"إشتري الأن"} onPress={this.buyNow} />
                 </View>
               </View>
             </View>
@@ -177,7 +190,7 @@ export default class ProductInfo extends Component {
                 onChangeText={(orderText) => this.setState({ orderText })}
               />
             </View>
-            <OrderButton title={"اطلب الأن"} onPress={this.onButtonPress} item={this.props.product} />
+            <OrderButton type={"toggler"} adding={this.state.adding} added={this.state.added} title={"اطلب الأن"} onPress={this.onButtonPress} item={this.props.product} />
           </ScrollView>
         </View>
       </View>

@@ -8,7 +8,7 @@ import {
   Pressable,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { colors, itemSelected, setItemSelected } from "../../../config/vars";
+import { colors, catItemSelected, setCatItemSelected } from "../../../config/vars";
 
 export default class CategoryComponent extends Component {
   constructor(props) {
@@ -30,7 +30,7 @@ export default class CategoryComponent extends Component {
 
   componentWillReceiveProps(nextProps) {
     // You don't have to do this check first, but it can help prevent an unneeded render
-    if (nextProps.item.index !== itemSelected && this.state.itemSelected) {
+    if (nextProps.item.index !== catItemSelected && this.state.itemSelected) {
       this.setState({
         itemSelected: false,
       });
@@ -38,9 +38,9 @@ export default class CategoryComponent extends Component {
   }
   
   checkSelected = () => {
-    if (itemSelected == -1 && this.props.item.index == 0) {
+    if (catItemSelected == -1 && this.props.item.index == 0) {
       this._setStore();
-    } else if (itemSelected == this.props.item.index) {
+    } else if (catItemSelected == this.props.item.index) {
       this._setStore();
     } else {
       this.setState({
@@ -51,7 +51,7 @@ export default class CategoryComponent extends Component {
 
   _setStore = () => {
     this.props.setStores(this.props.item.item.products);
-    setItemSelected(this.props.item.index);
+    setCatItemSelected(this.props.item.index);
     this.setState({
       itemSelected: true,
     });

@@ -27,4 +27,10 @@ export const setItemSelected = (index) => {
   itemSelected = index;
 };
 
+export let catItemSelected = -1;
+
+export const setCatItemSelected = (index) => {
+  catItemSelected = index;
+};
+
 export const mainDomain = "http://na3eria.sudahex.com/api/v1/";
