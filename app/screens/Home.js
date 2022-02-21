@@ -8,6 +8,7 @@ import StoreCategoriesList from "../components/home/StoreCategories/StoreCategor
 import { colors } from "../config/vars";
 import { getStores, storesSearch } from "../config/data";
 import { goToScreen } from "../config/functions";
+import UserClass from '../config/authHandler';
 
 export default class Home extends Component {
   constructor(props) {
@@ -70,16 +71,17 @@ export default class Home extends Component {
 
   _listFooter = () => (
     //this margin:65 is for elevating the elements upper than the bottom tabs because its absolute
-    <View style={{ marginBottom: 65 }}>
-      <StoresList
-        goToScreen={this.goToScreen}
-        stores={this.state.stores}
-        navigation={this.props.navigation}
-      />
-    </View>
+    // <View style={{ marginBottom: 65 }}>
+    <StoresList
+      goToScreen={this.goToScreen}
+      stores={this.state.stores}
+      navigation={this.props.navigation}
+    />
+    // </View>
   );
 
   render() {
+    // UserClass.logout()
     return (
       <View style={styles.container}>
         <FlatList

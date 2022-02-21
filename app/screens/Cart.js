@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Modal, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, Modal, ActivityIndicator, Pressable } from 'react-native';
 import CartList from '../components/cart/CartList';
 import { getCartItem, getCartTotal, goToScreen, removeAllCart, removeItemFromCart } from '../config/functions';
 import { colors, fonts } from '../config/vars';
@@ -8,6 +8,7 @@ import Icon2 from "react-native-vector-icons/MaterialCommunityIcons"
 import { StatusBar } from 'expo-status-bar';
 import UserClass from '../config/authHandler';
 import { checkout } from '../config/apis/posts';
+import OrderOptions from '../components/orders/OrderOptions';
 export default class Cart extends Component {
     constructor(props) {
         super(props);
@@ -15,7 +16,8 @@ export default class Cart extends Component {
             items: [],
             total: 0,
             ordering: false,
-            orderPlaced: false
+            orderPlaced: false,
+            showModal: true
         };
     }
 
@@ -45,6 +47,10 @@ export default class Cart extends Component {
 
     checkout = async () => {
         this.setState({
+            showModal: true
+        })
+        return
+        this.setState({
             ordering: true
         })
         const user = await UserClass.getUser()
@@ -55,7 +61,8 @@ export default class Cart extends Component {
         this.state.items.map(item => {
             var newItem = {
                 product_id: item.id,
-                quantity: item.quantity
+                quantity: item.quantity,
+                comment: item.order_comment
             }
             details.push(newItem)
         })
@@ -74,7 +81,7 @@ export default class Cart extends Component {
                 this.setState({
                     ordering: false
                 })
-            },3000)
+            }, 3000)
         } else {
             this.setState({
                 ordering: false
@@ -90,9 +97,9 @@ export default class Cart extends Component {
                 <StatusBar backgroundColor={colors.white} translucent={false} />
                 <Modal
                     transparent={true}
-                    onBackdropPress={() => this.setState({ showModal: false })}
-                    onSwipeComplete={() => this.setState({ showModal: false })}
-                    onRequestClose={() => this.setState({ showModal: false })}
+                    onBackdropPress={() => this.setState({ ordering: false })}
+                    onSwipeComplete={() => this.setState({ ordering: false })}
+                    onRequestClose={() => this.setState({ ordering: false })}
                     visible={this.state.ordering}
                     animationType="fade">
                     <View style={styles.modalContainer}>
@@ -103,6 +110,18 @@ export default class Cart extends Component {
                             <ActivityIndicator size={80} color={colors.mainColor} />
                         )}
                         {/* </View> */}
+                    </View>
+                </Modal>
+                <Modal
+                    transparent={true}
+                    onBackdropPress={() => this.setState({ showModal: false })}
+                    onSwipeComplete={() => this.setState({ showModal: false })}
+                    onRequestClose={() => this.setState({ showModal: false })}
+                    visible={this.state.showModal}
+                    animationType="slide">
+                    <View style={styles.modal}>
+
+                        <OrderOptions closeModal={() => this.setState({ showModal: false })} />
                     </View>
                 </Modal>
                 <View style={styles.header}>
@@ -146,12 +165,12 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center"
     },
-    // modal: {
-    //     backgroundColor: colors.white,
-    //     // height: '50%',
-    //     width: '100%',
-    //     borderTopRightRadius: 30,
-    //     borderTopLeftRadius: 30,
-    //     paddingTop: 20
-    // },
+    modal: {
+        height: '100%',
+        width: '100%',
+        // backgroundColor: colors.blackTransparent,
+        alignItems: "center",
+        justifyContent: "flex-end",
+    },
+
 })

@@ -92,3 +92,7 @@ export const getCartTotal = async (store_id) => {
     return 0
   }
 }
+
+export const wait = (timeout) => {
+  return new Promise(resolve => setTimeout(resolve, timeout));
+}

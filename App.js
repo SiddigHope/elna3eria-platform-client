@@ -17,6 +17,7 @@ import Signup from "./app/screens/Signup";
 import Verification from "./app/screens/Verification";
 import Cart from "./app/screens/Cart";
 import OrderDetails from "./app/screens/OrderDetails";
+import UserClass from './app/config/authHandler';
 
 LogBox.ignoreLogs([
   "Non-serializable values were found in the navigation state",
@@ -36,7 +37,9 @@ const Stack = createStackNavigator();
 
 function Stacks() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      // initialRouteName={true ? "Tabs" : "Signin"}
+    >
       {/* <Stack.Screen
         name="SplashScreen"
         component={SplashScreen}

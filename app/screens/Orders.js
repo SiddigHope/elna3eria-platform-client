@@ -5,6 +5,7 @@ import { getOrders } from '../config/apis/gets';
 import Header from '../config/header/Header';
 import { colors } from '../config/vars';
 import { goToScreen } from '../config/functions';
+import { StatusBar } from 'expo-status-bar';
 
 export default class Orders extends Component {
     constructor(props) {
@@ -31,6 +32,7 @@ export default class Orders extends Component {
     render() {
         return (
             <View style={styles.container}>
+                <StatusBar translucent={false} backgroundColor={colors.whiteF7} />
                 <Header
                     screen="orders"
                     title="طلباتي"

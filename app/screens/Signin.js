@@ -18,11 +18,15 @@ export default class Signin extends Component {
   }
 
   componentDidMount() {
-    this.checkUser()
+    this.checkUser();
+  }
+  componentDidUpdate() {
+    this.checkUser();
   }
 
   checkUser = async () => {
-    const check = UserClass.isAuthenticated()
+    // UserClass.logout()
+    const check = await UserClass.isAuthenticated()
     if (check) {
       goToScreen("Tabs", this.props.navigation)
     }

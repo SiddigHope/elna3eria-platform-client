@@ -18,12 +18,15 @@ var UserClass = (() => {
   var isAuthenticated = async () => {
     const data = await AsyncStorage.getItem("userClient");
     if (data != null) {
+      console.log("data")
+      console.log(data)
       return true;
     }
     return false;
   };
 
   var logout = function () {
+    console.log("user is logged out")
     AsyncStorage.removeItem("userClient");
     user = [];
   };

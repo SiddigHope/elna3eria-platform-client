@@ -128,6 +128,7 @@ const styles = StyleSheet.create({
         fontSize: 12,
         color: colors.grey,
         lineHeight: 30,
+        textAlign:"right"
         // backgroundColor: "red"
     },
     childText: {

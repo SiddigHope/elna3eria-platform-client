@@ -85,7 +85,7 @@ export default class OrderFollowUp extends Component {
     }
 
     render() {
-        let color = this.setColors(3)
+        let color = this.setColors(this.props.order.status.code)
         return (
             <View style={styles.container}>
                 <View style={styles.captainContainer}>

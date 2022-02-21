@@ -22,7 +22,7 @@ export const register = async (data) => {
         const request = await axios(options)
             .then((response) => response.data)
             .catch((error) => console.log(error));
-        // console.log(request)
+        console.log(data)
         // return
         return request.success ? request.data : [];
     } catch (error) {

@@ -40,7 +40,7 @@ export default class OrdersList extends Component {
     )
 
     _listFooter = () => (
-        <View style={{ height: 20 }} />
+        <View style={{ height: 80 }} />
     )
 
     _renderItem = (item, index) => (

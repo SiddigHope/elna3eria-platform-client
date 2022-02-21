@@ -46,7 +46,7 @@ export default class OrderDetailsComponent extends Component {
                     <View style={styles.rowContainer}>
                         <View>
                             {/* <Text style={styles.address}> {"امدرمان - امبدة حارة  14"} </Text> */}
-                            <Text style={styles.orderId}> {"المنصورة مربع 3"} </Text>
+                            <Text style={styles.orderId}> {this.props.order.address} </Text>
                         </View>
                         <View style={styles.iconContainer} >
                             <Icon name="map-marker-radius" color={colors.blueLight} size={20} />
