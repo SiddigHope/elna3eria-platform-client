@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { colors, itemSelected, setItemSelected } from "../../../config/vars";
+// import { Image } from 'react-native-elements';
 
 export default class StoreCategoriesComponent extends Component {
   constructor(props) {

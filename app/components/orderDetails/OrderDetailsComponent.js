@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { colors, fonts } from '../../config/vars';
 import OrderFollowUp from './OrderFollowUp';
+
+
+const { width, height } = Dimensions.get("window")
 
 export const Hr = ({ props }) => (
     <View style={[styles.hr, props]} />
 )
 
-export const Header = ({order}) => (
+export const Header = ({ order }) => (
     <>
         <View style={styles.imageContainer}>
             <Image style={styles.image} source={{ uri: order.store.image }} />
@@ -25,6 +28,15 @@ export default class OrderDetailsComponent extends Component {
     }
 
     render() {
+        // console.log("this.props.order")
+        // console.log(this.props.order)
+        const order = this.props.order
+        let online_paid = true
+        if (order.payment_method == "ONLINE") {
+            if (!order.online_paid_status) {
+                online_paid = false
+            }
+        }
         return (
             <View style={styles.container}>
                 <View style={styles.storeInfo}>
@@ -65,7 +77,15 @@ export default class OrderDetailsComponent extends Component {
 
                     <Hr props={{ marginTop: 5, marginBottom: 30 }} />
 
-                    <OrderFollowUp order={this.props.order} />
+                    {online_paid ? (
+                        <OrderFollowUp order={this.props.order} />
+                    ) : (
+                        <View style={styles.btnContainer}>
+                            <TouchableOpacity onPress={this.props.continuePayment} style={styles.btn}>
+                                <Text style={styles.btnText}> {"اكمل عملية الدفع"} </Text>
+                            </TouchableOpacity>
+                        </View>
+                    )}
                 </View>
             </View>
         );
@@ -86,10 +106,11 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
         paddingHorizontal: 20,
+        minHeight: height
     },
     storeInfo: {
         alignItems: 'center',
-        flex: 1
+        flex: 1,
     },
     imageContainer: {
         // position: "absolute",
@@ -144,7 +165,26 @@ const styles = StyleSheet.create({
         backgroundColor: colors.softWhite,
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    btnContainer: {
+        // backgroundColor: "red",
+        flex: 0.4,
+        width: "100%",
+        justifyContent: "flex-end"
+    },
+    btn: {
+        backgroundColor: colors.softBlue,
+        justifyContent: 'center',
+        width: "100%",
+        height: 50,
+        alignItems: 'center',
+        borderRadius: 10,
+        // marginTop: 50
+    },
+    btnText: {
+        fontFamily: fonts.tajawalB,
+        fontSize: 16,
+        color: colors.softBlack
     }
-
 })
 

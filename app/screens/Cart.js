@@ -7,8 +7,10 @@ import Icon from "react-native-vector-icons/Ionicons"
 import Icon2 from "react-native-vector-icons/MaterialCommunityIcons"
 import { StatusBar } from 'expo-status-bar';
 import UserClass from '../config/authHandler';
-import { checkout } from '../config/apis/posts';
+import { checkout, onlinePayment } from '../config/apis/posts';
 import OrderOptions from '../components/orders/OrderOptions';
+import WebView from 'react-native-webview';
+
 export default class Cart extends Component {
     constructor(props) {
         super(props);
@@ -19,6 +21,8 @@ export default class Cart extends Component {
             orderPlaced: false,
             showModal: false,
             address: '',
+            paying: false,
+            payingLink: "",
             paymentMethod: "CASH",
         };
     }
@@ -75,6 +79,17 @@ export default class Cart extends Component {
 
         const done = await checkout(checkoutObject)
         if (done) {
+            if (this.state.paymentMethod == "ONLINE") {
+                const toBePayed = await onlinePayment({ order_id: done.id })
+                console.log("toBePayed")
+                console.log(toBePayed.invoice_link)
+
+                this.setState({
+                    payingLink: toBePayed.invoice_link,
+                    paying: true,
+                })
+                // this.openBrowser(toBePayed.invoice_link)
+            }
             // removeAllCart(this.props.route.params.store.id)
             // this.setState({ orderPlaced: true })
             setTimeout(() => {
@@ -89,11 +104,27 @@ export default class Cart extends Component {
         }
     }
 
+
     render() {
         // console.log(this.state.items)
         return (
             <View style={styles.container}>
                 <StatusBar backgroundColor={colors.white} translucent={false} />
+                <Modal
+                    transparent={true}
+                    onBackdropPress={() => this.setState({ paying: false })}
+                    onSwipeComplete={() => this.setState({ paying: false })}
+                    onRequestClose={() => this.setState({ paying: false })}
+                    visible={this.state.paying}
+                    animationType="fade">
+                    {/* <View style={styles.modalContainer}> */}
+                    <WebView
+                        style={styles.container}
+                        onTouchCancel={() => this.setState({ paying: false })}
+                        source={{ uri: this.state.payingLink }}
+                    />
+                    {/* </View> */}
+                </Modal>
                 <Modal
                     transparent={true}
                     onBackdropPress={() => this.setState({ ordering: false })}
