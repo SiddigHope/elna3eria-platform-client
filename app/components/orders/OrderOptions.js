@@ -6,13 +6,13 @@ import RadioButtonComponent from './RadioButtonComponent';
 
 
 const branch = [
-    // {
-    //     label: "**** **** **** 2478",
-    //     value: "1",
-    // },
     {
         label: "الدفع كاش عند الاستلام",
-        value: "1",
+        value: "CASH",
+    },
+    {
+        label: "**** **** **** 1234",
+        value: "ONLINE",
     },
 ];
 
@@ -20,8 +20,14 @@ export default class OrderOptions extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            payment: 1,
         };
+    }
+
+    payment = () => {
+        const { payment, address } = this.state
+        if (address) {
+            this.props.setPaymentOptions()
+        }
     }
 
     render() {
@@ -36,17 +42,18 @@ export default class OrderOptions extends Component {
                     {/* </View> */}
                     <TextInput
                         style={styles.textInput}
+                        value={this.props.address}
                         placeholder="ادخل عنوانك للاستلام"
                         placeholderTextColor={colors.grey}
-                        onChangeText={(text) => this.props.onChangeText(text)}
+                        onChangeText={(text) => this.props.setAddress(text)}
                     />
                 </View>
 
                 {branch.map(item => (
-                    <RadioButtonComponent item={item} selected={this.state.payment} setSelected={(value) => this.setState({ payment: value })} />
+                    <RadioButtonComponent item={item} selected={this.props.paymentMethod} setSelected={this.props.setPaymentMethod} />
                 ))}
 
-                <Pressable style={styles.btn}>
+                <Pressable onPress={this.props.onCheckout} style={styles.btn}>
                     <Text style={styles.btnText}> {"دفع"} </Text>
                 </Pressable>
 

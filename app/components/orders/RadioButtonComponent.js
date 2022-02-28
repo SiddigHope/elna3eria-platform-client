@@ -26,8 +26,12 @@ const RadioButtonComponent = ({ selected, setSelected, item }) => {
 
     return (
         <Pressable onPress={changeOption} style={[styles.container, checked ? styles.borderedContainer : {}]}>
-            <Image source={require("../../../assets/icons/cash-payment.png")} style={styles.image} />
-            <Text style={styles.text}> {"دفع عند الاستلام"} </Text>
+            {item.value == "CASH"? (
+                <Image source={require("../../../assets/icons/cash-payment.png")} style={styles.image} />
+            ) : (
+                <Image source={require("../../../assets/icons/pngegg.png")} style={styles.image} />
+            )}
+            <Text style={styles.text}> {item.label} </Text>
             <Icon name='check-circle' size={20} color={checked ? colors.blueLight : colors.softWhite} />
         </Pressable>
     )

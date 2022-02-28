@@ -17,7 +17,9 @@ export default class Cart extends Component {
             total: 0,
             ordering: false,
             orderPlaced: false,
-            showModal: true
+            showModal: false,
+            address: '',
+            paymentMethod: "CASH",
         };
     }
 
@@ -47,10 +49,6 @@ export default class Cart extends Component {
 
     checkout = async () => {
         this.setState({
-            showModal: true
-        })
-        return
-        this.setState({
             ordering: true
         })
         const user = await UserClass.getUser()
@@ -70,13 +68,15 @@ export default class Cart extends Component {
         const checkoutObject = {
             store_id: this.props.route.params.store.id,
             client_id: user.client.id,
+            address: this.state.address,
+            payment_method: this.state.paymentMethod,
             details,
         }
 
         const done = await checkout(checkoutObject)
         if (done) {
-            removeAllCart(this.props.route.params.store.id)
-            this.setState({ orderPlaced: true })
+            // removeAllCart(this.props.route.params.store.id)
+            // this.setState({ orderPlaced: true })
             setTimeout(() => {
                 this.setState({
                     ordering: false
@@ -87,7 +87,6 @@ export default class Cart extends Component {
                 ordering: false
             })
         }
-
     }
 
     render() {
@@ -120,8 +119,14 @@ export default class Cart extends Component {
                     visible={this.state.showModal}
                     animationType="slide">
                     <View style={styles.modal}>
-
-                        <OrderOptions closeModal={() => this.setState({ showModal: false })} />
+                        <OrderOptions
+                            paymentMethod={this.state.paymentMethod}
+                            setPaymentMethod={(paymentMethod) => this.setState({ paymentMethod })}
+                            address={this.state.address}
+                            setAddress={(address) => this.setState({ address })}
+                            onCheckout={this.checkout}
+                            closeModal={() => this.setState({ showModal: false })}
+                        />
                     </View>
                 </Modal>
                 <View style={styles.header}>
@@ -129,7 +134,7 @@ export default class Cart extends Component {
                     <Text style={styles.title}> {"عربة التسوق"} </Text>
                     <Text style={styles.emptyText}> {""} </Text>
                 </View>
-                <CartList checkout={this.checkout} deleteItem={this.deleteItem} onPress={this.onCartItemPress} total={this.state.total} items={this.state.items} refreshData={this.getData} navigation={this.props.navigation} />
+                <CartList checkout={() => this.setState({ showModal: true })} deleteItem={this.deleteItem} onPress={this.onCartItemPress} total={this.state.total} items={this.state.items} refreshData={this.getData} navigation={this.props.navigation} />
             </View>
         );
     }

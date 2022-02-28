@@ -26,7 +26,7 @@ export const checkout = async (data) => {
             .catch((error) => console.log(error));
         // console.log(request)
         // return
-        return request.success ? true : false;
+        return request.success ? request.data : false;
     } catch (error) {
         console.log(error);
         return false;
