@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useLayoutEffect } from "react";
 import { Text, View, StyleSheet, Dimensions } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../screens/Home";
-import UserProfile from "../screens/UserProfile";
+import Profile from "../screens/Profile";
 import Search from "../screens/Search";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Icon1 from "react-native-vector-icons/Ionicons";
@@ -96,8 +96,8 @@ function Tabs({ navigation }) {
         }}
       >
         <Tab.Screen
-          name="UserPofil"
-          component={UserProfile}
+          name="Profile"
+          component={Profile}
           options={{
             headerShown: false,
             tabBarIcon: ({ focused, color, }) => (

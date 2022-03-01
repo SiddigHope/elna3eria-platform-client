@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, LogBox } from "react-native";
 import Tabs from "./app/config/Tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import UserProfile from "./app/screens/UserProfile";
+import Profile from "./app/screens/Profile";
 import Home from "./app/screens/Home";
 import SplashScreen from "./app/screens/SplashScreen";
 import AppLoading from "expo-app-loading";
@@ -18,6 +18,7 @@ import Verification from "./app/screens/Verification";
 import Cart from "./app/screens/Cart";
 import OrderDetails from "./app/screens/OrderDetails";
 import UserClass from './app/config/authHandler';
+import { NativeBaseProvider } from "native-base";
 
 LogBox.ignoreLogs([
   "Non-serializable values were found in the navigation state",
@@ -38,7 +39,7 @@ const Stack = createStackNavigator();
 function Stacks() {
   return (
     <Stack.Navigator
-      // initialRouteName={true ? "Tabs" : "Signin"}
+    // initialRouteName={true ? "Tabs" : "Signin"}
     >
       {/* <Stack.Screen
         name="SplashScreen"
@@ -76,8 +77,8 @@ function Stacks() {
         }}
       />
       <Stack.Screen
-        name="UserProfile"
-        component={UserProfile}
+        name="Profile"
+        component={Profile}
         options={{
           headerShown: false,
         }}
@@ -144,7 +145,9 @@ function MainScreen() {
 
   return (
     <NavigationContainer>
-      <Stacks />
+      <NativeBaseProvider>
+        <Stacks />
+      </NativeBaseProvider>
     </NavigationContainer>
   );
 }

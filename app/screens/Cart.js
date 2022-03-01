@@ -122,14 +122,14 @@ export default class Cart extends Component {
                     visible={this.state.paying}
                     animationType="fade">
                     <View style={styles.modalPayContainer}>
-                    <Pressable onPress={this.closeModal} style={styles.closeModal}>
-                        <Icon2 name="close-circle" size={25} color={colors.mainColor} />
-                    </Pressable>
-                    <WebView
-                        style={{flex:1}}
-                        onTouchCancel={this.closeModal}
-                        source={{ uri: this.state.payingLink }}
-                    />
+                        <Pressable onPress={this.closeModal} style={styles.closeModal}>
+                            <Icon2 name="close-circle" size={25} color={colors.mainColor} />
+                        </Pressable>
+                        <WebView
+                            style={{ flex: 1 }}
+                            onTouchCancel={this.closeModal}
+                            source={{ uri: this.state.payingLink }}
+                        />
                     </View>
                 </Modal>
                 <Modal

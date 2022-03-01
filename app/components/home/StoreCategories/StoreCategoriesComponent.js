@@ -17,6 +17,8 @@ export default class StoreCategoriesComponent extends Component {
     super(props);
     this.state = {
       itemSelected: false,
+      image: null,
+      placeholder: require('../../../../assets/images/no_image.png')
     };
   }
 
@@ -64,7 +66,7 @@ export default class StoreCategoriesComponent extends Component {
         >
           <ImageBackground
             borderRadius={10}
-            source={{ uri: item.image }}
+            source={item.image ? { uri: item.image } : this.state.placeholder}
             style={[this.state.itemSelected ? styles.imageSelected : styles.image, elevations[5]]}
           >
             <Text numberOfLines={1} style={styles.title}>
