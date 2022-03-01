@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Dimensions, Image, Pressable } from "react-nati
 import Icon from "react-native-vector-icons/MaterialIcons";
 import Icon1 from "react-native-vector-icons/FontAwesome";
 import { colors } from "../../../config/vars";
+import elevations from "../../../config/elevations";
 
 const { width, height } = Dimensions.get("window");
 
@@ -18,7 +19,7 @@ export default class StoreComponent extends Component {
     }
     const item = this.props.item.item;
     return (
-      <Pressable onPress={() => this.props.goToScreen(item)} style={[styles.container, { marginRight: margin }]}>
+      <Pressable onPress={() => this.props.goToScreen(item)} style={[styles.container, elevations[2], { marginRight: margin }]}>
         <Image source={{ uri: item.image }} style={styles.image} />
         <View style={styles.contentContainer}>
           <View style={styles.nameContainer}>

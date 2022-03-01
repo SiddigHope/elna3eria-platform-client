@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
+import elevations from "../../../config/elevations";
 import { colors } from "../../../config/vars";
 import Avatar from "./Avatar";
 import Input from "./Input";
@@ -17,13 +18,13 @@ export default class Header extends Component {
           <Avatar />
           <Input closeSearching={this.props.closeSearching} onChangeText={this.props.onChangeText} searching={this.props.searching}/>
           <View style={styles.barsContainer}>
-            <View style={styles.bars}></View>
-            <View style={[styles.bars, { width: "70%" }]}></View>
-            <View style={styles.bars}></View>
+            <View style={[styles.bars, elevations[5]]}></View>
+            <View style={[styles.bars, elevations[5], { width: "70%" }]}></View>
+            <View style={[styles.bars, elevations[5]]}></View>
           </View>
         </View>
         {this.props.searching ? null : (
-          <View style={styles.imageBanner}>
+          <View style={[styles.imageBanner, elevations[10]]}>
             <Image
               style={styles.image}
               source={require("../../../../assets/images/publicity.jpg")}

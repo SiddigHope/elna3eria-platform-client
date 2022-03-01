@@ -4,6 +4,7 @@ import { colors, fonts } from '../../../config/vars';
 import SocialMedia from './SocialMedia';
 import TextInputRender from './TextInputRender';
 import { goToScreen } from '../../../config/functions';
+import elevations from '../../../config/elevations';
 
 export default class SigninComponent extends Component {
     constructor(props) {
@@ -62,7 +63,7 @@ export default class SigninComponent extends Component {
                     onChange={(password) => this.setState({ password })}
                 />
 
-                <Pressable onPress={this._login} style={styles.btnContainer}>
+                <Pressable onPress={this._login} style={[styles.btnContainer, elevations[10]]}>
                     {this.props.loading ? (
                         <ActivityIndicator color={colors.white} size="large" />
                     ) : (

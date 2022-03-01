@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { colors, itemSelected, setItemSelected } from "../../../config/vars";
+import elevations from "../../../config/elevations";
 // import { Image } from 'react-native-elements';
 
 export default class StoreCategoriesComponent extends Component {
@@ -65,7 +66,7 @@ export default class StoreCategoriesComponent extends Component {
             borderRadius={10}
             source={{ uri: item.image }}
             style={
-              this.state.itemSelected ? styles.imageSelected : styles.image
+              this.state.itemSelected ? styles.imageSelected : styles.image, elevations[5]
             }
           >
             <Text numberOfLines={1} style={styles.title}>

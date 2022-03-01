@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
+import elevations from "../elevations";
 import { colors, fonts } from "../vars";
 import Avatar from "./Avatar";
 import Input from "./Input";
@@ -21,13 +22,13 @@ export default class Header extends Component {
             <Text style={styles.title}> {this.props.title} </Text>
           )}
           <View style={styles.barsContainer}>
-            <View style={styles.bars}></View>
-            <View style={[styles.bars, { width: "70%" }]}></View>
-            <View style={styles.bars}></View>
+            <View style={[styles.container, elevations[5]]}></View>
+            <View style={[styles.bars, elevations[5], { width: "70%" }]}></View>
+            <View style={[styles.container, elevations[5]]}></View>
           </View>
         </View>
         {this.props.searching || this.props.screen != "home" ? null : (
-          <View style={styles.imageBanner}>
+          <View style={[styles.imageBanner, elevations[10]]}>
             <Image
               style={styles.image}
               source={require("../../../assets/images/publicity.jpg")}

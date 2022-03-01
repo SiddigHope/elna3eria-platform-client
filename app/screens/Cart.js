@@ -87,11 +87,12 @@ export default class Cart extends Component {
                 this.setState({
                     payingLink: toBePayed.invoice_link,
                     paying: true,
+                    showModal: false
                 })
-                // this.openBrowser(toBePayed.invoice_link)
             }
-            // removeAllCart(this.props.route.params.store.id)
-            // this.setState({ orderPlaced: true })
+
+            removeAllCart(this.props.route.params.store.id)
+            this.setState({ orderPlaced: true })
             setTimeout(() => {
                 this.setState({
                     ordering: false
@@ -104,7 +105,10 @@ export default class Cart extends Component {
         }
     }
 
-
+    closeModal = () => {
+        this.setState({ paying: false })
+        // this._onRefresh()
+    }
     render() {
         // console.log(this.state.items)
         return (
@@ -112,15 +116,18 @@ export default class Cart extends Component {
                 <StatusBar backgroundColor={colors.white} translucent={false} />
                 <Modal
                     transparent={true}
-                    onBackdropPress={() => this.setState({ paying: false })}
-                    onSwipeComplete={() => this.setState({ paying: false })}
-                    onRequestClose={() => this.setState({ paying: false })}
+                    onBackdropPress={this.closeModal}
+                    onSwipeComplete={this.closeModal}
+                    onRequestClose={this.closeModal}
                     visible={this.state.paying}
                     animationType="fade">
                     {/* <View style={styles.modalContainer}> */}
+                    <Pressable onPress={this.closeModal} style={styles.closeModal}>
+                        <Icon name="close-circle" size={25} color={colors.mainColor} />
+                    </Pressable>
                     <WebView
                         style={styles.container}
-                        onTouchCancel={() => this.setState({ paying: false })}
+                        onTouchCancel={this.closeModal}
                         source={{ uri: this.state.payingLink }}
                     />
                     {/* </View> */}
@@ -208,5 +215,10 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "flex-end",
     },
-
+    closeModal: {
+        left: 20,
+        top: 10,
+        position: 'absolute',
+        // alignSelf: 'flex-start',
+    }
 })

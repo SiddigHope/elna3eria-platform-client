@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Pressable, ActivityIndicator } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import elevations from "../../config/elevations";
 import { addToCart } from "../../config/functions";
 import { colors } from '../../config/vars';
 
@@ -16,7 +17,7 @@ export default class OrderButton extends Component {
 
   render() {
     return (
-      <Pressable onPress={this.props.onPress} style={styles.container} >
+      <Pressable onPress={this.props.onPress} style={[styles.container, elevations[10]]} >
         {this.props.type == "cart" && this.props.added ? (
           <Icon name="check-circle-outline" size={25} color={colors.white} />
         ) :

@@ -15,6 +15,7 @@ import OrderButton from "./OrderButton";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import Icon2 from "react-native-vector-icons/MaterialCommunityIcons";
 import { addToCart, removeItemFromCart } from "../../config/functions";
+import elevations from "../../config/elevations";
 
 const { width, height } = Dimensions.get("window");
 
@@ -103,7 +104,7 @@ export default class ProductInfo extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, elevations[10]]}>
         <Modal
           transparent={true}
           onBackdropPress={() => this.setState({ showModal: false })}
@@ -117,7 +118,7 @@ export default class ProductInfo extends Component {
                 <Icon2 name="close-circle" size={25} color={colors.mainColor} />
               </Pressable>
               <View style={styles.modalProductContainer}>
-                <View style={styles.imageContainer}>
+                <View style={[styles.imageContainer, elevations[5]]}>
                   <Image style={styles.image} source={{ uri: this.props.product.image }} />
                 </View>
                 <View style={styles.productDetails}>

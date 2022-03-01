@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import elevations from "../../config/elevations";
 
 export default class CategoryComponent extends Component {
   constructor(props) {
@@ -14,7 +15,7 @@ export default class CategoryComponent extends Component {
       <View style={styles.container}>
       <LinearGradient
         colors={[item.gradient.top, item.gradient.middle, item.gradient.bottom]}
-        style={styles.item}
+        style={[styles.item, elevations[10]]}
       >
       <Image source={item.icon} style={styles.icon} />
       </LinearGradient>

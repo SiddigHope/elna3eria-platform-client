@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TextInput } from 'react-native';
+import elevations from '../../../config/elevations';
 import { fonts, colors } from '../../../config/vars';
 
 export default class TextInputRender extends Component {
@@ -11,7 +12,7 @@ export default class TextInputRender extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
+            <View style={[styles.container, elevations[5]]}>
                 <TextInput
                     placeholder={this.props.placeholder}
                     keyboardType="phone-pad"

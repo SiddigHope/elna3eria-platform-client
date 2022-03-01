@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Linking, Image, TouchableOpacity, Alert } from 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon2 from 'react-native-vector-icons/Ionicons';
 import { colors, fonts } from '../../config/vars';
+import elevations from '../../config/elevations';
 
 
 export default class OrderFollowUp extends Component {
@@ -89,17 +90,17 @@ export default class OrderFollowUp extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.captainContainer}>
-                    <View style={[styles.iconContainer, { marginLeft: 10 }]}>
+                    <View style={[styles.iconContainer , elevations[5], { marginLeft: 10 }]}>
                         <Image style={{ width: 30, height: 30 }} source={require("../../../assets/icons/headset.png")} />
                     </View>
                     <View style={styles.textContainer}>
                         <Text style={styles.name}> {"محمد صديق"} </Text>
                         <Text style={styles.phone}> {"رقم"} {"012 473 8344"} </Text>
                     </View>
-                    <TouchableOpacity onPress={this.whatsapp} style={[styles.iconContainer, { marginLeft: 10, marginRight: 5 }]}>
+                    <TouchableOpacity onPress={this.whatsapp} style={[styles.iconContainer , elevations[5], { marginLeft: 10, marginRight: 5 }]}>
                         <Icon2 name="chatbox-ellipses" size={20} color={colors.softGreen} />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={this.phoneCall} style={styles.iconContainer}>
+                    <TouchableOpacity onPress={this.phoneCall} style={[styles.iconContainer , elevations[5]]}>
                         <Icon name="phone-in-talk" size={20} color={colors.softGreen} />
                     </TouchableOpacity>
                 </View>
@@ -107,7 +108,7 @@ export default class OrderFollowUp extends Component {
                 <View style={styles.followLines}>
                     <View style={[styles.line, { backgroundColor: color.received }]} />
                     <View style={styles.rowContainer}>
-                        <View style={[styles.followIconContainer, { backgroundColor: color.received }]}>
+                        <View style={[styles.followIconContainer, elevations[5], { backgroundColor: color.received }]}>
                             {color.received == colors.softBlue && (
                                 <Icon name="check-circle" size={20} color={colors.ebony} />
                             )}
@@ -116,7 +117,7 @@ export default class OrderFollowUp extends Component {
                     </View>
                     <View style={[styles.line, { backgroundColor: color.prepare }]} />
                     <View style={styles.rowContainer}>
-                        <View style={[styles.followIconContainer, { backgroundColor: color.prepare }]}>
+                        <View style={[styles.followIconContainer, elevations[5], { backgroundColor: color.prepare }]}>
                             {color.prepare == colors.softBlue && (
                                 <Icon name="check-circle" size={20} color={colors.ebony} />
                             )}
@@ -125,7 +126,7 @@ export default class OrderFollowUp extends Component {
                     </View>
                     <View style={[styles.line, { backgroundColor: color.delivery }]} />
                     <View style={styles.rowContainer}>
-                        <View style={[styles.followIconContainer, { backgroundColor: color.delivery }]}>
+                        <View style={[styles.followIconContainer, elevations[5], { backgroundColor: color.delivery }]}>
                             {color.delivery == colors.softBlue && (
                                 <Icon name="check-circle" size={20} color={colors.ebony} />
                             )}
@@ -134,7 +135,7 @@ export default class OrderFollowUp extends Component {
                     </View>
                     <View style={[styles.line, { backgroundColor: color.done }]} />
                     <View style={styles.rowContainer}>
-                        <View style={[styles.followIconContainer, { backgroundColor: color.done }]}>
+                        <View style={[styles.followIconContainer, elevations[5], { backgroundColor: color.done }]}>
                             {color.done == colors.softBlue && (
                                 <Icon name="check-circle" size={20} color={colors.ebony} />
                             )}

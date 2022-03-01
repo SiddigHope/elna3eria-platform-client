@@ -9,6 +9,7 @@ import {
   Modal,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
+import elevations from "../../../config/elevations";
 import { colors } from "../../../config/vars";
 
 const { width, height } = Dimensions.get("window");
@@ -16,7 +17,7 @@ const { width, height } = Dimensions.get("window");
 export default function Input(props) {
   const renderContent = () => {
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, elevations[5]]}>
         <TextInput
           style={styles.text}
           placeholder={"ابحث عن متجر"}
@@ -26,7 +27,7 @@ export default function Input(props) {
         {props.searching ? (
           <TouchableOpacity
             onPress={() => props.closeSearching()}
-            style={styles.closeIconContainer}
+            style={[styles.closeIconContainer, elevations[2]]}
           >
             <Icon
               // style={styles.icon}

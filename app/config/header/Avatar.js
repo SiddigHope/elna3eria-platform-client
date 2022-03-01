@@ -9,7 +9,7 @@ export default class Avatar extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, elevations[5]]}>
         <Image style={styles.image} source={require('../../../assets/images/avatar.png')} />
       </View>
     );

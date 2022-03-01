@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, Image, Dimensions } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import elevations from "../../config/elevations";
 
 const { width, height } = Dimensions.get("window");
 
@@ -14,7 +15,7 @@ export default class LatestComponent extends Component {
     const item = this.props.item.item;
     return (
       <View style={styles.container}>
-        <View style={styles.item}>
+        <View style={[styles.item, elevations[5]]}>
           <View style={styles.imageCont}>
             <Image source={item.image} resizeMode="contain" style={styles.image} />
           </View>

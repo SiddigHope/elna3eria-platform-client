@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { colors, catItemSelected, setCatItemSelected } from "../../../config/vars";
+import elevations from "../../../config/elevations";
 
 export default class CategoryComponent extends Component {
   constructor(props) {
@@ -26,7 +27,7 @@ export default class CategoryComponent extends Component {
         itemSelected: false,
       });
     });
-  } 
+  }
 
   componentWillReceiveProps(nextProps) {
     // You don't have to do this check first, but it can help prevent an unneeded render
@@ -36,7 +37,7 @@ export default class CategoryComponent extends Component {
       });
     }
   }
-  
+
   checkSelected = () => {
     if (catItemSelected == -1 && this.props.item.index == 0) {
       this._setStore();
@@ -64,6 +65,7 @@ export default class CategoryComponent extends Component {
         <View
           style={[
             styles.item,
+            elevations[5],
             this.state.itemSelected
               ? { backgroundColor: colors.mainColor }
               : {},
@@ -73,7 +75,7 @@ export default class CategoryComponent extends Component {
             {" "}
             {item.name}{" "}
           </Text>
-          <View style={[styles.image, {elevation: 3, marginLeft: 10}]} >
+          <View style={[styles.image, elevations[3], { elevation: 3, marginLeft: 10 }]} >
             <Image
               borderRadius={10}
               source={{ uri: item.image }}

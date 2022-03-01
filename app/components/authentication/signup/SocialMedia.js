@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { colors } from '../../../config/vars';
 import Icon from "react-native-vector-icons/FontAwesome"
+import elevations from '../../../config/elevations';
 export default class SocialMedia extends Component {
     constructor(props) {
         super(props);
@@ -11,7 +12,7 @@ export default class SocialMedia extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
+            <View style={[styles.container, elevations[5]]}>
                 {this.props.type == "facebook" ? (
                     <Icon name='facebook' size={30} color={colors.softWhite} />
                 ) : (

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { View, Text, StyleSheet, Image, Pressable } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import Icon1 from "react-native-vector-icons/MaterialCommunityIcons";
+import elevations from "../../../config/elevations";
 import { colors, fonts } from "../../../config/vars";
 
 export default class RoundedIcons extends Component {
@@ -12,9 +13,9 @@ export default class RoundedIcons extends Component {
 
   render() {
     return (
-      <Pressable onPress={this.props.onPress} style={styles.container}>
+      <Pressable onPress={this.props.onPress} style={[styles.container, elevations[5]]}>
         {this.props.items != 0 && (
-          <View style={styles.numContainer}>
+          <View style={[styles.numContainer, elevations[5]]}>
             <Text style={styles.numText}>{this.props.items}</Text>
           </View>
         )}

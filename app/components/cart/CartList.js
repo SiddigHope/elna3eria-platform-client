@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { colors, fonts } from '../../config/vars';
 import CartComponent from './CartComponent';
 import { goToScreen, removeItemFromCart } from '../../config/functions';
+import elevations from '../../config/elevations';
 
 export default class CartList extends Component {
     constructor(props) {
@@ -65,8 +66,8 @@ export default class CartList extends Component {
                     ItemSeparatorComponent={this._itemSeparator}
                     renderItem={this._renderItem}
                 />
-                <View style={styles.checkoutContainer}>
-                    <Pressable onPress={this.props.checkout} style={styles.btn}>
+                <View style={[styles.checkoutContainer,elevations[10]]}>
+                    <Pressable onPress={this.props.checkout} style={[styles.btn,elevations[5]]}>
                         <Icon name="logout" size={20} color={colors.white} />
                         <Text style={styles.btnText}> {"الدفع"} </Text>
                     </Pressable>

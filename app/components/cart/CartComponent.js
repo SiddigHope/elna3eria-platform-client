@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, Dimensions, StyleSheet, Image, Pressable, TouchableOpacity, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import elevations from '../../config/elevations';
 import { colors, fonts } from '../../config/vars';
 
 
@@ -33,11 +34,11 @@ export default class CartComponent extends Component {
         const item = this.props.item.item
         // console.log(item)
         return (
-            <View style={styles.container}>
-                <TouchableOpacity onPress={this.deleteItem} style={styles.deleteItem}>
+            <View style={[styles.container, elevations[5]]}>
+                <TouchableOpacity onPress={this.deleteItem} style={[styles.deleteItem, elevations[5]]}>
                     <Icon name="trash-can-outline" size={20} color={colors.danger} />
                 </TouchableOpacity>
-                <Pressable onPress={() => this.props.onPress(item)} style={styles.imageContainer}>
+                <Pressable onPress={() => this.props.onPress(item)} style={[styles.imageContainer, elevations[5]]}>
                     <Image style={styles.image} source={{ uri: item.image }} />
                 </Pressable>
                 <View style={styles.infoContainer}>

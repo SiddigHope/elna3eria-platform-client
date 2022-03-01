@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { View, Text, StyleSheet, FlatList, Dimensions } from "react-native";
 import StoreComponent from "./StoreComponent";
 import { colors } from "../../../config/vars";
+import elevations from "../../../config/elevations";
 
 const { width, height } = Dimensions.get("window");
 
@@ -34,7 +35,7 @@ export default class StoresList extends Component {
           </Text>
           <Text style={styles.title}> {"المتاجر :"} </Text>
         </View>
-        <View style={styles.titleUnderline} />
+        <View style={[styles.titleUnderline, elevations[5]]} />
       </View>
     </View>
   );

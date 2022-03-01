@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import elevations from '../../config/elevations';
 import { colors, fonts } from '../../config/vars';
 import OrderFollowUp from './OrderFollowUp';
 
@@ -8,7 +9,7 @@ import OrderFollowUp from './OrderFollowUp';
 const { width, height } = Dimensions.get("window")
 
 export const Hr = ({ props }) => (
-    <View style={[styles.hr, props]} />
+    <View style={[styles.hr, props, elevations[1]]} />
 )
 
 export const Header = ({ order }) => (
@@ -40,7 +41,7 @@ export default class OrderDetailsComponent extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.storeInfo}>
-                    <View style={styles.imageContainer}>
+                    <View style={[styles.imageContainer, elevations[5]]}>
                         <Image style={styles.image} source={{ uri: this.props.order.store.image }} />
                     </View>
                     <Text style={styles.storeName}> {this.props.order.store.name} </Text>

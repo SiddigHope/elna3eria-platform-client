@@ -11,6 +11,7 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import CategoryComponent from "./CategoryComponent";
 import { categories } from "../../config/data";
 import { goToScreen } from "../../config/functions";
+import elevations from "../../config/elevations";
 
 const { width, height } = Dimensions.get("window");
 
@@ -35,7 +36,7 @@ export default class CategoryList extends Component {
       onPress={this._goToScreen}
       style={{ alignItems: "center", marginLeft: 15, width: 75 }}
     >
-      <View style={styles.footer}>
+      <View style={[styles.footer, elevations[10]]}>
         <Icon name="chevron-right" size={30} color="#FF6969" />
       </View>
       <Text style={styles.footerTitle}> {"See All"} </Text>

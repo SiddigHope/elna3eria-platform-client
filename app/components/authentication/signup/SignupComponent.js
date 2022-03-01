@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Pressable, ActivityIndicator, Dimensions } from 'react-native';
+import elevations from '../../../config/elevations';
 import { colors, fonts } from '../../../config/vars';
 import SocialMedia from './SocialMedia';
 import TextInputRender from './TextInputRender';
@@ -71,7 +72,7 @@ export default class SignupComponent extends Component {
 
 
 
-                <Pressable onPress={this._register} style={styles.btnContainer}>
+                <Pressable onPress={this._register} style={[styles.btnContainer, elevations[10]]}>
                     {this.props.loading ? (
                         <ActivityIndicator color={colors.white} size="large" />
                     ) : (
