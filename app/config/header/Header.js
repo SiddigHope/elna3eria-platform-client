@@ -22,9 +22,9 @@ export default class Header extends Component {
             <Text style={styles.title}> {this.props.title} </Text>
           )}
           <View style={styles.barsContainer}>
-            <View style={[styles.container, elevations[5]]}></View>
+            <View style={[styles.bars, elevations[5]]}></View>
             <View style={[styles.bars, elevations[5], { width: "70%" }]}></View>
-            <View style={[styles.container, elevations[5]]}></View>
+            <View style={[styles.bars, elevations[5]]}></View>
           </View>
         </View>
         {this.props.searching || this.props.screen != "home" ? null : (

@@ -121,16 +121,16 @@ export default class Cart extends Component {
                     onRequestClose={this.closeModal}
                     visible={this.state.paying}
                     animationType="fade">
-                    {/* <View style={styles.modalContainer}> */}
+                    <View style={styles.modalPayContainer}>
                     <Pressable onPress={this.closeModal} style={styles.closeModal}>
-                        <Icon name="close-circle" size={25} color={colors.mainColor} />
+                        <Icon2 name="close-circle" size={25} color={colors.mainColor} />
                     </Pressable>
                     <WebView
-                        style={styles.container}
+                        style={{flex:1}}
                         onTouchCancel={this.closeModal}
                         source={{ uri: this.state.payingLink }}
                     />
-                    {/* </View> */}
+                    </View>
                 </Modal>
                 <Modal
                     transparent={true}
@@ -219,6 +219,18 @@ const styles = StyleSheet.create({
         left: 20,
         top: 10,
         position: 'absolute',
+        backgroundColor: colors.white,
+        zIndex: 1111,
+        elevation: 5,
+        borderRadius: 20,
+        padding: 5
         // alignSelf: 'flex-start',
-    }
+    },
+    modalPayContainer: {
+        height: '100%',
+        width: '100%',
+        // backgroundColor: colors.white,
+        // alignItems: "center",
+        // justifyContent: "center"
+    },
 })

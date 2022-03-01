@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
-
+import elevations from "../elevations";
 export default class Avatar extends Component {
   constructor(props) {
     super(props);

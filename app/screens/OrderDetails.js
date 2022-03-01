@@ -1,12 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, RefreshControl, ScrollView, Modal } from 'react-native';
+import { View, Text, StyleSheet, RefreshControl, ScrollView, Modal, Pressable } from 'react-native';
 import MiniHeader from '../components/MiniHeader';
 import OrderDetailsComponent from '../components/orderDetails/OrderDetailsComponent';
 import { getOrder } from '../config/apis/gets';
 import { colors } from '../config/vars';
 import { WebView } from 'react-native-webview';
 import { onlinePayment } from '../config/apis/posts';
+import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 
 export default class OrderDetails extends Component {
     constructor(props) {
@@ -17,6 +18,10 @@ export default class OrderDetails extends Component {
             paying: false,
             payingLink: ""
         };
+    }
+
+    componentDidMount() {
+        this.continuePayment()
     }
 
     _onRefresh = async () => {
@@ -60,13 +65,16 @@ export default class OrderDetails extends Component {
                     onRequestClose={this.closeModal}
                     visible={this.state.paying}
                     animationType="fade">
-                    {/* <View style={styles.modalContainer}> */}
-                    <WebView
-                        style={styles.container}
-                        onTouchCancel={this.closeModal}
-                        source={{ uri: this.state.payingLink }}
-                    />
-                    {/* </View> */}
+                    <View style={styles.modalContainer}>
+                        <Pressable onPress={this.closeModal} style={styles.closeModal}>
+                            <Icon name="close-circle" size={25} color={colors.mainColor} />
+                        </Pressable>
+                        <WebView
+                            style={{ flex: 1 }}
+                            onTouchCancel={this.closeModal}
+                            source={{ uri: this.state.payingLink }}
+                        />
+                    </View>
                 </Modal>
                 <ScrollView
                     refreshControl={
@@ -89,5 +97,23 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: colors.mainColor
-    }
+    },
+    closeModal: {
+        left: 20,
+        top: 10,
+        position: 'absolute',
+        backgroundColor: colors.white,
+        zIndex: 1111,
+        elevation: 5,
+        borderRadius: 20,
+        padding: 5
+        // alignSelf: 'flex-start',
+    },
+    modalContainer: {
+        height: '100%',
+        width: '100%',
+        // backgroundColor: colors.white,
+        // alignItems: "center",
+        // justifyContent: "center"
+    },
 })

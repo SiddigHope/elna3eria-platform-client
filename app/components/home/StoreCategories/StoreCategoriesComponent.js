@@ -65,9 +65,7 @@ export default class StoreCategoriesComponent extends Component {
           <ImageBackground
             borderRadius={10}
             source={{ uri: item.image }}
-            style={
-              this.state.itemSelected ? styles.imageSelected : styles.image, elevations[5]
-            }
+            style={[this.state.itemSelected ? styles.imageSelected : styles.image, elevations[5]]}
           >
             <Text numberOfLines={1} style={styles.title}>
               {" "}
