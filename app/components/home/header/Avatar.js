@@ -8,25 +8,26 @@ export default class Avatar extends Component {
     this.state = {};
   }
 
+
   render() {
     return (
       <View style={[styles.container, elevations[5]]}>
-        <Image style={styles.image} source={require('../../../../assets/images/avatar.png')} />
+        <Image style={styles.image} source={{ uri: this.props.user && this.props.user.client.image }} />
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-    container:{
-        height: 40,
-        width: 40,
-        borderRadius: 20,
-        elevation: 5
-    },
-    image:{
-        height: 40,
-        width: 40,
-        borderRadius: 20
-    }
+  container: {
+    height: 40,
+    width: 40,
+    borderRadius: 20,
+    elevation: 5
+  },
+  image: {
+    height: 40,
+    width: 40,
+    borderRadius: 20
+  }
 })

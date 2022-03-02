@@ -19,6 +19,7 @@ import Cart from "./app/screens/Cart";
 import OrderDetails from "./app/screens/OrderDetails";
 import UserClass from './app/config/authHandler';
 import { NativeBaseProvider } from "native-base";
+import EditProfile from './app/screens/EditProfile';
 
 LogBox.ignoreLogs([
   "Non-serializable values were found in the navigation state",
@@ -79,6 +80,13 @@ function Stacks() {
       <Stack.Screen
         name="Profile"
         component={Profile}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="EditProfile"
+        component={EditProfile}
         options={{
           headerShown: false,
         }}

@@ -74,6 +74,8 @@ export default class ProfileComponent extends Component {
     )
 
     render() {
+        // console.log("this.state.user")
+        // console.log(this.state.user)
         return (
             <View style={styles.container}>
                 <ProfileHeader user={this.state.user} navigation={this.props.navigation} />

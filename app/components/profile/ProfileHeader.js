@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image, Dimensions, Pressable } from 'react-native';
+import { View, Text, StyleSheet, Image, Dimensions, Pressable, TouchableOpacity } from 'react-native';
 import { colors, fonts } from '../../config/vars';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 import { ActivityIndicator } from 'react-native';
 import elevations from '../../config/elevations';
+import { goToScreen } from '../../config/functions';
 
 
 export default class ProfileHeader extends Component {
@@ -13,9 +14,13 @@ export default class ProfileHeader extends Component {
         };
     }
 
+    editProfile = () => {
+        goToScreen("EditProfile", this.props.navigation, { user: this.props.user.client })
+    }
+
     render() {
-        console.log(this.props.user)
-        if (this.props.user.length == 0) {
+        const { user } = this.props
+        if (user.length == 0) {
             return (
                 <ActivityIndicator size={72} color={colors.mainColor} />
             )
@@ -23,19 +28,19 @@ export default class ProfileHeader extends Component {
         return (
             <View style={[styles.container, elevations[5]]}>
                 <View style={[styles.imageContainer, elevations[5]]}>
-                    <Image style={styles.image} source={require("../../../assets/images/avatar.png")} />
+                    <Image style={styles.image} source={user.client.image ? { uri: user.client.image } : require("../../../assets/images/avatar.png")} />
                 </View>
                 <View style={styles.infoContainer}>
                     <Text style={styles.name}>
-                        {this.props.user.client.name}
+                        {user.client.name}
                     </Text>
                     <Text style={styles.email}>
-                        {this.props.user.client.email}
+                        {user.client.email}
                     </Text>
                 </View>
-                <Pressable style={[styles.logoutBtn, elevations[5]]} >
+                <TouchableOpacity onPress={this.editProfile} style={[styles.logoutBtn, elevations[5]]} >
                     <Icon name="account-cog-outline" size={30} color={colors.ebony} />
-                </Pressable>
+                </TouchableOpacity>
             </View>
         );
     }
