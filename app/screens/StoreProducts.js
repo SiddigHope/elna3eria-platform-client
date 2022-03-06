@@ -41,7 +41,7 @@ export default class StoreProducts extends Component {
   };
 
   goToScreen = (store, product) => {
-    goToScreen("ProductDetails", this.props.navigation, { store, product });
+    goToScreen("ProductDetails", this.props.navigation, { store, product, screen: "storeProducts" });
   };
 
   _listHeader = () => (

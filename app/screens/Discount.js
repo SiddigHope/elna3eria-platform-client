@@ -66,7 +66,7 @@ export default class Discount extends Component {
     };
 
     goToScreen = (store, product) => {
-        goToScreen("ProductDetails", this.props.navigation, { store, product });
+        goToScreen("ProductDetails", this.props.navigation, { store, product, screen: "discount" });
     };
 
     _listHeader = () => (

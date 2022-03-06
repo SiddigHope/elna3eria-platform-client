@@ -31,7 +31,7 @@ export default class ProductComponent extends Component {
     console.log(item)
     return (
       <Pressable
-        // onPress={() => this.props.goToScreen(this.props.store, item)}
+        onPress={() => this.props.goToScreen(item.store, item)}
         style={[styles.container, elevations[2], { marginRight: margin }]}
       >
         <View style={styles.discountContainer}>
@@ -145,9 +145,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#FFD60A",
-    zIndex:111
+    zIndex: 111
   },
-  discountValue:{
+  discountValue: {
     fontFamily: fonts.tajawalR,
     color: colors.ebony
   }

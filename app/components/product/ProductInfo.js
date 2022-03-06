@@ -28,9 +28,18 @@ export default class ProductInfo extends Component {
       orderText: '',
       edit: false,
       adding: false,
-      added: false
+      added: false,
+      discount: false
     };
     this.addToCart = this.addToCart.bind(this)
+  }
+
+  componentDidMount() {
+    if (this.props.screen == "discount") {
+      this.setState({
+        discount: true
+      })
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -87,7 +96,7 @@ export default class ProductInfo extends Component {
       this.setState({
         showModal: false
       })
-    },1000)
+    }, 1000)
   }
 
   buyNow() {
@@ -108,6 +117,18 @@ export default class ProductInfo extends Component {
   }
 
   render() {
+    const { product } = this.props
+    let price = product.price
+    if (this.state.discount) {
+      let discountValue = (product.price * product.discount) / 100
+      price -= discountValue
+    }
+    console.log(product.discount)
+
+    console.log("price")
+    console.log(product.price)
+    console.log("discount")
+    console.log(price)
     return (
       <View style={[styles.container, elevations[10]]}>
         <Modal
@@ -146,9 +167,11 @@ export default class ProductInfo extends Component {
               </View>
 
               <View style={styles.modalButtons}>
-                <View style={{ flex: 1 }}>
-                  <OrderButton type={"cart"} adding={this.state.adding} added={this.state.added} title={"إضافة للسلة"} onPress={this.addToCart} />
-                </View>
+                {this.props.screen != "discount" && (
+                  <View style={{ flex: 1 }}>
+                    <OrderButton type={"cart"} adding={this.state.adding} added={this.state.added} title={"إضافة للسلة"} onPress={this.addToCart} />
+                  </View>
+                )}
                 <View style={{ flex: 1 }}>
                   <OrderButton type={"buy"} adding={this.state.adding} added={this.state.added} title={"إشتري الأن"} onPress={this.buyNow} />
                 </View>
@@ -169,10 +192,18 @@ export default class ProductInfo extends Component {
             <Text style={styles.name}> {this.props.product.name} </Text>
           </View>
           <ScrollView>
-            <Text style={styles.price}>
-              {" "}
-              {"SR"} {this.props.product.price}{" "}
-            </Text>
+            <View style={[styles.miniRow, { justifyContent: "flex-end" }]}>
+              <Text style={styles.price}>
+                {"SR"} {price}
+              </Text>
+              {this.state.discount && (
+                <View style={styles.discountContainer}>
+                  <Text style={styles.discountPrice}>
+                    {"SR"} {this.props.product.price}
+                  </Text>
+                </View>
+              )}
+            </View>
             <View style={[styles.miniRow, { justifyContent: "flex-end" }]}>
               <Text style={styles.ratingCount}>
                 {" "}
@@ -196,7 +227,7 @@ export default class ProductInfo extends Component {
                 onChangeText={(orderText) => this.setState({ orderText })}
               />
             </View>
-            <OrderButton type={"toggler"} adding={this.state.adding} added={this.state.added} title={"اطلب الأن"} onPress={this.onButtonPress} item={this.props.product} />
+            <OrderButton screen={this.props.screen} type={"toggler"} adding={this.state.adding} added={this.state.added} title={"اطلب الأن"} onPress={this.onButtonPress} item={this.props.product} />
           </ScrollView>
         </View>
       </View>
@@ -372,5 +403,19 @@ const styles = StyleSheet.create({
   closeModal: {
     marginLeft: 20,
     alignSelf: 'flex-start',
-  }
+  },
+  discountContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    marginLeft: 20,
+  },
+  discountPrice: {
+    fontFamily: fonts.tajawalR,
+    color: colors.softWhite,
+    fontSize: 24,
+    textAlign: "right",
+    marginBottom: 10,
+    fontStyle: "italic",
+    textDecorationLine: "line-through"
+  },
 });
