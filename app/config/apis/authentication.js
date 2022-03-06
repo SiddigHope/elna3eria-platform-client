@@ -100,6 +100,7 @@ export const resendCode = async () => {
         const request = await axios(options)
             .then((response) => response.data)
             .catch((error) => console.log(error));
+        console.log(request)
         return request.success ? true : false;
     } catch (error) {
         console.log(error);
@@ -136,6 +137,35 @@ export const updateUserProfile = async (data) => {
     }
 };
 
+export const updateUserAvatar = async (data) => {
+    const user = await getUser();
+    try {
+        const options = {
+            method: "POST",
+            url: mainDomain + "client/profile/image",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "*/*",
+                Authorization: "Bearer " + user.token,
+            },
+            data,
+        };
+
+        const request = await axios(options)
+            .then((response) => response.data)
+            .catch((error) => console.log(error));
+        // if (request.success) {
+        //     user.client.image = request.data
+        //     // console.log(request)
+        //     UserClass.setUser(user)
+        // }
+        return request.success ? true : false;
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+};
+
 export const getUserProfile = async () => {
     const user = await getUser();
     try {
@@ -152,10 +182,11 @@ export const getUserProfile = async () => {
         const request = await axios(options)
             .then((response) => response.data)
             .catch((error) => console.log(error));
-        // if (request.success) {
-        // console.log(request)
-        // UserClass.setUser(request.data)
-        // }
+        if (request.success) {
+            console.log(request)
+            user.client = request.data
+            UserClass.setUser(user)
+        }
         return request.success ? request.data : false;
     } catch (error) {
         console.log(error);

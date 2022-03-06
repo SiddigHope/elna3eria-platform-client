@@ -16,7 +16,7 @@ export default class EditProfile extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <MiniHeader title={""} navigation={this.props.navigation} />
+                <MiniHeader right={"dd"} title={this.props.route.params.user.name} navigation={this.props.navigation} />
                 <EditProfileComponent navigation={this.props.navigation} />
             </View>
         );

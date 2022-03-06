@@ -11,6 +11,18 @@ export default class Profile extends Component {
     this.state = {};
   }
 
+  componentDidMount() {
+    const navigation = this.props.navigation
+    navigation.addListener("focus", () => {
+      this.setState(this.state)
+    })
+  }
+
+  componentWillUnmount() {
+    const navigation = this.props.navigation
+    navigation.removeListener("focus")
+  }
+
   render() {
     return (
       <View style={styles.container}>

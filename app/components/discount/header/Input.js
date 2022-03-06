@@ -9,8 +9,8 @@ import {
   Modal,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
-import elevations from "../elevations";
-import { colors } from "../vars";
+import elevations from "../../../config/elevations";
+import { colors } from "../../../config/vars";
 
 const { width, height } = Dimensions.get("window");
 
@@ -20,7 +20,7 @@ export default function Input(props) {
       <View style={[styles.container, elevations[5]]}>
         <TextInput
           style={styles.text}
-          placeholder={"ابحث هنا ..."}
+          placeholder={"ابحث عن منتج"}
           placeholderTextColor="#515C6F"
           onChangeText={(text) => props.onChangeText(text)}
         />
@@ -40,7 +40,7 @@ export default function Input(props) {
           <Icon
             style={styles.icon}
             name="search-outline"
-            size={12}
+            size={20}
             color="#515C6F"
           />
         )}
@@ -56,7 +56,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#F0F1F3",
     flexDirection: "row",
-    borderRadius: 20,
+    borderRadius: 10,
+    height: 45,
     marginHorizontal: 10,
     justifyContent: "center",
     alignItems: "center",
@@ -68,8 +69,8 @@ const styles = StyleSheet.create({
     flex: 1,
     fontFamily: "Tajawal-Regular",
     color: "#515C6F",
-    textAlign: "center",
-    // paddingRight: 40,
+    textAlign: "right",
+    paddingRight: 45,
     // backgroundColor: 'red',
     borderRadius: 20,
   },

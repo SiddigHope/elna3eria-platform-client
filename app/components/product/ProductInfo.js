@@ -83,6 +83,11 @@ export default class ProductInfo extends Component {
       adding: false,
       added: true
     })
+    setTimeout(() => {
+      this.setState({
+        showModal: false
+      })
+    },1000)
   }
 
   buyNow() {

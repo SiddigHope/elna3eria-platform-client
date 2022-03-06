@@ -4,7 +4,8 @@ import { colors } from '../../config/vars';
 import ProfileForms from './ProfileForms';
 import ProfileImage from './ProfileImage';
 import { ScrollView, RefreshControl } from 'react-native';
-import { updateUserProfile, getUserProfile } from '../../config/apis/authentication';
+import { updateUserProfile, getUserProfile, updateUserAvatar } from '../../config/apis/authentication';
+import { ActivityIndicator } from 'react-native';
 
 export default class EditProfileComponent extends Component {
     constructor(props) {
@@ -13,6 +14,7 @@ export default class EditProfileComponent extends Component {
             image: {},
             refreshing: false,
             user: [],
+            updated: false
         };
     }
 
@@ -25,34 +27,26 @@ export default class EditProfileComponent extends Component {
         this.setState({
             user,
         })
+        setTimeout(() => {
+            this.setState({
+                updated: true
+            })
+        }, 2000)
     }
 
     submitForm = async (data) => {
-        const { user } = this.state
+        const { user, image } = this.state
         const formData = new FormData()
 
-        if (!this.state.image) {
-            // show error note
-            return
+        if (image.uri) {
+            formData.append("image", image)
+            updateUserAvatar(formData)
         }
-        // // console.log(data.location)
-        // // return
-
-        // formData.append("name", data.name)
-        // // if (data.email != user.email) {
-        // formData.append("email", data.email.toLowerCase())
-        // // }
-        // // if (data.phone != user.phone) {
-        // formData.append("phone", data.phone)
-        // // }
-        // formData.append("location", data.location)
-        // // if (this.state.image.uri) {
-        // //     formData.append("image", this.state.image)
-        // // }
 
         const stored = await updateUserProfile(data)
 
         if (stored) {
+            this._onRefresh()
             this.props.navigation.goBack()
         }
     }
@@ -80,8 +74,16 @@ export default class EditProfileComponent extends Component {
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{ alignItems: 'center' }}
                 style={styles.container}>
-                <ProfileImage onChange={(image) => this.setState({ image })} image={this.state.user.image} />
-                <ProfileForms submitForm={this.submitForm} user={this.state.user} />
+                {this.state.updated ? (
+                    <>
+                        <ProfileImage onChange={(image) => this.setState({ image })} image={this.state.user.image} />
+                        <ProfileForms submitForm={this.submitForm} user={this.state.user} />
+                    </>
+                ) : (
+                    <View style={[{ flex: 1, justifyContent: 'center' }]}>
+                        <ActivityIndicator color={colors.mainColor} size={50} />
+                    </View>
+                )}
             </ScrollView>
         );
     }

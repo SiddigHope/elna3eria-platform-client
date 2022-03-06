@@ -19,13 +19,13 @@ export default class ProfileImage extends Component {
         }
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.image != this.state.image) {
-            this.setState({
-                image: {uri: nextProps.image},
-            })
-        }
-    }
+    // componentWillReceiveProps(nextProps) {
+    //     if (nextProps.image != this.state.image) {
+    //         this.setState({
+    //             image: {uri: nextProps.image},
+    //         })
+    //     }
+    // }
 
     getData = () => {
         this.setState({
@@ -36,7 +36,7 @@ export default class ProfileImage extends Component {
     _imagePicker = async () => {
         // No permissions request is necessary for launching the image library
         let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
             aspect: [4, 3],
             quality: 1,

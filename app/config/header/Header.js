@@ -26,7 +26,7 @@ export default class Header extends Component {
       <View style={[styles.container, this.props.searching ? { height: 50 } : {}]}>
         <View style={styles.headerContainer}>
           <Avatar user={this.state.user} />
-          {this.props.screen == "home" ? (
+          {this.props.screen == "home" || this.props.screen == "discount" ? (
             <Input closeSearching={this.props.closeSearching} onChangeText={this.props.onChangeText} searching={this.props.searching} />
           ) : (
             <Text style={styles.title}> {this.props.title} </Text>

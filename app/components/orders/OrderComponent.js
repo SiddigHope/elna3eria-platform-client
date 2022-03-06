@@ -119,7 +119,8 @@ const styles = StyleSheet.create({
         marginRight: 10,
     },
     rowContainer: {
-        flex: 1,
+        // flex: 0.5,
+        minHeight: 25,
         flexDirection: 'row-reverse',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -132,6 +133,8 @@ const styles = StyleSheet.create({
         textAlign: "right",
         textAlignVertical: "center",
         color: colors.softBlack,
+        // backgroundColor: "red",
+        // width: "40%"
     },
     total: {
         fontFamily: fonts.tajawalB,

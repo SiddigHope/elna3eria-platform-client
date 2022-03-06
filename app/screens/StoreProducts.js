@@ -9,7 +9,7 @@ import { colors } from "../config/vars";
 import { productsSearch } from "../config/data";
 import { goToScreen } from "../config/functions";
 
-export default class Home extends Component {
+export default class StoreProducts extends Component {
   constructor(props) {
     super(props);
     this.state = {

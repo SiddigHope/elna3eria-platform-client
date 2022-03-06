@@ -18,10 +18,10 @@ export default class Signin extends Component {
   }
 
   componentDidMount() {
-    // this.checkUser();
+    this.checkUser();
   }
   componentDidUpdate() {
-    // this.checkUser();
+    this.checkUser();
   }
 
   checkUser = async () => {

@@ -56,3 +56,29 @@ export const getOrder = async (id) => {
         return [];
     }
 }
+
+export const getDiscountedProducts = async () => {
+    const user = await getUser()
+    try {
+        const options = {
+            method: "GET",
+            url: mainDomain + "client/products/discount",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+                Authorization: "Bearer " + user.token,
+            },
+        };
+
+        const request = await axios(options)
+            .then((response) => response)
+            .catch((error) => console.log(error));
+        // console.log("request")
+        // console.log(request)
+        // return
+        return request.status == 200 ? request.data.data : [];
+    } catch (error) {
+        console.log(error);
+        return [];
+    }
+}

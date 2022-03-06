@@ -12,6 +12,7 @@ import { StatusBar } from "expo-status-bar";
 import * as Animatable from "react-native-animatable";
 import { colors } from "./vars";
 import Orders from "../screens/Orders";
+import Discount from '../screens/Discount';
 
 const { width, height } = Dimensions.get("window");
 
@@ -119,8 +120,8 @@ function Tabs({ navigation }) {
         />
 
         <Tab.Screen
-          name="Search"
-          component={Search}
+          name="Discount"
+          component={Discount}
           options={{
             headerShown: false,
             tabBarIcon: ({ focused, color }) => (

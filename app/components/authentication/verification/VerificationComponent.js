@@ -12,7 +12,8 @@ export default class SignupComponent extends Component {
         super(props);
         this.state = {
             code: "",
-            secureTextEntry: true
+            secureTextEntry: true,
+            color: colors.softBlack
         };
     }
 
@@ -56,7 +57,12 @@ export default class SignupComponent extends Component {
                 </Pressable>
 
                 {!this.props.resent && (
-                    <Text onPress={this.props.resend} style={styles.resend}> {"اعادة ارسال"} </Text>
+                    <Text onPress={() => {
+                        this.setState({
+                            color: colors.blueLight
+                        })
+                        this.props.resend()
+                    }} style={[styles.resend, { color: this.state.color }]}> {"اعادة ارسال"} </Text>
                 )}
 
                 <View style={styles.nestedText}>

@@ -20,9 +20,9 @@ export default class OrderDetails extends Component {
         };
     }
 
-    componentDidMount() {
-        this.continuePayment()
-    }
+    // componentDidMount() {
+    //     // this.continuePayment()
+    // }
 
     _onRefresh = async () => {
         console.log("refreshing***********************************")
