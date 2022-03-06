@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import Icon1 from "react-native-vector-icons/FontAwesome";
-import { colors } from "../../../config/vars";
+import { colors, fonts } from "../../../config/vars";
 import elevations from "../../../config/elevations";
 
 const { width, height } = Dimensions.get("window");
@@ -19,7 +19,7 @@ export default class ProductComponent extends Component {
     super(props);
     this.state = {};
   }
-  
+
   render() {
     let margin = 0;
     if (this.props.item.index % 2 == 0) {
@@ -31,9 +31,12 @@ export default class ProductComponent extends Component {
     console.log(item)
     return (
       <Pressable
-        onPress={() => this.props.goToScreen(this.props.store, item)}
+        // onPress={() => this.props.goToScreen(this.props.store, item)}
         style={[styles.container, elevations[2], { marginRight: margin }]}
       >
+        <View style={styles.discountContainer}>
+          <Text style={styles.discountValue} > {item.discount + "%"} </Text>
+        </View>
         <Image source={{ uri: item.image }} style={styles.image} />
         <View style={styles.contentContainer}>
           <View style={styles.nameContainer}>
@@ -63,9 +66,9 @@ export default class ProductComponent extends Component {
             <View style={styles.miniRow}>
               <Text style={[styles.bottomText, { color: colors.softGreen }]}>
                 {" "}
-                {item.delivery_fees == 0
+                {item.store.delivery_fees == 0
                   ? "مجاني"
-                  : "this.props.store.delivery_fees" + " SR"}{" "}
+                  : item.store.delivery_fees + " SR"}{" "}
               </Text>
               <Icon name="delivery-dining" size={10} color={colors.ebony} />
             </View>
@@ -81,13 +84,13 @@ const styles = StyleSheet.create({
     width: (width - 40) / 2,
     height: 200,
     backgroundColor: colors.white,
-    borderRadius: 20,
+    borderRadius: 10,
     elevation: 2,
   },
   image: {
     width: (width - 40) / 2,
     height: 180,
-    borderRadius: 20,
+    borderRadius: 10,
   },
   contentContainer: {
     position: "absolute",
@@ -132,4 +135,20 @@ const styles = StyleSheet.create({
     color: colors.softGreen,
     margin: 0,
   },
+  discountContainer: {
+    position: "absolute",
+    left: 10,
+    top: 10,
+    width: 40,
+    height: 30,
+    borderRadius: 5,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#FFD60A",
+    zIndex:111
+  },
+  discountValue:{
+    fontFamily: fonts.tajawalR,
+    color: colors.ebony
+  }
 });

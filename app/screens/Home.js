@@ -58,6 +58,7 @@ export default class Home extends Component {
       closeSearching={this.closeSearching}
       searching={this.state.searching}
       onChangeText={this.onChangeText}
+      screen={"home"}
     />
   );
 
@@ -100,6 +101,6 @@ export default class Home extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.white,
+    backgroundColor: colors.whiteF7,
   },
 });

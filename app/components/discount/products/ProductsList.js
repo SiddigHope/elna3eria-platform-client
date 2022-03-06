@@ -29,9 +29,7 @@ export default class ProductsList extends Component {
     <View style={{ width: "100%", alignItems: "flex-end", height: 60 }}>
       <View style={styles.titleContainer}>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <Text style={styles.title}>
-            {this.props.products.length} {"منتج"}
-          </Text>
+          <Text style={styles.title}> {"التخفيضات"} </Text>
         </View>
         <View style={[styles.titleUnderline, elevations[3]]} />
       </View>
@@ -46,7 +44,7 @@ export default class ProductsList extends Component {
         <FlatList
           data={this.props.products}
           numColumns={2}
-          // ListHeaderComponent={this._listHeader}
+          ListHeaderComponent={this._listHeader}
           showsVerticalScrollIndicator={false}
           keyExtractor={(item, index) => index.toString()}
           ItemSeparatorComponent={this._itemSeparator}

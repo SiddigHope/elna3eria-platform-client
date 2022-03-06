@@ -5,7 +5,7 @@ import BannerList from "../components/home/BannerList";
 import ProductsList from "../components/discount/products/ProductsList";
 // import Header from "../components/discount/header/Header";
 import CategoriesList from "../components/discount/categories/CategoriesList";
-import { colors } from "../config/vars";
+import { colors, fonts } from "../config/vars";
 import { productsSearch } from "../config/data";
 import { goToScreen } from "../config/functions";
 import { getDiscountedProducts } from "../config/apis/gets";
@@ -98,7 +98,12 @@ export default class Discount extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Header screen={"discount"} />
+                <Header screen={"discount"}
+                    closeSearching={this.closeSearching}
+                    searching={this.state.searching}
+                    onChangeText={this.onChangeText}
+                />
+
                 <View style={styles.subContainer}>
                     {
                         this.state.loading ? (
@@ -121,16 +126,18 @@ export default class Discount extends Component {
 }
 
 const styles = StyleSheet.create({
+
     container: {
         flex: 1,
-        backgroundColor: colors.white,
+        backgroundColor: colors.whiteF7,
     },
     subContainer: {
         flex: 1,
         backgroundColor: colors.whiteF7,
-        marginTop: 30,
+        marginTop: 10,
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
         elevation: 10,
+        paddingTop: 20,
     }
 });
