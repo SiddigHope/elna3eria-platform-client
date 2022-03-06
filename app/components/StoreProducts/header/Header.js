@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, Linking, Alert } from "react-native";
 import { colors } from "../../../config/vars";
 import RoundedIcons from "./RoundedIcons";
 import Input from "./Input";
@@ -37,7 +37,24 @@ export default class Header extends Component {
     })
   }
 
+  whatsapp = () => {
+    const link = "https://wa.me/" + "249920035753"
+    Linking.canOpenURL(link)
+      .then(supported => {
+        if (!supported) {
+          Alert.alert(
+            'قم بتنزيل تطبيق الواتساب للمراسلة الفورية او بامكانك استحدام حاصية الاتصال المباشر'
+          );
+        } else {
+          return Linking.openURL(link);
+        }
+      })
+      .catch(err => console.error('An error occurred', err));
+  }
+
   render() {
+    // console.log("store")
+    // console.log(this.props.store)
     return (
       <View
         style={[styles.container]}
@@ -55,7 +72,7 @@ export default class Header extends Component {
             onChangeText={this.props.onChangeText}
             searching={this.props.searching}
           />
-          <RoundedIcons onPress={() => console.log("chat icon pressed")} items={0} type="chat" />
+          <RoundedIcons onPress={this.whatsapp} items={0} type="chat" />
         </View>
       </View>
     );
