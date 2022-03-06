@@ -3,7 +3,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { StyleSheet, Text, View, LogBox } from "react-native";
 import Tabs from "./app/config/Tabs";
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import { createStackNavigator, CardStyleInterpolators } from "@react-navigation/stack";
 import Profile from "./app/screens/Profile";
 import Home from "./app/screens/Home";
 import SplashScreen from "./app/screens/SplashScreen";
@@ -40,7 +40,10 @@ const Stack = createStackNavigator();
 function Stacks() {
   return (
     <Stack.Navigator
-    // initialRouteName={true ? "Tabs" : "Signin"}
+      // initialRouteName={true ? "Tabs" : "Signin"}
+      screenOptions={{
+        cardStyleInterpolator: CardStyleInterpolators.forRevealFromBottomAndroid,
+      }}
     >
       {/* <Stack.Screen
         name="SplashScreen"

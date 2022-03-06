@@ -29,9 +29,9 @@ export default class ProductDetails extends Component {
     //   console.log(this.state.product)
     return (
       <View style={styles.container}>
-        <StatusBar translucent={false} backgroundColor={colors.white} style="dark" />
-        <ImageComponent screen={this.props.route.params.screen} image={this.state.product.image} />
-        <ProductInfo screen={this.props.route.params.screen} store={this.state.store} product={this.state.product} />
+        <StatusBar translucent style="dark" />
+        <ImageComponent navigation={this.props.navigation} screen={this.props.route.params.screen} image={this.state.product.image} />
+        <ProductInfo navigation={this.props.navigation} screen={this.props.route.params.screen} store={this.state.store} product={this.state.product} />
       </View>
     );
   }

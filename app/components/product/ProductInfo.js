@@ -123,12 +123,11 @@ export default class ProductInfo extends Component {
       let discountValue = (product.price * product.discount) / 100
       price -= discountValue
     }
-    console.log(product.discount)
-
-    console.log("price")
-    console.log(product.price)
-    console.log("discount")
-    console.log(price)
+    // console.log(product.discount)
+    // console.log("price")
+    // console.log(product.price)
+    // console.log("discount")
+    // console.log(price)
     return (
       <View style={[styles.container, elevations[10]]}>
         <Modal
