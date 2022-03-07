@@ -34,7 +34,7 @@ export default class Cart extends Component {
     getData = async () => {
         this.setState({
             items: await getCartItem(this.props.route.params.store.id),
-            total: await getCartTotal(this.props.route.params.store.id),
+            total: await getCartTotal(this.props.route.params.store.id) + this.props.route.params.store.delivery_fees,
         })
     }
 

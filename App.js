@@ -20,6 +20,7 @@ import OrderDetails from "./app/screens/OrderDetails";
 import UserClass from './app/config/authHandler';
 import { NativeBaseProvider } from "native-base";
 import EditProfile from './app/screens/EditProfile';
+import moment from "moment";
 
 // I18nManager.forceRTL(false);
 // I18nManager.allowRTL(false);
@@ -27,6 +28,9 @@ import EditProfile from './app/screens/EditProfile';
 LogBox.ignoreLogs([
   "Non-serializable values were found in the navigation state",
 ]);
+
+
+moment.locale("AR")
 
 console.disableYellowBox = true;
 

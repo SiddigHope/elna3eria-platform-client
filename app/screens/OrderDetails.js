@@ -16,13 +16,18 @@ export default class OrderDetails extends Component {
             refreshing: false,
             order: this.props.route.params.order,
             paying: false,
-            payingLink: ""
+            payingLink: "",
+            rating: false
         };
     }
 
-    // componentDidMount() {
-    //     // this.continuePayment()
-    // }
+    componentDidMount() {
+        const order = this.props.route.params.order
+        if (order) {
+            console.log("*******************order******************88")
+            console.log(order)
+        }
+    }
 
     _onRefresh = async () => {
         console.log("refreshing***********************************")
@@ -49,7 +54,7 @@ export default class OrderDetails extends Component {
     }
 
     closeModal = () => {
-        this.setState({ paying: false })
+        this.setState({ paying: false, rating: false })
         this._onRefresh()
     }
 
@@ -76,6 +81,19 @@ export default class OrderDetails extends Component {
                         />
                     </View>
                 </Modal>
+
+                {/* <Modal
+                    transparent={true}
+                    onBackdropPress={this.closeModal}
+                    onSwipeComplete={this.closeModal}
+                    onRequestClose={this.closeModal}
+                    visible={this.state.paying}
+                    animationType="fade">
+                    <View style={styles.modalContainer}>
+
+                    </View>
+                </Modal> */}
+
                 <ScrollView
                     refreshControl={
                         <RefreshControl

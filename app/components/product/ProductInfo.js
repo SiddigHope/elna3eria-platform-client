@@ -29,7 +29,12 @@ export default class ProductInfo extends Component {
       edit: false,
       adding: false,
       added: false,
-      discount: false
+      discount: false,
+      star1: "star-outline",
+      star2: "star-outline",
+      star3: "star-outline",
+      star4: "star-outline",
+      star5: "star-outline",
     };
     this.addToCart = this.addToCart.bind(this)
   }
@@ -39,6 +44,9 @@ export default class ProductInfo extends Component {
       this.setState({
         discount: true
       })
+    }
+    if (this.props.product.rating) {
+      this.checkRating(this.props.product.rating.average)
     }
   }
 
@@ -116,6 +124,49 @@ export default class ProductInfo extends Component {
     }
   }
 
+  checkRating = (rating) => {
+    switch (rating) {
+      case 1:
+        this.setState({
+          star1: "star"
+        })
+        break;
+      case 2:
+        this.setState({
+          star1: "star",
+          star2: "star",
+        })
+        break;
+      case 3:
+        this.setState({
+          star1: "star",
+          star2: "star",
+          star3: "star",
+        })
+        break;
+      case 4:
+        this.setState({
+          star1: "star",
+          star2: "star",
+          star3: "star",
+          star4: "star",
+        })
+        break;
+      case 5:
+        this.setState({
+          star1: "star",
+          star2: "star",
+          star3: "star",
+          star4: "star",
+          star5: "star",
+        })
+        break;
+
+      default:
+        break;
+    }
+  }
+
   render() {
     const { product } = this.props
     let price = product.price
@@ -123,7 +174,7 @@ export default class ProductInfo extends Component {
       let discountValue = (product.price * product.discount) / 100
       price -= discountValue
     }
-    // console.log(product.discount)
+    console.log(product)
     // console.log("price")
     // console.log(product.price)
     // console.log("discount")
@@ -184,7 +235,7 @@ export default class ProductInfo extends Component {
               <Icon name="star" color={colors.ratingYellow} size={35} />
               <Text style={styles.ratingText}>
                 {"("}
-                {this.props.product.rating}
+                {product.rating ? product.rating.average : 0}
                 {")"}
               </Text>
             </View>
@@ -203,19 +254,19 @@ export default class ProductInfo extends Component {
                 </View>
               )}
             </View>
-            <View style={[styles.miniRow, { justifyContent: "flex-end" }]}>
+            <Pressable onPress={this.props.showReviews} style={[styles.miniRow, { justifyContent: "flex-end" }]}>
               <Text style={styles.ratingCount}>
-                {" "}
-                {"6 people ratted this item"}{" "}
+                {product.rating ? product.rating.from : 0}
+                {" اشخاص قييمو هذا المنتج"}{" "}
               </Text>
               <View style={styles.ratingStars}>
-                <Icon name="star" color={colors.ratingYellow} size={25} />
-                <Icon name="star" color={colors.ratingYellow} size={25} />
-                <Icon name="star" color={colors.ratingYellow} size={25} />
-                <Icon name="star" color={colors.ratingYellow} size={25} />
-                <Icon name="star" color={colors.ratingYellow} size={25} />
+                <Icon name={this.state.star1} color={colors.ratingYellow} size={25} />
+                <Icon name={this.state.star2} color={colors.ratingYellow} size={25} />
+                <Icon name={this.state.star3} color={colors.ratingYellow} size={25} />
+                <Icon name={this.state.star4} color={colors.ratingYellow} size={25} />
+                <Icon name={this.state.star5} color={colors.ratingYellow} size={25} />
               </View>
-            </View>
+            </Pressable>
             <Text style={styles.desc}> {this.props.product.description} </Text>
             <View style={styles.textInputContainer}>
               <TextInput
@@ -281,12 +332,12 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   ratingStars: {
-    flexDirection: "row",
+    flexDirection: "row-reverse",
   },
   ratingCount: {
     color: "grey",
     fontFamily: "Tajawal-Regular",
-    fontSize: 16,
+    fontSize: 14,
     marginRight: 5,
   },
   desc: {
