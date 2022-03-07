@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, RefreshControl, ScrollView, Modal, Pressable } from 'react-native';
+import { View, Text, StyleSheet, RefreshControl, ScrollView, Modal as OModal, Pressable } from 'react-native';
 import MiniHeader from '../components/MiniHeader';
 import OrderDetailsComponent from '../components/orderDetails/OrderDetailsComponent';
 import { getOrder } from '../config/apis/gets';
@@ -8,7 +8,8 @@ import { colors } from '../config/vars';
 import { WebView } from 'react-native-webview';
 import { onlinePayment } from '../config/apis/posts';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
-
+import Modal from "react-native-modal";
+import RateProduct from '../components/orderDetails/RateProduct';
 export default class OrderDetails extends Component {
     constructor(props) {
         super(props);
@@ -24,8 +25,13 @@ export default class OrderDetails extends Component {
     componentDidMount() {
         const order = this.props.route.params.order
         if (order) {
-            console.log("*******************order******************88")
-            console.log(order)
+            // console.log("*******************order******************88")
+            // console.log(order)
+            if (order.status.code == 4) {
+                this.setState({
+                    rating: true
+                })
+            }
         }
     }
 
@@ -63,7 +69,7 @@ export default class OrderDetails extends Component {
             <View style={styles.container}>
                 <StatusBar translucent={false} backgroundColor={colors.mainColor} style="light" />
                 <MiniHeader navigation={this.props.navigation} title={"تفاصيل الطلب"} />
-                <Modal
+                <OModal
                     transparent={true}
                     onBackdropPress={this.closeModal}
                     onSwipeComplete={this.closeModal}
@@ -80,19 +86,20 @@ export default class OrderDetails extends Component {
                             source={{ uri: this.state.payingLink }}
                         />
                     </View>
-                </Modal>
+                </OModal>
 
-                {/* <Modal
+                <Modal
                     transparent={true}
-                    onBackdropPress={this.closeModal}
-                    onSwipeComplete={this.closeModal}
-                    onRequestClose={this.closeModal}
-                    visible={this.state.paying}
-                    animationType="fade">
+                    onBackdropPress={() => this.setState({ rating: false })}
+                    onSwipeComplete={() => this.setState({ rating: false })}
+                    onRequestClose={() => this.setState({ rating: false })}
+                    visible={this.state.rating}
+                    animationIn="slideInLeft"
+                    animationOut="slideOutRight">
                     <View style={styles.modalContainer}>
-
+                        <RateProduct order={this.state.order} />
                     </View>
-                </Modal> */}
+                </Modal>
 
                 <ScrollView
                     refreshControl={
@@ -130,8 +137,9 @@ const styles = StyleSheet.create({
     modalContainer: {
         height: '100%',
         width: '100%',
+
         // backgroundColor: colors.white,
-        // alignItems: "center",
-        // justifyContent: "center"
+        alignItems: "center",
+        justifyContent: "center"
     },
 })
