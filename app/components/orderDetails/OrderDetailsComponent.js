@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, Dimensions, ActivityIndicator } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import elevations from '../../config/elevations';
 import { colors, fonts } from '../../config/vars';
@@ -71,8 +71,8 @@ export default class OrderDetailsComponent extends Component {
                     <Text style={styles.label}> {"طريقة الدفع"} </Text>
                     <View style={styles.rowContainer}>
                         <Text style={[styles.orderId, { fontSize: 14, textAlign: 'center', textAlignVertical: 'center' }]}> {"***** **** ****"} {"9232"} </Text>
-                        <View style={styles.iconContainer} >
-                            <Image source={require("../../../assets/icons/paypal.png")} style={{ width: 20, height: 20 }} />
+                        <View style={[styles.iconContainer, { width: 40, height: 40 }]} >
+                            <Image source={require("../../../assets/icons/pngegg.png")} style={{ width: 30, height: 30 }} />
                         </View>
                     </View>
 
@@ -83,7 +83,11 @@ export default class OrderDetailsComponent extends Component {
                     ) : (
                         <View style={styles.btnContainer}>
                             <TouchableOpacity onPress={this.props.continuePayment} style={styles.btn}>
-                                <Text style={styles.btnText}> {"اكمل عملية الدفع"} </Text>
+                                {this.props.completing ? (
+                                    <ActivityIndicator size="small" color={colors.white} />
+                                ) : (
+                                    <Text style={styles.btnText}> {"اكمل عملية الدفع"} </Text>
+                                )}
                             </TouchableOpacity>
                         </View>
                     )}

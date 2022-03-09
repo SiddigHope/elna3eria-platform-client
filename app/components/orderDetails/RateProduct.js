@@ -1,73 +1,84 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, FlatList, Image, TextInput } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Image, TextInput, Pressable } from 'react-native';
 import { colors, fonts } from '../../config/vars';
 import Icon2 from "react-native-vector-icons/MaterialIcons";
+import RateProductComponent from './RateProductComponent';
 
 export default class RateProduct extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            star1: "star-outline",
-            star2: "star-outline",
-            star3: "star-outline",
-            star4: "star-outline",
-            star5: "star-outline",
-            ratingComment: ""
+            rating: [{ id: 2, comment: "this is a comment" }]
         };
     }
 
-    setRating = (rating) => {
-        switch (rating) {
-            case 1:
-                this.setState({
-                    star1: "star",
-                    star2: "star-outline",
-                    star3: "star-outline",
-                    star4: "star-outline",
-                    star5: "star-outline",
-                })
-                break;
-            case 2:
-                this.setState({
-                    star1: "star",
-                    star2: "star",
-                    star3: "star-outline",
-                    star4: "star-outline",
-                    star5: "star-outline",
-                })
-                break;
-            case 3:
-                this.setState({
-                    star1: "star",
-                    star2: "star",
-                    star3: "star",
-                    star4: "star-outline",
-                    star5: "star-outline",
-                })
-                break;
-            case 4:
-                this.setState({
-                    star1: "star",
-                    star2: "star",
-                    star3: "star",
-                    star4: "star",
-                    star5: "star-outline",
-                })
-                break;
-            case 5:
-                this.setState({
-                    star1: "star",
-                    star2: "star",
-                    star3: "star",
-                    star4: "star",
-                    star5: "star",
-                })
-                break;
+    componentDidMount() {
+        this.setRating(2, 2)
+    }
 
-            default:
-                break;
+
+    setRating = (stars, id) => {
+        const { rating } = this.state
+
+        if (rating.length != 0) {
+            const item = rating.find((item) => item.id == id)
+            if (item) {
+                item.stars = stars
+                this.setState({
+                    rating
+                })
+
+                console.log(rating)
+            }
+        } else {
+            this.setState({
+                rating: [{ id, stars }]
+            })
         }
     }
+
+    setCommentText = (text, id) => {
+        const { rating } = this.state
+
+        if (rating.length != 0) {
+            const item = rating.find((item) => item.id == id)
+            if (item) {
+                item.comment = text
+                this.setState({
+                    rating
+                })
+
+                console.log(rating)
+            }
+        } else {
+            this.setState({
+                rating: [{ id, comment }]
+            })
+        }
+    }
+
+    rateProducts = (text, id) => {
+        const { rating } = this.state
+
+        if (rating.length != 0) {
+            const item = rating.find((item) => item.id == id)
+            if (item) {
+                item.comment = text
+                this.setState({
+                    rating
+                })
+
+                console.log(rating)
+            }
+        } else {
+            this.setState({
+                rating: [{ id, comment }]
+            })
+        }
+    }
+
+
+
 
     _itemSeparator = () => (
         <View style={{ height: 20 }} />
@@ -78,33 +89,11 @@ export default class RateProduct extends Component {
     )
 
     _listFooter = () => (
-        <View style={{ height: 80 }} />
+        <View style={{ height: 50 }} />
     )
 
     _renderItem = (item, index) => (
-        <View style={styles.itemContainer}>
-            <View style={styles.imageContainer} >
-                <Image style={styles.image} source={{ uri: item.item.product.image }} />
-            </View>
-            <View style={styles.ratingContainer}>
-                <View style={styles.textInputContainer}>
-                    <TextInput
-                        style={styles.textInput}
-                        placeholder={"اكتب تعليقاً"}
-                        value={this.state.ratingComment}
-                        placeholderTextColor={""}
-                        onChangeText={(ratingComment) => this.setState({ ratingComment })}
-                    />
-                </View>
-                <View style={styles.ratingStars}>
-                    <Icon2 onPress={() => this.setRating(1)} name={this.state.star1} color={colors.ratingYellow} size={25} />
-                    <Icon2 onPress={() => this.setRating(2)} name={this.state.star2} color={colors.ratingYellow} size={25} />
-                    <Icon2 onPress={() => this.setRating(3)} name={this.state.star3} color={colors.ratingYellow} size={25} />
-                    <Icon2 onPress={() => this.setRating(4)} name={this.state.star4} color={colors.ratingYellow} size={25} />
-                    <Icon2 onPress={() => this.setRating(5)} name={this.state.star5} color={colors.ratingYellow} size={25} />
-                </View>
-            </View>
-        </View>
+        <RateProductComponent item={item.item} setRatingStars={this.setRating} setCommentText={this.setCommentText} />
     )
 
 
@@ -123,7 +112,16 @@ export default class RateProduct extends Component {
                     contentContainerStyle={{ alignItems: 'center' }}
                     ListFooterComponent={this._listFooter}
                     ItemSeparatorComponent={this._itemSeparator}
-                    renderItem={this._renderItem} />
+                    renderItem={this._renderItem}
+                />
+                <View style={styles.btnContainer}>
+                    <Pressable onPress={this.rateProducts} style={styles.btn} >
+                        <Text style={styles.btnText} > {"تقييم الأن"} </Text>
+                    </Pressable>
+                    <Pressable onPress={this.props.closeModal} style={styles.btn} >
+                        <Text style={[styles.btnText, { color: colors.grey, fontFamily: fonts.tajawalR }]} > {"ليس الان"} </Text>
+                    </Pressable>
+                </View>
             </View>
         );
     }
@@ -135,9 +133,12 @@ const styles = StyleSheet.create({
         backgroundColor: colors.softWhite,
         elevation: 10,
         width: "100%",
-        alignItems: 'center',
+        // alignItems: 'center',
+        // alignSelf: 'center',
         padding: 20,
-        borderRadius: 10
+        borderRadius: 10,
+        // borderWidth: 1,
+        // borderColor: colors.softBlue,
     },
     subtitle: {
         color: colors.white,
@@ -145,52 +146,18 @@ const styles = StyleSheet.create({
         fontFamily: fonts.tajawalB,
         // marginBottom: 10
     },
-    ratingStars: {
+    btnContainer: {
+        // backgroundColor: "red",
+        justifyContent: "space-around",
         flexDirection: "row-reverse",
-        // marginVertical: 5
     },
-    itemContainer: {
-        width: "80%",
-        flexDirection: 'row-reverse',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        // backgroundColor: "red"
-    },
-    imageContainer: {
-        height: 80,
-        width: 80,
-        borderRadius: 10,
-        backgroundColor: colors.mainColor,
-        elevation: 5,
-        // alignSelf: "flex-end"
-    },
-    image: {
-        width: "100%",
-        height: "100%",
-        borderRadius: 10,
-    },
-    ratingContainer: {
-        // flex: 1,
-        // justifyContent: 'center',
-        marginRight: 10
-    },
-    textInputContainer: {
-        width: "100%",
-        height: 60,
-        // backgroundColor: colors.white,
-        // elevation: 5,
-        // borderRadius: 15,
-        // marginBottom: 10,
-        borderBottomWidth: 1,
-        borderBottomColor: colors.borderColor
-    },
-    textInput: {
-        width: "100%",
-        height: "100%",
-        fontFamily: fonts.tajawalR,
+    // btn:{
+    //     backgroundColor: colors.
+    // }
+    btnText: {
+        fontFamily: fonts.tajawalB,
         fontSize: 16,
-        // paddingHorizontal: 20,
-        color: colors.softBlack,
-        textAlign: 'right',
+        color: colors.ratingYellow,
+        // marginHorizontal: 10
     }
 })

@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, RefreshControl, ScrollView, Modal as OModal, Pressable } from 'react-native';
+import { View, Text, StyleSheet, RefreshControl, ScrollView, Modal as OModal, Pressable, Dimensions } from 'react-native';
 import MiniHeader from '../components/MiniHeader';
 import OrderDetailsComponent from '../components/orderDetails/OrderDetailsComponent';
 import { getOrder } from '../config/apis/gets';
@@ -10,6 +10,9 @@ import { onlinePayment } from '../config/apis/posts';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 import Modal from "react-native-modal";
 import RateProduct from '../components/orderDetails/RateProduct';
+
+const { width, height } = Dimensions.get("window")
+
 export default class OrderDetails extends Component {
     constructor(props) {
         super(props);
@@ -18,7 +21,8 @@ export default class OrderDetails extends Component {
             order: this.props.route.params.order,
             paying: false,
             payingLink: "",
-            rating: false
+            rating: false,
+            completing: false
         };
     }
 
@@ -49,13 +53,19 @@ export default class OrderDetails extends Component {
 
     continuePayment = async () => {
         const { order } = this.state
-
-        const getOrder = await onlinePayment({ order_id: order.id })
-        if (getOrder) {
+        console.log(order.invoice.invoice_link)
+        // const getOrder = await onlinePayment({ order_id: order.id })
+        if (order) {
             this.setState({
-                payingLink: getOrder.invoice_link,
-                paying: true,
+                payingLink: order.invoice.invoice_link,
+                completing: true
             })
+            setTimeout(() => {
+                this.setState({
+                    paying: true,
+                    completing: false
+                })
+            }, 1000)
         }
     }
 
@@ -81,7 +91,7 @@ export default class OrderDetails extends Component {
                             <Icon name="close-circle" size={25} color={colors.mainColor} />
                         </Pressable>
                         <WebView
-                            style={{ flex: 1 }}
+                            style={{ width, height, backgroundColor: colors.white }}
                             onTouchCancel={this.closeModal}
                             source={{ uri: this.state.payingLink }}
                         />
@@ -97,7 +107,7 @@ export default class OrderDetails extends Component {
                     animationIn="slideInLeft"
                     animationOut="slideOutRight">
                     <View style={styles.modalContainer}>
-                        <RateProduct order={this.state.order} />
+                        <RateProduct order={this.state.order} closeModal={() => this.setState({ rating: false })} />
                     </View>
                 </Modal>
 
@@ -111,7 +121,7 @@ export default class OrderDetails extends Component {
                         />
                     }
                     showsVerticalScrollIndicator={false}>
-                    <OrderDetailsComponent continuePayment={this.continuePayment} order={this.state.order} />
+                    <OrderDetailsComponent completing={this.state.completing} continuePayment={this.continuePayment} order={this.state.order} />
                 </ScrollView>
             </View>
         );
