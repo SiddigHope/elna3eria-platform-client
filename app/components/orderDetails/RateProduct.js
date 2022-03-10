@@ -3,17 +3,18 @@ import { View, Text, StyleSheet, FlatList, Image, TextInput, Pressable } from 'r
 import { colors, fonts } from '../../config/vars';
 import Icon2 from "react-native-vector-icons/MaterialIcons";
 import RateProductComponent from './RateProductComponent';
+import { rateProduct } from '../../config/apis/posts';
 
 export default class RateProduct extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            rating: [{ id: 2, comment: "this is a comment" }]
+            rating: []
         };
     }
 
     componentDidMount() {
-        this.setRating(2, 2)
+        // this.setRating(2, 2)
     }
 
 
@@ -27,8 +28,12 @@ export default class RateProduct extends Component {
                 this.setState({
                     rating
                 })
-
                 console.log(rating)
+            } else {
+                rating.push({ id, stars })
+                this.setState({
+                    rating,
+                })
             }
         } else {
             this.setState({
@@ -37,18 +42,23 @@ export default class RateProduct extends Component {
         }
     }
 
-    setCommentText = (text, id) => {
+    setCommentText = (comment, id) => {
         const { rating } = this.state
 
         if (rating.length != 0) {
             const item = rating.find((item) => item.id == id)
             if (item) {
-                item.comment = text
+                item.comment = comment
                 this.setState({
                     rating
                 })
 
                 console.log(rating)
+            } else {
+                rating.push({ id, comment })
+                this.setState({
+                    rating,
+                })
             }
         } else {
             this.setState({
@@ -57,24 +67,24 @@ export default class RateProduct extends Component {
         }
     }
 
-    rateProducts = (text, id) => {
+    rateProducts = async () => {
         const { rating } = this.state
 
-        if (rating.length != 0) {
-            const item = rating.find((item) => item.id == id)
-            if (item) {
-                item.comment = text
-                this.setState({
-                    rating
-                })
-
-                console.log(rating)
-            }
-        } else {
-            this.setState({
-                rating: [{ id, comment }]
-            })
+        if (rating.length == 0) {
+            console.log("nothing to rate")
+            return
         }
+
+        rating.forEach(async (item) => {
+            let data = {
+                review: item.comment,
+                rating: item.stars
+            }
+            let rated = await rateProduct(data, item.id)
+        })
+
+        this.props.closeModal()
+
     }
 
 

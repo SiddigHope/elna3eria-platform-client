@@ -86,7 +86,7 @@ export default class RateProductComponent extends Component {
                             style={styles.textInput}
                             multiline
                             placeholder={"اكتب تعليقاً"}
-                            value={this.state.ratingComment}
+                            // value={this.state.ratingComment}
                             onChangeText={(ratingComment) => this.props.setCommentText(ratingComment, item.product.id)}
                         />
                     </View>

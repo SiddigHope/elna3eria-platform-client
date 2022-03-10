@@ -53,7 +53,7 @@ export default class OrderDetails extends Component {
 
     continuePayment = async () => {
         const { order } = this.state
-        console.log(order.invoice.invoice_link)
+        // console.log(order.invoice.invoice_link)
         // const getOrder = await onlinePayment({ order_id: order.id })
         if (order) {
             this.setState({
@@ -100,14 +100,14 @@ export default class OrderDetails extends Component {
 
                 <Modal
                     transparent={true}
-                    onBackdropPress={() => this.setState({ rating: false })}
-                    onSwipeComplete={() => this.setState({ rating: false })}
-                    onRequestClose={() => this.setState({ rating: false })}
+                    onBackdropPress={this.closeModal}
+                    onSwipeComplete={this.closeModal}
+                    onRequestClose={this.closeModal}
                     visible={this.state.rating}
                     animationIn="slideInLeft"
                     animationOut="slideOutRight">
                     <View style={styles.modalContainer}>
-                        <RateProduct order={this.state.order} closeModal={() => this.setState({ rating: false })} />
+                        <RateProduct order={this.state.order} closeModal={this.closeModal} />
                     </View>
                 </Modal>
 

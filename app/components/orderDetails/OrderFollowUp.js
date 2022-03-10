@@ -152,7 +152,7 @@ export default class OrderFollowUp extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        width: "100"
+        width: "100%"
     },
     captainContainer: {
         flexDirection: 'row-reverse',

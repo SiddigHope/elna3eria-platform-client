@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import elevations from "../elevations";
+import { colors } from '../vars';
 export default class Avatar extends Component {
   constructor(props) {
     super(props);
@@ -21,7 +22,8 @@ const styles = StyleSheet.create({
     height: 40,
     width: 40,
     borderRadius: 20,
-    elevation: 5
+    elevation: 5,
+    backgroundColor: colors.whiteF7
   },
   image: {
     height: 40,
