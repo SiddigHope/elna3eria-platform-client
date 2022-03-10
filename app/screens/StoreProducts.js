@@ -8,6 +8,7 @@ import CategoriesList from "../components/StoreProducts/categories/CategoriesLis
 import { colors } from "../config/vars";
 import { productsSearch } from "../config/data";
 import { goToScreen } from "../config/functions";
+import { setFavStore, checkInFav, deleteFavStore } from "../config/apis/posts";
 
 export default class StoreProducts extends Component {
   constructor(props) {
@@ -16,7 +17,22 @@ export default class StoreProducts extends Component {
       stores: [],
       searching: false,
       searchText: "",
+      fav: false
     };
+  }
+
+  componentDidMount() {
+    this.checkInFav()
+  }
+
+  checkInFav = async () => {
+    const data = {
+      favorite_id: this.props.route.params.store.id,
+      type: "store"
+    }
+    this.setState({
+      fav: await checkInFav(data)
+    })
   }
 
   setStores = (stores) => {
@@ -44,6 +60,27 @@ export default class StoreProducts extends Component {
     goToScreen("ProductDetails", this.props.navigation, { store, product, screen: "storeProducts" });
   };
 
+  setFav = async () => {
+    // console.log("sdkjfksjd")
+    if (this.state.fav) {
+      this.deleteFav()
+      return
+    }
+
+    this.setState({
+      fav: true
+    })
+    const success = await setFavStore(this.props.route.params.store.id)
+  }
+
+  deleteFav = async () => {
+    // console.log("sdkjfksjd")
+    this.setState({
+      fav: false
+    })
+    const success = await deleteFavStore(this.props.route.params.store.id)
+  }
+
   _listHeader = () => (
     <Header
       store={this.props.route.params.store}
@@ -51,6 +88,8 @@ export default class StoreProducts extends Component {
       closeSearching={this.closeSearching}
       searching={this.state.searching}
       onChangeText={this.onChangeText}
+      fav={this.state.fav}
+      setFav={this.setFav}
     />
   );
 

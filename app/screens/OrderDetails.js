@@ -121,7 +121,12 @@ export default class OrderDetails extends Component {
                         />
                     }
                     showsVerticalScrollIndicator={false}>
-                    <OrderDetailsComponent completing={this.state.completing} continuePayment={this.continuePayment} order={this.state.order} />
+                    <OrderDetailsComponent
+                        openRating={() => this.setState({ rating: true })}
+                        completing={this.state.completing}
+                        continuePayment={this.continuePayment}
+                        order={this.state.order}
+                    />
                 </ScrollView>
             </View>
         );

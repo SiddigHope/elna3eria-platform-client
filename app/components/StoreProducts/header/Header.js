@@ -53,14 +53,26 @@ export default class Header extends Component {
   }
 
   render() {
-    // console.log("store")
-    // console.log(this.props.store)
+    console.log("store")
+    console.log(this.props.fav)
     return (
       <View
         style={[styles.container]}
       >
         <View style={styles.headerContainer}>
-          <RoundedIcons onPress={() => goToScreen("Cart", this.props.navigation, { store: this.props.store })} items={this.state.cartItemsCount} type="cart" />
+          <View style={styles.icons}>
+            <RoundedIcons
+              onPress={() => goToScreen("Cart", this.props.navigation, { store: this.props.store })}
+              items={this.state.cartItemsCount}
+              type="cart"
+            />
+            <RoundedIcons
+              onPress={this.props.setFav}
+              items={this.state.cartItemsCount}
+              type="fav"
+              fav={this.props.fav}
+            />
+          </View>
           <View style={styles.headerTextContainer}>
             <Text style={styles.hello}> {"مرحبا بك في"} </Text>
             <Text style={styles.storeTitle}> {this.props.store.name} </Text>
@@ -110,4 +122,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: colors.softBlack,
   },
+  icons: {
+    flexDirection: "row",
+  }
 });

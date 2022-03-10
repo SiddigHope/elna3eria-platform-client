@@ -5,6 +5,7 @@ import { colors } from "../config/vars";
 import ImageComponent from "../components/product/ImageComponent";
 import ProductInfo from "../components/product/ProductInfo";
 import ReviewsList from "../components/product/reviews/ReviewsList";
+import { checkInFav, deleteFavProduct, setFavProduct } from '../config/apis/posts';
 
 export default class ProductDetails extends Component {
   constructor(props) {
@@ -13,7 +14,8 @@ export default class ProductDetails extends Component {
       product: [],
       store: [],
       loading: false,
-      showReviews: false
+      showReviews: false,
+      fav: false
     };
   }
 
@@ -24,16 +26,41 @@ export default class ProductDetails extends Component {
     this.setProduct();
   }
 
-  setProduct = () => {
+  setProduct = async () => {
+    const data = {
+      favorite_id: this.props.route.params.product.id,
+      type: "product"
+    }
     this.setState({
       product: this.props.route.params.product,
       store: this.props.route.params.store,
+      fav: await checkInFav(data)
     });
 
     setTimeout(() => {
       this.setState({ loading: false })
     }, 1000)
   };
+
+  setFav = async () => {
+    if (this.state.fav) {
+      this.deleteFav()
+      return
+    }
+
+    this.setState({
+      fav: true
+    })
+    const success = await setFavProduct(this.state.product.id)
+  }
+
+  deleteFav = async () => {
+    // console.log("sdkjfksjd")
+    this.setState({
+      fav: false
+    })
+    const success = await deleteFavProduct(this.state.product.id)
+  }
 
   render() {
     //   console.log(this.state.product)
@@ -49,7 +76,10 @@ export default class ProductDetails extends Component {
           animationType="slide">
           <View style={styles.modalContainer}>
             <View style={styles.modal}>
-              <ReviewsList reviews={this.state.product && this.state.product.reviews} />
+              <ReviewsList
+                closeModal={() => this.setState({ showReviews: false })}
+                reviews={this.state.product && this.state.product.reviews}
+              />
             </View>
           </View>
         </Modal>
@@ -59,8 +89,20 @@ export default class ProductDetails extends Component {
           </View>
         ) : (
           <>
-            <ImageComponent navigation={this.props.navigation} screen={this.props.route.params.screen} image={this.state.product.image} />
-            <ProductInfo showReviews={() => this.setState({ showReviews: !this.state.showReviews })} navigation={this.props.navigation} screen={this.props.route.params.screen} store={this.state.store} product={this.state.product} />
+            <ImageComponent
+              setFav={this.setFav}
+              fav={this.state.fav}
+              navigation={this.props.navigation}
+              screen={this.props.route.params.screen}
+              image={this.state.product.image}
+            />
+            <ProductInfo
+              showReviews={() => this.setState({ showReviews: !this.state.showReviews })}
+              navigation={this.props.navigation}
+              screen={this.props.route.params.screen}
+              store={this.state.store}
+              product={this.state.product}
+            />
           </>
         )}
       </View>

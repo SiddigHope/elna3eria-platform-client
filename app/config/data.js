@@ -101,7 +101,8 @@ export const storesSearch = async (lat, long, text) => {
 
 // getting product's categories and the products it self for certain store by the (store_id) param
 
-export const productsCategories = async (store_id) => {
+export const productsCategories = async (data) => {
+
   try {
     const options = {
       method: "POST",
@@ -110,16 +111,16 @@ export const productsCategories = async (store_id) => {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
-      data: {
-        store_id,
-      },
+      data,
     };
+    // console.log(options)
 
-    const data = await axios(options)
+    const request = await axios(options)
       .then((response) => response.data)
       .catch((error) => console.log(error));
 
-    return data.data;
+
+    return request.data;
   } catch (error) {
     console.log(error);
     return [];

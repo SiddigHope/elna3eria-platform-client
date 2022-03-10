@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { View, Text, Image, StyleSheet, Dimensions } from "react-native";
+import { View, Text, Image, StyleSheet, Dimensions, TouchableOpacity } from "react-native";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { colors } from "../../config/vars";
 import MiniHeader from "../MiniHeader";
 
@@ -11,6 +12,7 @@ export default class ImageComponent extends Component {
     this.state = {};
   }
 
+
   render() {
     return (
       <View style={styles.container}>
@@ -18,6 +20,9 @@ export default class ImageComponent extends Component {
           <MiniHeader title={""} backgroundColor={colors.white} navigation={this.props.navigation} />
         </View>
         <Image source={{ uri: this.props.image }} style={styles.image} />
+        <TouchableOpacity onPress={this.props.setFav} style={[styles.favCont]}>
+          <Icon name={this.props.fav ? "heart" : "heart-outline"} size={30} color={colors.danger} />
+        </TouchableOpacity>
       </View>
     );
   }
@@ -38,6 +43,17 @@ const styles = StyleSheet.create({
     top: 20,
     right: 0,
     left: 0,
+    // zIndex: 11111111
+  },
+  favCont: {
+    position: "absolute",
+    bottom: 100,
+    right: 20,
+    backgroundColor: colors.whiteF7,
+    padding: 5,
+    borderRadius: 60,
+    elevation: 5,
+    // left: 0,
     // zIndex: 11111111
   },
 })

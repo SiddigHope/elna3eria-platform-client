@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, Image, Pressable } from "react-native";
+import { View, Text, StyleSheet, Image, Pressable, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import Icon1 from "react-native-vector-icons/MaterialCommunityIcons";
 import elevations from "../../../config/elevations";
@@ -12,21 +12,24 @@ export default class RoundedIcons extends Component {
   }
 
   render() {
+    const { type, fav } = this.props
     return (
-      <Pressable onPress={this.props.onPress} style={[styles.container, elevations[5]]}>
+      <TouchableOpacity onPress={this.props.onPress} style={[styles.container, elevations[5], type == "fav" && { backgroundColor: colors.white, marginHorizontal: 10 }]}>
         {this.props.items != 0 && (
           <View style={[styles.numContainer, elevations[5]]}>
             <Text style={styles.numText}>{this.props.items}</Text>
           </View>
         )}
-        {this.props.type == "cart" ? (
+        {type == "cart" ? (
           <>
             <Icon1 name={"cart-outline"} size={25} color={colors.ebony} />
           </>
+        ) : type == "fav" ? (
+          <Icon1 name={fav ? "heart" : "heart-outline"} size={25} color={colors.danger} />
         ) : (
           <Icon name={"md-chatbox-ellipses"} size={25} color={colors.ebony} />
         )}
-      </Pressable>
+      </TouchableOpacity>
     );
   }
 }

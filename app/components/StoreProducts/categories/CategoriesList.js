@@ -28,8 +28,9 @@ export default class CategoriesList extends Component {
   }
 
   getData = async () => {
+    // console.log(this.props.store)
     this.setState({
-      storesAndCategories: await productsCategories(this.props.store.id),
+      storesAndCategories: await productsCategories({ store_id: this.props.store.id }),
     });
   };
 

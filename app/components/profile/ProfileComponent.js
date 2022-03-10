@@ -22,15 +22,15 @@ export default class ProfileComponent extends Component {
         this.list = [
             {
                 id: 1,
-                title: "المفضلة",
+                title: "المتاجر المفضلة",
                 onPress: "",
-                icon: <Icon1 name="heart-outline" size={25} color={colors.mainColor} />,
+                icon: <Icon1 name="heart" size={25} color={colors.mainColor} />,
             },
             {
                 id: 2,
-                title: "طلباتي",
+                title: "المنتحات المفضلة",
                 onPress: "",
-                icon: <Icon3 name="handbag" size={25} color={colors.mainColor} />,
+                icon: <Icon1 name="heart-outline" size={25} color={colors.mainColor} />,
             },
             {
                 id: 3,

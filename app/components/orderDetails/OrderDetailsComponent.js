@@ -46,7 +46,11 @@ export default class OrderDetailsComponent extends Component {
                     </View>
                     <Text style={styles.storeName}> {this.props.order.store.name} </Text>
                     <Hr props={{ top: -20, width: 100 }} />
-
+                    {order.status.code == 4 && (
+                        <TouchableOpacity onPress={this.props.openRating} style={styles.rating}>
+                            <Icon name='star' size={30} color={colors.ratingYellow} />
+                        </TouchableOpacity>
+                    )}
                     <Text style={styles.label}> {"رقم الطلب"} </Text>
                     <View style={styles.rowContainer}>
                         <Text style={styles.orderId}> {this.props.order.id} </Text>
@@ -190,6 +194,10 @@ const styles = StyleSheet.create({
         fontFamily: fonts.tajawalB,
         fontSize: 16,
         color: colors.softBlack
+    },
+    rating: {
+        position: "absolute",
+        top: 20, right: 0
     }
 })
 
