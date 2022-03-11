@@ -57,6 +57,8 @@ const styles = StyleSheet.create({
     // backgroundColor: 'red',
     alignItems: "center",
     marginTop: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.borderColor
   },
   headerContainer: {
     flexDirection: "row",

@@ -217,7 +217,7 @@ export default class ProductInfo extends Component {
               </View>
 
               <View style={styles.modalButtons}>
-                {this.props.screen != "discount" || this.props.screen == "favorite" && (
+                {this.props.screen == "discount" || this.props.screen == "favorite" ? (null) : (
                   <View style={{ flex: 1 }}>
                     <OrderButton type={"cart"} adding={this.state.adding} added={this.state.added} title={"إضافة للسلة"} onPress={this.addToCart} />
                   </View>
@@ -299,7 +299,7 @@ const styles = StyleSheet.create({
   },
   infoContainer: {
     // backgroundColor: "#e3e3e3",
-    flex: 1,
+    // flex: 1,
   },
   headerInfo: {
     // backgroundColor: "red",

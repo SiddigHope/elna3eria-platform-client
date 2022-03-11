@@ -25,13 +25,13 @@ export default class FavList extends Component {
     _listFooter = () => <View style={{ height: 20 }} />;
 
     _listHeader = () => (
-        <View style={{ width: "100%", alignItems: "flex-end", height: 60 }}>
+        <View style={{ width: "100%", alignItems: "flex-end", height: 60, marginTop: 10, }}>
             <View style={styles.titleContainer}>
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
                     <Text style={styles.subTitle}>
                         {" "}
                         {this.props.products.length}
-                        {"متجر"}{" "}
+                        {"منتج"}{" "}
                     </Text>
                     <Text style={styles.title}> {"المفضلة :"} </Text>
                 </View>
@@ -62,8 +62,8 @@ export default class FavList extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        marginVertical: 10,
-        marginBottom: 65,
+        // marginVertical: 10,
+        // marginBottom: 20,
         flex: 1,
         width: "100%",
         // backgroundColor: 'blue',

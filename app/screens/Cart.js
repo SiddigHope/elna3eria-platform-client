@@ -80,8 +80,8 @@ export default class Cart extends Component {
         const done = await checkout(checkoutObject)
         if (done) {
             if (this.state.paymentMethod == "ONLINE") {
-                // console.log("done done done done")
-                // console.log(done.id)
+                console.log("done done done done")
+                console.log(done)
                 // return
                 const toBePayed = await onlinePayment({ order_id: done.id })
                 console.log("toBePayed")

@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import CatComponent from "./CatComponent";
+import { colors } from '../../config/vars';
 
 const { width, height } = Dimensions.get("window");
 
@@ -57,5 +58,7 @@ const styles = StyleSheet.create({
         height: 55,
         justifyContent: "center",
         // backgroundColor: '#e3e3e3'
+        borderBottomWidth: 1,
+        borderBottomColor: colors.borderColor
     },
 });

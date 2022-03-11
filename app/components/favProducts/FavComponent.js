@@ -37,7 +37,7 @@ export default class ProductComponent extends Component {
                     <View style={styles.nameContainer}>
                         <View style={styles.miniRow}>
                             <Icon name="star" color={colors.ratingYellow} size={15} />
-                            {/* <Text style={styles.rating}> {item.rating.average} </Text> */}
+                            <Text style={styles.rating}> {item.rating.average} </Text>
                         </View>
                         <Text style={styles.title} numberOfLines={1}>
                             {" "}

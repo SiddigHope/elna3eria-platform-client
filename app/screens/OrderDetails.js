@@ -53,7 +53,7 @@ export default class OrderDetails extends Component {
 
     continuePayment = async () => {
         const { order } = this.state
-        // console.log(order.invoice.invoice_link)
+        console.log(order)
         // const getOrder = await onlinePayment({ order_id: order.id })
         if (order) {
             this.setState({
