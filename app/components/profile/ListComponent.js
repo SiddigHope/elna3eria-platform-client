@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Pressable } from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
 import elevations from '../../config/elevations';
 import { fonts, colors } from '../../config/vars';
+import { goToScreen } from '../../config/functions';
 
 export default class ListComponent extends Component {
     constructor(props) {
@@ -11,10 +12,15 @@ export default class ListComponent extends Component {
         };
     }
 
+    goToScreen = () => {
+        const item = this.props.item.item
+        goToScreen(item.onPress, this.props.navigation)
+    }
+
     render() {
         const item = this.props.item.item
         return (
-            <Pressable style={styles.container}>
+            <Pressable onPress={this.goToScreen} style={styles.container}>
                 {item.icon}
                 <Text style={styles.title}> {item.title} </Text>
                 <Icon name="chevron-thin-left" size={20} style={{ marginLeft: 10 }} color={colors.grey} />

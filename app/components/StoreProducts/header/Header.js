@@ -68,8 +68,8 @@ export default class Header extends Component {
             />
             <RoundedIcons
               onPress={this.props.setFav}
-              items={this.state.cartItemsCount}
               type="fav"
+              items={0}
               fav={this.props.fav}
             />
           </View>

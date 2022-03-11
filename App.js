@@ -21,6 +21,9 @@ import UserClass from './app/config/authHandler';
 import { NativeBaseProvider } from "native-base";
 import EditProfile from './app/screens/EditProfile';
 import moment from "moment";
+import FavStores from './app/screens/FavStores';
+import FavProducts from './app/screens/FavProducts';
+import MyReviews from './app/screens/MyReviews';
 
 // I18nManager.forceRTL(false);
 // I18nManager.allowRTL(false);
@@ -140,6 +143,27 @@ function Stacks() {
       <Stack.Screen
         name="OrderDetails"
         component={OrderDetails}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="FavStores"
+        component={FavStores}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="FavProducts"
+        component={FavProducts}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="MyReviews"
+        component={MyReviews}
         options={{
           headerShown: false,
         }}

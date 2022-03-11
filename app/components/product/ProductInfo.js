@@ -217,7 +217,7 @@ export default class ProductInfo extends Component {
               </View>
 
               <View style={styles.modalButtons}>
-                {this.props.screen != "discount" && (
+                {this.props.screen != "discount" || this.props.screen == "favorite" && (
                   <View style={{ flex: 1 }}>
                     <OrderButton type={"cart"} adding={this.state.adding} added={this.state.added} title={"إضافة للسلة"} onPress={this.addToCart} />
                   </View>

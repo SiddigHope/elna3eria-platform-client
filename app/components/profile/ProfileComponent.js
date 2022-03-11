@@ -23,19 +23,19 @@ export default class ProfileComponent extends Component {
             {
                 id: 1,
                 title: "المتاجر المفضلة",
-                onPress: "",
+                onPress: "FavStores",
                 icon: <Icon1 name="heart" size={25} color={colors.mainColor} />,
             },
             {
                 id: 2,
                 title: "المنتحات المفضلة",
-                onPress: "",
+                onPress: "FavProducts",
                 icon: <Icon1 name="heart-outline" size={25} color={colors.mainColor} />,
             },
             {
                 id: 3,
                 title: "تقيماتي",
-                onPress: "",
+                onPress: "MyReviews",
                 icon: <Icon name="star-face" size={25} color={colors.mainColor} />,
             },
             {
@@ -70,7 +70,7 @@ export default class ProfileComponent extends Component {
     )
 
     _renderItem = (item, index) => (
-        <ListComponent item={item} index={index} />
+        <ListComponent item={item} index={index} navigation={this.props.navigation} />
     )
 
     render() {
