@@ -167,6 +167,12 @@ export default class ProductInfo extends Component {
     }
   }
 
+  showReviews = () => {
+    if (this.props.product.reviews.length != 0) {
+      this.props.showReviews()
+    }
+  }
+
   render() {
     const { product } = this.props
     let price = product.price
@@ -174,7 +180,7 @@ export default class ProductInfo extends Component {
       let discountValue = (product.price * product.discount) / 100
       price -= discountValue
     }
-    console.log(product)
+    // console.log(product)
     // console.log("price")
     // console.log(product.price)
     // console.log("discount")
@@ -254,7 +260,7 @@ export default class ProductInfo extends Component {
                 </View>
               )}
             </View>
-            <Pressable onPress={this.props.showReviews} style={[styles.miniRow, { justifyContent: "flex-end" }]}>
+            <Pressable onPress={this.showReviews} style={[styles.miniRow, { justifyContent: "flex-end" }]}>
               <Text style={styles.ratingCount}>
                 {product.rating ? product.rating.from : 0}
                 {" اشخاص قييمو هذا المنتج"}{" "}

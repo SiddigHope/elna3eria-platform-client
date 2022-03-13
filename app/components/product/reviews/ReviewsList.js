@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList, StyleSheet } from 'react-native';
+import { colors } from '../../../config/vars';
 // import { colors } from '../../config/vars';
 import ReviewsComponent from './ReviewsComponent';
 
@@ -36,11 +37,13 @@ export default class ReviewsList extends Component {
     )
 
     _listHeader = () => (
-        <View style={{ height: 20 }} />
+        <View style={{ height: 20, justifyContent: 'center', alignItems: 'center', width: "100%" }}>
+            <View style={{ height: 2, width: 100, backgroundColor: colors.grey, borderRadius: 2, elevation: 2 }} />
+        </View>
     )
 
     _listFooter = () => (
-        <View style={{ height: 80 }} />
+        <View style={{ height: 20 }} />
     )
 
     _renderItem = (item, index) => (

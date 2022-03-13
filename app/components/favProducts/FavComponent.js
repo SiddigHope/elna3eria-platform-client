@@ -61,9 +61,9 @@ export default class ProductComponent extends Component {
                         <View style={styles.miniRow}>
                             <Text style={[styles.bottomText, { color: colors.softGreen }]}>
                                 {" "}
-                                {item.delivery_fees == 0
+                                {item.store.delivery_fees == 0
                                     ? "مجاني"
-                                    : "this.props.store.delivery_fees" + " SR"}{" "}
+                                    : item.store.delivery_fees + " SR"}{" "}
                             </Text>
                             <Icon name="delivery-dining" size={10} color={colors.ebony} />
                         </View>

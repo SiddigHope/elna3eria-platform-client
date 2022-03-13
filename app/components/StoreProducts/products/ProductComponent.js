@@ -19,10 +19,10 @@ export default class ProductComponent extends Component {
     super(props);
     this.state = {};
   }
-  
+
   render() {
     let margin = 0;
-    if (this.props.item.index % 2 == 0) {
+    if (this.props.item.index % 2 == 1) {
       margin = 10;
     }
 
@@ -30,7 +30,7 @@ export default class ProductComponent extends Component {
     return (
       <Pressable
         onPress={() => this.props.goToScreen(this.props.store, item)}
-        style={[styles.container, elevations[2], { marginRight: margin }]}
+        style={[styles.container, elevations[2], { marginLeft: margin }]}
       >
         <Image source={{ uri: item.image }} style={styles.image} />
         <View style={styles.contentContainer}>
@@ -61,7 +61,7 @@ export default class ProductComponent extends Component {
             <View style={styles.miniRow}>
               <Text style={[styles.bottomText, { color: colors.softGreen }]}>
                 {" "}
-                {item.delivery_fees == 0
+                {this.props.store.delivery_fees == 0
                   ? "مجاني"
                   : this.props.store.delivery_fees + " SR"}{" "}
               </Text>
@@ -76,14 +76,14 @@ export default class ProductComponent extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    width: (width - 40) / 2,
-    height: 200,
+    width: ((width * 92) / 100) / 2,
+    height: 220,
     backgroundColor: colors.white,
-    borderRadius: 20,
+    borderRadius: 10,
     elevation: 2,
   },
   image: {
-    width: (width - 40) / 2,
+    width: ((width * 92) / 100) / 2,
     height: 180,
     borderRadius: 20,
   },

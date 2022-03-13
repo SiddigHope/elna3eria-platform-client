@@ -9,6 +9,7 @@ import { colors } from "../config/vars";
 import { getStores, storesSearch } from "../config/data";
 import { goToScreen } from "../config/functions";
 import UserClass from '../config/authHandler';
+import { StatusBar } from "expo-status-bar";
 
 export default class Home extends Component {
   constructor(props) {
@@ -85,6 +86,7 @@ export default class Home extends Component {
     // UserClass.logout()
     return (
       <View style={styles.container}>
+        <StatusBar translucent={false} backgroundColor={colors.whiteF7} />
         <FlatList
           data={[1]}
           keyExtractor={(item, index) => index.toString()}

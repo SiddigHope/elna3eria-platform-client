@@ -48,6 +48,8 @@ export default class StoresList extends Component {
           numColumns={2}
           ListHeaderComponent={this._listHeader}
           showsVerticalScrollIndicator={false}
+          style={{ width: "95%", alignItems: "flex-end" }}
+          contentContainerStyle={{ alignItems: "center" }}
           keyExtractor={(item, index) => index.toString()}
           ItemSeparatorComponent={this._itemSeparator}
           ListFooterComponent={this._listFooter}
@@ -63,9 +65,10 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     marginBottom: 65,
     flex: 1,
-    width: "90%",
-    // backgroundColor: 'red',
-    alignSelf: "center",
+    width: "100%",
+    // backgroundColor: 'blue',
+    alignItems: "center",
+    // alignSelf: "center",
   },
   titleContainer: {
     // marginHorizontal: 20,

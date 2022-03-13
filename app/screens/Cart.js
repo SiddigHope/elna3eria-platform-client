@@ -24,6 +24,7 @@ export default class Cart extends Component {
             paying: false,
             payingLink: "",
             paymentMethod: "CASH",
+            visible: true
         };
     }
 
@@ -112,6 +113,11 @@ export default class Cart extends Component {
         this.setState({ paying: false })
         // this._onRefresh()
     }
+
+    hideSpinner() {
+        this.setState({ visible: false });
+    }
+
     render() {
         // console.log(this.state.items)
         return (
@@ -125,14 +131,23 @@ export default class Cart extends Component {
                     visible={this.state.paying}
                     animationType="fade">
                     <View style={styles.modalPayContainer}>
+                        <StatusBar translucent={false} backgroundColor={colors.myFatoraBlue} style="light" />
                         <Pressable onPress={this.closeModal} style={styles.closeModal}>
-                            <Icon2 name="close-circle" size={25} color={colors.mainColor} />
+                            <Icon name="arrow-back-outline" size={25} color={colors.ebony} />
                         </Pressable>
                         <WebView
+                            onLoad={() => this.hideSpinner()}
                             style={{ flex: 1 }}
                             onTouchCancel={this.closeModal}
                             source={{ uri: this.state.payingLink }}
                         />
+                        {this.state.visible && (
+                            <ActivityIndicator
+                                style={{ position: "absolute", top: 0, left: 0, bottom: 0, right: 0 }}
+                                size={50}
+                                color={colors.myFatoraBlue}
+                            />
+                        )}
                     </View>
                 </Modal>
                 <Modal

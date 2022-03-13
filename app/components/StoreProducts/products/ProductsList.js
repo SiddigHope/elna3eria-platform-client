@@ -46,6 +46,8 @@ export default class ProductsList extends Component {
           numColumns={2}
           ListHeaderComponent={this._listHeader}
           showsVerticalScrollIndicator={false}
+          style={{ width: "95%", alignItems: "flex-end" }}
+          contentContainerStyle={{ alignItems: "flex-start" }}
           keyExtractor={(item, index) => index.toString()}
           ItemSeparatorComponent={this._itemSeparator}
           //   ListFooterComponent={this._listFooter}
@@ -59,9 +61,10 @@ export default class ProductsList extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: "90%",
+    width: "100%",
     // backgroundColor: 'red',
-    alignSelf: "center",
+    // alignSelf: "center",
+    alignItems: "center"
   },
   titleContainer: {
     // marginHorizontal: 20,

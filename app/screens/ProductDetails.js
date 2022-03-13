@@ -6,6 +6,8 @@ import ImageComponent from "../components/product/ImageComponent";
 import ProductInfo from "../components/product/ProductInfo";
 import ReviewsList from "../components/product/reviews/ReviewsList";
 import { checkInFav, deleteFavProduct, setFavProduct } from '../config/apis/posts';
+import { GestureDetector } from "react-native-gesture-handler";
+import GestureRecognizer from "react-native-swipe-gestures";
 
 export default class ProductDetails extends Component {
   constructor(props) {
@@ -67,7 +69,28 @@ export default class ProductDetails extends Component {
     return (
       <View style={styles.container}>
         <StatusBar translucent style="dark" />
-        <Modal
+        <GestureRecognizer
+          // style={{ flex: 1 }}
+          onSwipeDown={() => this.setState({ showReviews: false })}
+        >
+          <Modal
+            transparent={true}
+            onBackdropPress={() => this.setState({ showReviews: false })}
+            onSwipeComplete={() => this.setState({ showReviews: false })}
+            onRequestClose={() => this.setState({ showReviews: false })}
+            visible={this.state.showReviews}
+            animationType="slide">
+            <View style={styles.modalContainer}>
+              <View style={styles.modal}>
+                <ReviewsList
+                  closeModal={() => this.setState({ showReviews: false })}
+                  reviews={this.state.product && this.state.product.reviews}
+                />
+              </View>
+            </View>
+          </Modal>
+        </GestureRecognizer>
+        {/* <Modal
           transparent={true}
           onBackdropPress={() => this.setState({ showReviews: false })}
           onSwipeComplete={() => this.setState({ showReviews: false })}
@@ -82,7 +105,7 @@ export default class ProductDetails extends Component {
               />
             </View>
           </View>
-        </Modal>
+        </Modal> */}
         {this.state.loading ? (
           <View style={{ justifyContent: "center", alignItems: "center", flex: 1 }} >
             <ActivityIndicator size={50} color={colors.mainColor} />

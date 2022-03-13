@@ -1,13 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, RefreshControl, ScrollView, Modal as OModal, Pressable, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, RefreshControl, ScrollView, Modal as OModal, Pressable, Dimensions, ActivityIndicator } from 'react-native';
 import MiniHeader from '../components/MiniHeader';
 import OrderDetailsComponent from '../components/orderDetails/OrderDetailsComponent';
 import { getOrder } from '../config/apis/gets';
 import { colors } from '../config/vars';
 import { WebView } from 'react-native-webview';
-import { onlinePayment } from '../config/apis/posts';
-import Icon from "react-native-vector-icons/MaterialCommunityIcons"
+import { checkout, onlinePayment } from '../config/apis/posts';
+import Icon from "react-native-vector-icons/Ionicons"
 import Modal from "react-native-modal";
 import RateProduct from '../components/orderDetails/RateProduct';
 
@@ -22,7 +22,8 @@ export default class OrderDetails extends Component {
             paying: false,
             payingLink: "",
             rating: false,
-            completing: false
+            completing: false,
+            visible: true
         };
     }
 
@@ -52,12 +53,11 @@ export default class OrderDetails extends Component {
     }
 
     continuePayment = async () => {
-        const { order } = this.state
-        console.log(order)
-        // const getOrder = await onlinePayment({ order_id: order.id })
-        if (order) {
+        let { order } = this.state
+        const getOrder = await onlinePayment({ order_id: order.id })
+        if (getOrder) {
             this.setState({
-                payingLink: order.invoice.invoice_link,
+                payingLink: getOrder.invoice_link,
                 completing: true
             })
             setTimeout(() => {
@@ -74,6 +74,11 @@ export default class OrderDetails extends Component {
         this._onRefresh()
     }
 
+
+    hideSpinner() {
+        this.setState({ visible: false });
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -87,14 +92,24 @@ export default class OrderDetails extends Component {
                     visible={this.state.paying}
                     animationType="fade">
                     <View style={styles.modalContainer}>
+                        <StatusBar translucent={false} backgroundColor={colors.myFatoraBlue} style="light" />
+
                         <Pressable onPress={this.closeModal} style={styles.closeModal}>
-                            <Icon name="close-circle" size={25} color={colors.mainColor} />
+                            <Icon name="arrow-back-outline" size={25} color={colors.ebony} />
                         </Pressable>
                         <WebView
+                            onLoad={() => this.hideSpinner()}
                             style={{ width, height, backgroundColor: colors.white }}
                             onTouchCancel={this.closeModal}
                             source={{ uri: this.state.payingLink }}
                         />
+                        {this.state.visible && (
+                            <ActivityIndicator
+                                style={{ position: "absolute", top: 0, left: 0, bottom: 0, right: 0 }}
+                                size={50}
+                                color={colors.myFatoraBlue}
+                            />
+                        )}
                     </View>
                 </OModal>
 
