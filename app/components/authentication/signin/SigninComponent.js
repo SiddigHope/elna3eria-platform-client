@@ -5,6 +5,7 @@ import SocialMedia from './SocialMedia';
 import TextInputRender from './TextInputRender';
 import { goToScreen } from '../../../config/functions';
 import elevations from '../../../config/elevations';
+const validator = require('validator');
 
 export default class SigninComponent extends Component {
     constructor(props) {
@@ -20,6 +21,12 @@ export default class SigninComponent extends Component {
         const { email, password } = this.state
 
         if (email && password) {
+
+            if (!validator.default.isEmail(email)) {
+                this.props._showSnackbar("ادخل بريد الكتروني صحيح من فضلك \n example@example.com", colors.danger)
+                return
+            }
+
             const data = {
                 email,
                 password
@@ -129,7 +136,7 @@ const styles = StyleSheet.create({
         fontSize: 12,
         color: colors.grey,
         lineHeight: 30,
-        textAlign:"right"
+        textAlign: "right"
         // backgroundColor: "red"
     },
     childText: {

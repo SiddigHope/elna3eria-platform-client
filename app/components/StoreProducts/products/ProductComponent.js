@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
   image: {
     width: ((width * 92) / 100) / 2,
     height: 180,
-    borderRadius: 20,
+    borderRadius: 10,
   },
   contentContainer: {
     position: "absolute",

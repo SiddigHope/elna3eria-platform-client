@@ -8,6 +8,7 @@ import ReviewsList from "../components/product/reviews/ReviewsList";
 import { checkInFav, deleteFavProduct, setFavProduct } from '../config/apis/posts';
 import { GestureDetector } from "react-native-gesture-handler";
 import GestureRecognizer from "react-native-swipe-gestures";
+import DoctorComponent from "../components/product/DoctorComponent";
 
 export default class ProductDetails extends Component {
   constructor(props) {
@@ -112,7 +113,7 @@ export default class ProductDetails extends Component {
           </View>
         ) : (
           <>
-            <ImageComponent
+            {/* <ImageComponent
               setFav={this.setFav}
               fav={this.state.fav}
               navigation={this.props.navigation}
@@ -125,7 +126,8 @@ export default class ProductDetails extends Component {
               screen={this.props.route.params.screen}
               store={this.state.store}
               product={this.state.product}
-            />
+            /> */}
+            <DoctorComponent />
           </>
         )}
       </View>

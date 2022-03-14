@@ -118,5 +118,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 15,
     justifyContent: "flex-end",
+    backgroundColor: colors.white
   },
 });

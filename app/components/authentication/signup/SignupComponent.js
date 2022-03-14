@@ -4,6 +4,7 @@ import elevations from '../../../config/elevations';
 import { colors, fonts } from '../../../config/vars';
 import SocialMedia from './SocialMedia';
 import TextInputRender from './TextInputRender';
+const validator = require('validator');
 
 
 const { width, height } = Dimensions.get("window")
@@ -21,13 +22,21 @@ export default class SignupComponent extends Component {
 
     _register = async () => {
         const { name, email, password } = this.state
-
+        validator.default.isEmail(email)
         if (email && password && name) {
+
+            if (!validator.default.isEmail(email)) {
+                this.props._showSnackbar("ادخل بريد الكتروني صحيح من فضلك \n example@example.com", colors.danger)
+                return
+            }
+            
             const data = {
                 email,
                 password,
                 name
             }
+
+
 
             this.props.register(data)
 
