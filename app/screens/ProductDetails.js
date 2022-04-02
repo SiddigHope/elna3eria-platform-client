@@ -113,7 +113,7 @@ export default class ProductDetails extends Component {
           </View>
         ) : (
           <>
-            {/* <ImageComponent
+            <ImageComponent
               setFav={this.setFav}
               fav={this.state.fav}
               navigation={this.props.navigation}
@@ -126,8 +126,8 @@ export default class ProductDetails extends Component {
               screen={this.props.route.params.screen}
               store={this.state.store}
               product={this.state.product}
-            /> */}
-            <DoctorComponent />
+            />
+            {/* <DoctorComponent /> */}
           </>
         )}
       </View>

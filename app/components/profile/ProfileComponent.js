@@ -34,15 +34,15 @@ export default class ProfileComponent extends Component {
             },
             {
                 id: 3,
-                title: "تقيماتي",
-                onPress: "MyReviews",
-                icon: <Icon name="star-face" size={25} color={colors.mainColor} />,
+                title: "الحراج",
+                onPress: "Hiraj",
+                icon: <Icon name="storefront-outline" size={25} color={colors.mainColor} />,
             },
             {
                 id: 4,
-                title: "تعليقاتي",
-                onPress: "",
-                icon: <Icon2 name="comment" size={25} color={colors.mainColor} />,
+                title: "تقيماتي",
+                onPress: "MyReviews",
+                icon: <Icon name="star-face" size={25} color={colors.mainColor} />,
             },
         ]
     }

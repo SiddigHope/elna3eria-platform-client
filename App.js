@@ -24,6 +24,8 @@ import moment from "moment";
 import FavStores from './app/screens/FavStores';
 import FavProducts from './app/screens/FavProducts';
 import MyReviews from './app/screens/MyReviews';
+import Hiraj from './app/screens/Hiraj';
+import ProductScreen from './app/components/products/productScreen/ProductScreen';
 
 // I18nManager.forceRTL(false);
 // I18nManager.allowRTL(false);
@@ -119,6 +121,13 @@ function Stacks() {
         }}
       />
       <Stack.Screen
+        name="ProductScreen"
+        component={ProductScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
         name="Signup"
         component={Signup}
         options={{
@@ -164,6 +173,13 @@ function Stacks() {
       <Stack.Screen
         name="MyReviews"
         component={MyReviews}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Hiraj"
+        component={Hiraj}
         options={{
           headerShown: false,
         }}
