@@ -16,7 +16,8 @@ export default class Header extends Component {
   }
 
   componentDidMount() {
-    // console.log(this.props.store)
+    console.log("this.props.hraj header")
+    console.log(this.props.hraj)
     this.getCartCount()
     const navigation = this.props.navigation
 
@@ -61,21 +62,25 @@ export default class Header extends Component {
       >
         <View style={styles.headerContainer}>
           <View style={styles.icons}>
-            <RoundedIcons
-              onPress={() => goToScreen("Cart", this.props.navigation, { store: this.props.store })}
-              items={this.state.cartItemsCount}
-              type="cart"
-            />
-            <RoundedIcons
-              onPress={this.props.setFav}
-              type="fav"
-              items={0}
-              fav={this.props.fav}
-            />
+            {!this.props.hraj && (
+              <>
+                <RoundedIcons
+                  onPress={() => goToScreen("Cart", this.props.navigation, { store: this.props.store })}
+                  items={this.state.cartItemsCount}
+                  type="cart"
+                />
+                <RoundedIcons
+                  onPress={this.props.setFav}
+                  type="fav"
+                  items={0}
+                  fav={this.props.fav}
+                />
+              </>
+            )}
           </View>
           <View style={styles.headerTextContainer}>
             <Text style={styles.hello}> {"مرحبا بك في"} </Text>
-            <Text style={styles.storeTitle}> {this.props.store.name} </Text>
+            <Text style={styles.storeTitle}> {this.props.hraj && "حراج"} {this.props.store.name} </Text>
           </View>
         </View>
         <View style={styles.headerContainer}>
@@ -84,7 +89,9 @@ export default class Header extends Component {
             onChangeText={this.props.onChangeText}
             searching={this.props.searching}
           />
-          <RoundedIcons onPress={this.whatsapp} items={0} type="chat" />
+          {!this.props.hraj && (
+            <RoundedIcons onPress={this.whatsapp} items={0} type="chat" />
+          )}
         </View>
       </View>
     );
@@ -109,6 +116,7 @@ const styles = StyleSheet.create({
   headerTextContainer: {
     // height: 25,
     // backgroundColor: 'red',
+    // alignSelf: "flex-end",
     alignItems: "flex-end",
     justifyContent: "space-between",
   },

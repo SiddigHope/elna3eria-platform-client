@@ -16,6 +16,7 @@ export default class StoresList extends Component {
     <StoreComponent
       goToScreen={this.props.goToScreen}
       item={item}
+      hraj={this.props.hraj}
       index={index}
     />
   );

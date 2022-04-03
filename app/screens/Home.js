@@ -6,7 +6,7 @@ import StoresList from "../components/home/Stores/StoresList";
 import Header from "../components/home/header/Header";
 import StoreCategoriesList from "../components/home/StoreCategories/StoreCategorieList";
 import { colors } from "../config/vars";
-import { getStores, storesSearch } from "../config/data";
+import { getStores, storesSearch, getHrajCategories } from "../config/data";
 import { goToScreen } from "../config/functions";
 import UserClass from '../config/authHandler';
 import { StatusBar } from "expo-status-bar";
@@ -18,10 +18,19 @@ export default class Home extends Component {
       stores: [],
       searching: false,
       searchText: "",
+      hraj: false
     };
   }
 
   setStores = async (id) => {
+
+    if (id == 1) {
+      this.setState({
+        stores: await getHrajCategories(),
+        hraj: true
+      });
+      return
+    }
     const data = {
       department_id: id,
       long: "15.641026068455744",
@@ -30,6 +39,7 @@ export default class Home extends Component {
     // console.log(data)
     this.setState({
       stores: await getStores(data),
+      hraj: false
     });
   };
 
@@ -51,9 +61,9 @@ export default class Home extends Component {
 
   goToScreen = (store) => {
     // console.log(store)
-    goToScreen("StoreProducts", this.props.navigation, { store });
+    goToScreen("StoreProducts", this.props.navigation, { store, hraj:this.state.hraj });
   };
-
+  
   _listHeader = () => (
     <Header
       closeSearching={this.closeSearching}
@@ -77,6 +87,7 @@ export default class Home extends Component {
     <StoresList
       goToScreen={this.goToScreen}
       stores={this.state.stores}
+      hraj={this.state.hraj}
       navigation={this.props.navigation}
     />
     // </View>

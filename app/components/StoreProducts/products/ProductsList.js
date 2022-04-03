@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, FlatList, Dimensions } from "react-native";
 import ProductComponent from "./ProductComponent";
 import { colors } from "../../../config/vars";
 import elevations from "../../../config/elevations";
+import HrajComponent from './HrajComponent';
 
 const { width, height } = Dimensions.get("window");
 
@@ -13,12 +14,23 @@ export default class ProductsList extends Component {
   }
 
   _renderItem = (item, index) => (
-    <ProductComponent
-      goToScreen={this.props.goToScreen}
-      item={item}
-      store={this.props.store}
-      index={index}
-    />
+    this.props.hraj ? (
+      <HrajComponent
+        goToScreen={this.props.goToScreen}
+        item={item}
+        store={this.props.store}
+        hraj={this.props.hraj}
+        index={index}
+      />
+    ) : (
+      <ProductComponent
+        goToScreen={this.props.goToScreen}
+        item={item}
+        store={this.props.store}
+        hraj={this.props.hraj}
+        index={index}
+      />
+    )
   );
 
   _itemSeparator = () => <View style={{ height: 15 }} />;

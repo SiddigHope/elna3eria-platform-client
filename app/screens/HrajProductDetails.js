@@ -9,9 +9,8 @@ import { checkInFav, deleteFavProduct, setFavProduct } from '../config/apis/post
 import { GestureDetector } from "react-native-gesture-handler";
 import GestureRecognizer from "react-native-swipe-gestures";
 import DoctorComponent from "../components/product/DoctorComponent";
-import HrajProductInfo from '../components/product/HrajProductInfo';
 
-export default class ProductDetails extends Component {
+export default class HrajProductDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -19,8 +18,7 @@ export default class ProductDetails extends Component {
       store: [],
       loading: false,
       showReviews: false,
-      fav: false,
-      hraj: false
+      fav: false
     };
   }
 
@@ -39,8 +37,7 @@ export default class ProductDetails extends Component {
     this.setState({
       product: this.props.route.params.product,
       store: this.props.route.params.store,
-      hraj: this.props.route.params.hraj,
-      fav: await checkInFav(data),
+      fav: await checkInFav(data)
     });
 
     setTimeout(() => {
@@ -69,7 +66,7 @@ export default class ProductDetails extends Component {
   }
 
   render() {
-      // console.log(this.state.product)
+    //   console.log(this.state.product)
     return (
       <View style={styles.container}>
         <StatusBar translucent style="dark" />
@@ -94,56 +91,21 @@ export default class ProductDetails extends Component {
             </View>
           </Modal>
         </GestureRecognizer>
-        {/* <Modal
-          transparent={true}
-          onBackdropPress={() => this.setState({ showReviews: false })}
-          onSwipeComplete={() => this.setState({ showReviews: false })}
-          onRequestClose={() => this.setState({ showReviews: false })}
-          visible={this.state.showReviews}
-          animationType="slide">
-          <View style={styles.modalContainer}>
-            <View style={styles.modal}>
-              <ReviewsList
-                closeModal={() => this.setState({ showReviews: false })}
-                reviews={this.state.product && this.state.product.reviews}
-              />
-            </View>
-          </View>
-        </Modal> */}
+        
         {this.state.loading ? (
           <View style={{ justifyContent: "center", alignItems: "center", flex: 1 }} >
             <ActivityIndicator size={50} color={colors.mainColor} />
           </View>
-        ) : !this.props.route.params.hraj ? (
-          <>
-            <ImageComponent
-              setFav={this.setFav}
-              fav={this.state.fav}
-              navigation={this.props.navigation}
-              hraj={this.props.route.params.hraj}
-              screen={this.props.route.params.screen}
-              image={this.state.product.image}
-            />
-            <ProductInfo
-              showReviews={() => this.setState({ showReviews: !this.state.showReviews })}
-              navigation={this.props.navigation}
-              screen={this.props.route.params.screen}
-              store={this.state.store}
-              product={this.state.product}
-            />
-            {/* <DoctorComponent /> */}
-          </>
         ) : (
           <>
             <ImageComponent
               setFav={this.setFav}
               fav={this.state.fav}
               navigation={this.props.navigation}
-              hraj={this.props.route.params.hraj}
               screen={this.props.route.params.screen}
-              image={this.state.product.images}
+              image={this.state.product.image}
             />
-            <HrajProductInfo
+            <ProductInfo
               showReviews={() => this.setState({ showReviews: !this.state.showReviews })}
               navigation={this.props.navigation}
               screen={this.props.route.params.screen}

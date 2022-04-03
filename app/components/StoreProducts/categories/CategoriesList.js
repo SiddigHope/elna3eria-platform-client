@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import CategoryComponent from "./CategoryComponent";
-import { productsCategories } from "../../../config/data";
+import { productsCategories, hrajProductsCategories } from "../../../config/data";
 import { goToScreen } from "../../../config/functions";
 
 const { width, height } = Dimensions.get("window");
@@ -24,11 +24,21 @@ export default class CategoriesList extends Component {
   }
 
   componentDidMount() {
+    console.log("this.props.hraj categiries")
+    console.log(this.props.hraj)
     this.getData();
   }
 
   getData = async () => {
-    // console.log(this.props.store)
+    
+    if (this.props.hraj) {
+    console.log("inside hrajs if")
+
+      this.setState({
+        storesAndCategories: await hrajProductsCategories(this.props.store.id),
+      });
+      return
+    }
     this.setState({
       storesAndCategories: await productsCategories({ store_id: this.props.store.id }),
     });

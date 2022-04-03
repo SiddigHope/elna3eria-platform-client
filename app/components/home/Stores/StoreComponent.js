@@ -36,35 +36,44 @@ export default class StoreComponent extends Component {
             </Text>
           </View>
           <View style={styles.nameContainer}>
-            <View style={styles.miniRow}>
-              <Icon1 name="map-marker" size={10} color={colors.ebony} />
+
+            {item.distance && (
               <View style={styles.miniRow}>
-                <Text
-                  numberOfLines={1}
-                  style={[styles.bottomText, { maxWidth: 35 }]}
-                >
-                  {item.distance}
-                </Text>
-                <Text style={[styles.bottomText]}>{"KM"}</Text>
+                <Icon1 name="map-marker" size={10} color={colors.ebony} />
+                <View style={styles.miniRow}>
+                  <Text
+                    numberOfLines={1}
+                    style={[styles.bottomText, { maxWidth: 35 }]}
+                  >
+                    {item.distance}
+                  </Text>
+                  <Text style={[styles.bottomText]}>{"KM"}</Text>
+                </View>
               </View>
-            </View>
-            <View style={styles.miniRow}>
-              <Icon name="delivery-dining" size={10} color={colors.ebony} />
-              <Text style={[styles.bottomText, { color: colors.softGreen }]}>
-                {" "}
-                {item.delivery_fees == 0
-                  ? "مجاني"
-                  : item.delivery_fees + "SAR"}{" "}
-              </Text>
-            </View>
-            <View style={styles.miniRow}>
-              <Icon name="access-time" size={10} color={colors.ebony} />
-              <Text style={styles.bottomText}>
-                {" "}
-                {item.time}
-                {"دقيقة"}{" "}
-              </Text>
-            </View>
+            )}
+
+            {item.delivery_fees && (
+              <View style={styles.miniRow}>
+                <Icon name="delivery-dining" size={10} color={colors.ebony} />
+                <Text style={[styles.bottomText, { color: colors.softGreen }]}>
+                  {" "}
+                  {item.delivery_fees == 0
+                    ? "مجاني"
+                    : item.delivery_fees + "SAR"}{" "}
+                </Text>
+              </View>
+            )}
+
+            {item.time && (
+              <View style={styles.miniRow}>
+                <Icon name="access-time" size={10} color={colors.ebony} />
+                <Text style={styles.bottomText}>
+                  {" "}
+                  {item.time}
+                  {"دقيقة"}{" "}
+                </Text>
+              </View>
+            )}
           </View>
         </View>
       </Pressable>

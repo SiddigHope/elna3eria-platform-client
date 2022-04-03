@@ -11,6 +11,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { colors, itemSelected, setItemSelected } from "../../../config/vars";
 import elevations from "../../../config/elevations";
 // import { Image } from 'react-native-elements';
+import { goToScreen } from '../../../config/functions';
 
 export default class StoreCategoriesComponent extends Component {
   constructor(props) {
@@ -59,6 +60,7 @@ export default class StoreCategoriesComponent extends Component {
 
   render() {
     const item = this.props.item.item;
+    const slug = item.slug
     return (
       <Pressable onPress={this._setStore} style={styles.container}>
         <View
@@ -69,7 +71,7 @@ export default class StoreCategoriesComponent extends Component {
             source={item.image ? { uri: item.image } : this.state.placeholder}
             style={[this.state.itemSelected ? styles.imageSelected : styles.image, elevations[5]]}
           >
-            <Text numberOfLines={1} style={styles.title}>
+            <Text numberOfLines={1} style={[styles.title, slug == "hraj" && { color: colors.softBlack, marginBottom: 5, }]}>
               {" "}
               {item.name}{" "}
             </Text>

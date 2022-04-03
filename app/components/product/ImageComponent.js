@@ -9,20 +9,63 @@ const { width, height } = Dimensions.get('window')
 export default class ImageComponent extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      image: this.props.image && this.props.image[0].image,
+      roller: 0
+    };
   }
 
+  rollImage = (dir) => {
+    // console.log("ldsflkkads");
+    const { roller } = this.state
+    const { image } = this.props
+    let index = 0
+    if (dir == "right") {
+      index = (roller + 1) % (image.length)
+    } else {
+      if (roller == 0) {
+        index = (image.length - 1) % (image.length)
+      } else {
+        index = (roller - 1) % (image.length)
+      }
+    }
+    this.setState({
+      image: image[index].image,
+      roller: index
+    })
+  }
 
   render() {
+    console.log("this.props.hraj");
+    console.log(this.props.hraj);
     return (
       <View style={styles.container}>
+
+        {this.props.image && this.props.image.length > 1 && (
+          <>
+            <TouchableOpacity onPress={() => this.rollImage("left")} style={[styles.roller, { left: 20 }]}>
+              <Icon name="chevron-left" color={colors.mainColor} size={30} />
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => this.rollImage("right")} style={[styles.roller, { right: 20 }]}>
+              <Icon name="chevron-right" color={colors.mainColor} size={30} />
+            </TouchableOpacity>
+          </>
+        )}
+
         <View style={styles.header}>
-          <MiniHeader title={""} backgroundColor={colors.white} navigation={this.props.navigation} />
+          <MiniHeader title={""} backgroundColor={this.props.hraj ? "" : colors.white} navigation={this.props.navigation} />
         </View>
-        <Image source={{ uri: this.props.image }} style={styles.image} />
-        <TouchableOpacity onPress={this.props.setFav} style={[styles.favCont]}>
-          <Icon name={this.props.fav ? "heart" : "heart-outline"} size={30} color={colors.danger} />
-        </TouchableOpacity>
+        {this.props.hraj ? (
+          <Image source={{ uri: this.state.image }} style={styles.image} />
+        ) : (
+          <Image source={{ uri: this.props.image }} style={styles.image} />
+        )}
+        {!this.props.hraj && (
+          <TouchableOpacity onPress={this.props.setFav} style={[styles.favCont]}>
+            <Icon name={this.props.fav ? "heart" : "heart-outline"} size={30} color={colors.danger} />
+          </TouchableOpacity>
+        )}
       </View>
     );
   }
@@ -56,4 +99,14 @@ const styles = StyleSheet.create({
     // left: 0,
     // zIndex: 11111111
   },
+  roller: {
+    position: "absolute",
+    backgroundColor: colors.white,
+    elevation: 5,
+    zIndex: 11,
+    // alignSelf: "center",
+    top: "50%",
+    padding: 5,
+    borderRadius: 50,
+  }
 })
