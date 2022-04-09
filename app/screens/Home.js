@@ -6,7 +6,7 @@ import StoresList from "../components/home/Stores/StoresList";
 import Header from "../components/home/header/Header";
 import StoreCategoriesList from "../components/home/StoreCategories/StoreCategorieList";
 import { colors } from "../config/vars";
-import { getStores, storesSearch, getHrajCategories } from "../config/data";
+import { getStores, storesSearch, getHrajCategories, getHospitals } from "../config/data";
 import { goToScreen } from "../config/functions";
 import UserClass from '../config/authHandler';
 import { StatusBar } from "expo-status-bar";
@@ -18,7 +18,8 @@ export default class Home extends Component {
       stores: [],
       searching: false,
       searchText: "",
-      hraj: false
+      hraj: false,
+      hospital: false
     };
   }
 
@@ -27,10 +28,21 @@ export default class Home extends Component {
     if (id == 1) {
       this.setState({
         stores: await getHrajCategories(),
-        hraj: true
+        hraj: true,
+        hospital: false
       });
       return
     }
+
+    if (id == 4) {
+      this.setState({
+        stores: await getHospitals(),
+        hraj: false,
+        hospital: true
+      });
+      return
+    }
+
     const data = {
       department_id: id,
       long: "15.641026068455744",
@@ -39,7 +51,8 @@ export default class Home extends Component {
     // console.log(data)
     this.setState({
       stores: await getStores(data),
-      hraj: false
+      hraj: false,
+      hospital: false
     });
   };
 
@@ -61,7 +74,7 @@ export default class Home extends Component {
 
   goToScreen = (store) => {
     // console.log(store)
-    goToScreen("StoreProducts", this.props.navigation, { store, hraj:this.state.hraj });
+    goToScreen("StoreProducts", this.props.navigation, { store, hraj:this.state.hraj, hospital:this.state.hospital });
   };
   
   _listHeader = () => (

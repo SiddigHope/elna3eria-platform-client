@@ -4,6 +4,7 @@ import ProductComponent from "./ProductComponent";
 import { colors } from "../../../config/vars";
 import elevations from "../../../config/elevations";
 import HrajComponent from './HrajComponent';
+import HospitalComponent from './HospitalComponent';
 
 const { width, height } = Dimensions.get("window");
 
@@ -16,6 +17,14 @@ export default class ProductsList extends Component {
   _renderItem = (item, index) => (
     this.props.hraj ? (
       <HrajComponent
+        goToScreen={this.props.goToScreen}
+        item={item}
+        store={this.props.store}
+        hraj={this.props.hraj}
+        index={index}
+      />
+    ) : this.props.hospital ? (
+      <HospitalComponent
         goToScreen={this.props.goToScreen}
         item={item}
         store={this.props.store}

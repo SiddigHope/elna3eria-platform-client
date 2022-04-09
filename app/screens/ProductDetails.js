@@ -69,7 +69,7 @@ export default class ProductDetails extends Component {
   }
 
   render() {
-      // console.log(this.state.product)
+    // console.log(this.state.product)
     return (
       <View style={styles.container}>
         <StatusBar translucent style="dark" />
@@ -114,26 +114,7 @@ export default class ProductDetails extends Component {
           <View style={{ justifyContent: "center", alignItems: "center", flex: 1 }} >
             <ActivityIndicator size={50} color={colors.mainColor} />
           </View>
-        ) : !this.props.route.params.hraj ? (
-          <>
-            <ImageComponent
-              setFav={this.setFav}
-              fav={this.state.fav}
-              navigation={this.props.navigation}
-              hraj={this.props.route.params.hraj}
-              screen={this.props.route.params.screen}
-              image={this.state.product.image}
-            />
-            <ProductInfo
-              showReviews={() => this.setState({ showReviews: !this.state.showReviews })}
-              navigation={this.props.navigation}
-              screen={this.props.route.params.screen}
-              store={this.state.store}
-              product={this.state.product}
-            />
-            {/* <DoctorComponent /> */}
-          </>
-        ) : (
+        ) : this.props.route.params.hraj ? (
           <>
             <ImageComponent
               setFav={this.setFav}
@@ -151,6 +132,26 @@ export default class ProductDetails extends Component {
               product={this.state.product}
             />
             {/* <DoctorComponent /> */}
+          </>
+        ) : this.props.route.params.hospital ? (
+          <DoctorComponent />
+        ) : (
+          <>
+            <ImageComponent
+              setFav={this.setFav}
+              fav={this.state.fav}
+              navigation={this.props.navigation}
+              hraj={this.props.route.params.hraj}
+              screen={this.props.route.params.screen}
+              image={this.state.product.image}
+            />
+            <ProductInfo
+              showReviews={() => this.setState({ showReviews: !this.state.showReviews })}
+              navigation={this.props.navigation}
+              screen={this.props.route.params.screen}
+              store={this.state.store}
+              product={this.state.product}
+            />
           </>
         )}
       </View>

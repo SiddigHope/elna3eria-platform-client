@@ -18,7 +18,11 @@ export default class StoreComponent extends Component {
     if (this.props.item.index % 2 == 1) {
       margin = 10;
     }
-
+// return(
+//   <View style={{width: 100}}>
+//     <Text> {JSON.stringify(this.props.item.item)} </Text> 
+//   </View>
+// )
     const item = this.props.item.item;
 
     return (
@@ -52,7 +56,7 @@ export default class StoreComponent extends Component {
               </View>
             )}
 
-            {item.delivery_fees && (
+            {item.delivery_fees != 0 || item.delivery_fees != null && (
               <View style={styles.miniRow}>
                 <Icon name="delivery-dining" size={10} color={colors.ebony} />
                 <Text style={[styles.bottomText, { color: colors.softGreen }]}>

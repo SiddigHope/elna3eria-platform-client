@@ -68,6 +68,29 @@ export const getHrajCategories = async () => {
   }
 };
 
+export const getHospitals = async () => {
+  try {
+    const options = {
+      method: "GET",
+      url: mainDomain + "client/hospitals",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    };
+
+    const request = await axios(options)
+      .then((response) => response.data)
+      .catch((error) => console.log(error));
+
+    // console.log(request)
+    return request.data;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
+
 export const getProducts = async (data) => {
   try {
     const options = {
@@ -156,6 +179,31 @@ export const hrajProductsCategories = async (id) => {
     const options = {
       method: "GET",
       url: mainDomain + "client/hraj/main-categories/"+id,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    };
+    // console.log(options)
+
+    const request = await axios(options)
+      .then((response) => response.data)
+      .catch((error) => console.log(error));
+
+
+    return request.data;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
+
+export const hospitalsList = async (id) => {
+
+  try {
+    const options = {
+      method: "GET",
+      url: mainDomain + "client/hospitals/"+id,
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",

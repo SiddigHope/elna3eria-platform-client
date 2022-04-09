@@ -57,7 +57,7 @@ export default class StoreProducts extends Component {
   };
 
   goToScreen = (store, product) => {
-    goToScreen("ProductDetails", this.props.navigation, { store, product, screen: "storeProducts", hraj: this.props.route.params.hraj });
+    goToScreen("ProductDetails", this.props.navigation, { store, product, screen: "storeProducts", hraj: this.props.route.params.hraj, hospital: this.props.route.params.hospital });
   };
 
   setFav = async () => {
@@ -86,6 +86,7 @@ export default class StoreProducts extends Component {
       store={this.props.route.params.store}
       navigation={this.props.navigation}
       hraj={this.props.route.params.hraj}
+      hospital={this.props.route.params.hospital}
       closeSearching={this.closeSearching}
       searching={this.state.searching}
       onChangeText={this.onChangeText}
@@ -99,6 +100,7 @@ export default class StoreProducts extends Component {
       store={this.props.route.params.store}
       searching={this.state.searching}
       hraj={this.props.route.params.hraj}
+      hospital={this.props.route.params.hospital}
       setStores={this.setStores}
       navigation={this.props.navigation}
     />
@@ -110,6 +112,7 @@ export default class StoreProducts extends Component {
       <ProductsList
         goToScreen={this.goToScreen}
         hraj={this.props.route.params.hraj}
+        hospital={this.props.route.params.hospital}
         stores={this.state.stores}
         store={this.props.route.params.store}
         navigation={this.props.navigation}

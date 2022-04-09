@@ -17,12 +17,12 @@ export default class Signin extends Component {
     };
   }
 
-  // componentDidMount() {
-  //   this.checkUser();
-  // }
-  // componentDidUpdate() {
-  //   this.checkUser();
-  // }
+  componentDidMount() {
+    this.checkUser();
+  }
+  componentDidUpdate() {
+    this.checkUser();
+  }
 
   checkUser = async () => {
     // UserClass.logout()

@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import CategoryComponent from "./CategoryComponent";
-import { productsCategories, hrajProductsCategories } from "../../../config/data";
+import { productsCategories, hrajProductsCategories, hospitalsList } from "../../../config/data";
 import { goToScreen } from "../../../config/functions";
 
 const { width, height } = Dimensions.get("window");
@@ -39,6 +39,16 @@ export default class CategoriesList extends Component {
       });
       return
     }
+
+    if (this.props.hospital) {
+      console.log("inside hospital's if")
+  
+        this.setState({
+          storesAndCategories: await hospitalsList(this.props.store.id),
+        });
+        return
+      }
+
     this.setState({
       storesAndCategories: await productsCategories({ store_id: this.props.store.id }),
     });

@@ -35,15 +35,13 @@ export default class ProductComponent extends Component {
         <Image source={{ uri: item.image }} style={styles.image} />
         <View style={styles.contentContainer}>
           <View style={styles.nameContainer}>
-            {item.rating && (
-              <View style={styles.miniRow}>
-                <Icon name="star" color={colors.ratingYellow} size={15} />
-                <Text style={styles.rating}> {item.rating.average} </Text>
-              </View>
-            )}
+            <View style={styles.miniRow}>
+              <Icon name="star" color={colors.ratingYellow} size={15} />
+              <Text style={styles.rating}> {item.rating ? item.rating.average : 0} </Text>
+            </View>
             <Text style={styles.title} numberOfLines={1}>
               {" "}
-              {this.props.hraj? item.title :item.name}{" "}
+              {item.name}{" "}
             </Text>
           </View>
           <View style={[styles.nameContainer, { marginHorizontal: 20 }]}>
