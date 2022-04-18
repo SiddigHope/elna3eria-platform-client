@@ -64,7 +64,7 @@ export default class CatComponent extends Component {
                 >
                     <Text numberOfLines={1} style={styles.title}>
                         {" "}
-                        {item.name}{" "}
+                        {item.name ? item.name : item.title}{" "}
                     </Text>
                     <View style={[styles.imageContainer, elevations[3]]} >
                         {item.icon ? item.icon : (

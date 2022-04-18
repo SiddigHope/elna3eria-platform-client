@@ -6,6 +6,8 @@ import { colors } from "../config/vars";
 import AskMeComponent from '../components/askMe/AskMeComponent';
 import { getServices } from "../config/data";
 import AskMeModal from '../components/askMe/AskMeModal';
+import { orderService } from "../config/apis/posts";
+import { goToScreen } from '../config/functions';
 
 export default class StoreProducts extends Component {
     constructor(props) {
@@ -28,7 +30,9 @@ export default class StoreProducts extends Component {
     }
 
     _listHeader = () => (
-        <Header navigation={this.props.navigation} />
+        <Header
+            gotoOrders={() => goToScreen("AskMeOrders", this.props.navigation)}
+            navigation={this.props.navigation} />
     );
 
     _renderItem = (item, index) => (
@@ -49,12 +53,31 @@ export default class StoreProducts extends Component {
         <View style={{ height: 30 }} />
     );
 
+    orderService = async (data) => {
+        const { service } = this.state
+
+        const order = await orderService({ ...data, service_id: service.id })
+        if (order) {
+            this.toggleModal()
+            console.log("order placed")
+        } else {
+            console.log("order not placed")
+        }
+    }
+
     toggleModal = () => this.setState({ showModal: !this.state.showModal })
 
     render() {
         return (
             <View style={styles.container}>
-                <AskMeModal service={this.state.service} showModal={this.state.showModal} toggleModal={this.toggleModal} />
+
+                <AskMeModal
+                    orderService={this.orderService}
+                    service={this.state.service}
+                    showModal={this.state.showModal}
+                    toggleModal={this.toggleModal}
+                />
+
                 <FlatList
                     data={this.state.services}
                     keyExtractor={(item, index) => index.toString()}

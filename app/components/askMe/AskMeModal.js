@@ -4,18 +4,27 @@ import { colors, fonts } from '../../config/vars';
 import GestureRecognizer from "react-native-swipe-gestures";
 import { elevations } from '../../config/elevations';
 import OrderButton from '../product/OrderButton';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 
 export default class AskMeModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            noImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png"
+            desc: "",
+            phone: 0
         };
     }
 
-    onButtonPress = () => {
-
+    orderService = () => {
+        const { desc, phone } = this.state
+        if (desc, phone) {
+            const data = {
+                description: desc,
+                contact_number: phone,
+            }
+            this.props.orderService(data)
+        }
     }
 
     render() {
@@ -37,29 +46,42 @@ export default class AskMeModal extends Component {
                         <View style={styles.modal}>
                             <View style={styles.topBar} />
 
-                            <View style={styles.contentContainer}>
-                                <View style={styles.container}>
-                                    <View style={styles.imageContainer}>
-                                        <Image style={styles.image} source={{ uri: service.image }} />
+                            <KeyboardAwareScrollView>
+                                <View style={styles.contentContainer}>
+                                    <View style={styles.container}>
+                                        <View style={styles.imageContainer}>
+                                            <Image style={styles.image} source={{ uri: service.image }} />
+                                        </View>
+                                        <View style={styles.textContainer}>
+                                            <Text style={styles.title}> {service.title} </Text>
+                                            <Text style={styles.desc}> {service.description} </Text>
+                                        </View>
                                     </View>
-                                    <View style={styles.textContainer}>
-                                        <Text style={styles.title}> {service.title} </Text>
-                                        <Text style={styles.desc}> {service.description} </Text>
+
+                                    <View style={[styles.textInputContainer, { borderRadius: 10, marginBottom: 0, }]}>
+                                        <TextInput
+                                            keyboardType='phone-pad'
+                                            style={[styles.textInput, { height: 50, padding: 10 }]}
+                                            value={this.state.phone}
+                                            placeholder={"رقم هاتف للتواصل"}
+                                            placeholderTextColor="#515C6F"
+                                            onChangeText={(phone) => this.setState({ phone })}
+                                        />
+                                    </View>
+                                    <View style={styles.textInputContainer}>
+                                        <TextInput
+                                            style={styles.textInput}
+                                            value={this.state.desc}
+                                            multiline
+                                            placeholder={"أكتب تفاصيل الخدمة المطلوبة هنا..."}
+                                            placeholderTextColor="#515C6F"
+                                            onChangeText={(desc) => this.setState({ desc })}
+                                        />
                                     </View>
                                 </View>
+                            </KeyboardAwareScrollView>
 
-                                <View style={styles.textInputContainer}>
-                                    <TextInput
-                                        style={styles.textInput}
-                                        value={this.state.orderText}
-                                        placeholder={"أكتب تفاصيل الخدمة المطلوبة هنا..."}
-                                        placeholderTextColor="#515C6F"
-                                        onChangeText={(orderText) => this.setState({ orderText })}
-                                    />
-                                </View>
-                            </View>
-
-                            <OrderButton width={"90%"} type={"toggler"} title={"أرسل طلبك"} onPress={this.onButtonPress} item={this.props.doctor} />
+                            <OrderButton width={"90%"} type={"toggler"} title={"أرسل طلبك"} onPress={this.orderService} item={this.props.doctor} />
 
                         </View>
                     </View>
@@ -153,7 +175,6 @@ const styles = StyleSheet.create({
         width: "100%",
         alignSelf: "center",
         borderRadius: 20,
-        minHeight: 100,
         marginBottom: 10,
         marginTop: 20
     },

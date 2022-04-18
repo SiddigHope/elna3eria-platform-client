@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { View, Text, StyleSheet, Image, Linking, Alert } from "react-native";
 import { colors } from "../../../config/vars";
 import { elevations } from '../../../config/elevations';
+import Icon from "react-native-vector-icons/FontAwesome"
 
 export default class Header extends Component {
   constructor(props) {
@@ -18,11 +19,12 @@ export default class Header extends Component {
       >
         <View style={styles.headerContainer}>
           <View style={styles.icons}>
-            <View style={styles.barsContainer}>
+            {/* <View style={styles.barsContainer}>
               <View style={[styles.bars, elevations[5]]}></View>
               <View style={[styles.bars, elevations[5], { width: "70%", alignSelf: "flex-start" }]}></View>
               <View style={[styles.bars, elevations[5]]}></View>
-            </View>
+            </View> */}
+            <Icon onPress={this.props.gotoOrders} name="gears" size={30} color={colors.mainColor} />
           </View>
           <View style={styles.headerTextContainer}>
             <Text style={styles.hello}> {"مرحبا"} </Text>

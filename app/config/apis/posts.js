@@ -213,3 +213,31 @@ export const checkInFav = async (data) => {
         return false;
     }
 }
+
+
+export const orderService = async (data) => {
+    const user = await getUser()
+    try {
+        const options = {
+            method: "POST",
+            url: mainDomain + "client/services/order",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+                Authorization: "Bearer " + user.token,
+            },
+            data
+        };
+
+        const request = await axios(options)
+            .then((response) => response.data)
+            .catch((error) => console.log(error));
+        console.log("request")
+        console.log(request)
+        // return
+        return request.data ? true : false;
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+}
