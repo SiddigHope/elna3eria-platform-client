@@ -41,7 +41,7 @@ export default class ImageComponent extends Component {
     return (
       <View style={styles.container}>
 
-        {this.props.image && this.props.image.length > 1 && (
+        {this.props.image && this.props.image.length > 1 && this.props.hraj && (
           <>
             <TouchableOpacity onPress={() => this.rollImage("left")} style={[styles.roller, { left: 20 }]}>
               <Icon name="chevron-left" color={colors.mainColor} size={30} />

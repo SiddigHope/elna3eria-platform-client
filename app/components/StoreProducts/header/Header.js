@@ -62,7 +62,7 @@ export default class Header extends Component {
       >
         <View style={styles.headerContainer}>
           <View style={styles.icons}>
-            {!this.props.hraj && (
+            {!this.props.hraj && !this.props.hospital && (
               <>
                 <RoundedIcons
                   onPress={() => goToScreen("Cart", this.props.navigation, { store: this.props.store })}

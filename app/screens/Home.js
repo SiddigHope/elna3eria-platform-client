@@ -43,6 +43,11 @@ export default class Home extends Component {
       return
     }
 
+    if (id == 8) {
+      goToScreen("AskMe", this.props.navigation)
+      return
+    }
+
     const data = {
       department_id: id,
       long: "15.641026068455744",
@@ -74,9 +79,9 @@ export default class Home extends Component {
 
   goToScreen = (store) => {
     // console.log(store)
-    goToScreen("StoreProducts", this.props.navigation, { store, hraj:this.state.hraj, hospital:this.state.hospital });
+    goToScreen("StoreProducts", this.props.navigation, { store, hraj: this.state.hraj, hospital: this.state.hospital });
   };
-  
+
   _listHeader = () => (
     <Header
       closeSearching={this.closeSearching}

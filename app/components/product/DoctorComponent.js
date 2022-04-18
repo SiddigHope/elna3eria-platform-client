@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Image, ScrollView, Pressable } from 'react-native';
 import Svg, { Defs, Rect, LinearGradient, RadialGradient, Stop } from 'react-native-svg';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { colors } from '../../config/vars';
@@ -34,16 +34,18 @@ export default class DoctorComponent extends Component {
                 </Svg>
 
                 <View style={styles.header} >
-                    <View style={styles.iconContainer}>
+                    <Pressable onPress={() => this.props.navigation.goBack()} style={styles.iconContainer}>
                         <Icon name='ios-chevron-back-outline' size={30} color={colors.ebony} />
-                    </View>
+                    </Pressable>
 
                     <View style={styles.imageContainer}>
-                        <Image source={{ uri: this.state.image }} style={styles.image} />
+                        <Image source={{ uri: this.props.image }} style={styles.image} />
                     </View>
                 </View>
-                <ScrollView>
-                    <DoctorInfo />
+                <ScrollView showsVerticalScrollIndicator={false} style={{ width: "100%" }}>
+                    <DoctorInfo
+                        doctor={this.props.product}
+                    />
                 </ScrollView>
             </View>
         );
@@ -77,7 +79,7 @@ const styles = StyleSheet.create({
     imageContainer: {
         position: "absolute",
         bottom: -40,
-        paddingTop: 10,
+        // paddingTop: 10,
         height: 150,
         width: 120,
         alignSelf: 'center',

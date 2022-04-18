@@ -26,6 +26,7 @@ import FavProducts from './app/screens/FavProducts';
 import MyReviews from './app/screens/MyReviews';
 import Hiraj from './app/screens/Hiraj';
 import ProductScreen from './app/components/products/productScreen/ProductScreen';
+import AskMe from './app/screens/AskMe';
 
 // I18nManager.forceRTL(false);
 // I18nManager.allowRTL(false);
@@ -81,6 +82,13 @@ function Stacks() {
       <Stack.Screen
         name="Home"
         component={Home}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="AskMe"
+        component={AskMe}
         options={{
           headerShown: false,
         }}

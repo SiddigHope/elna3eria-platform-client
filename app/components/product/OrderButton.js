@@ -17,7 +17,7 @@ export default class OrderButton extends Component {
 
   render() {
     return (
-      <Pressable onPress={this.props.onPress} style={[styles.container, elevations[10]]} >
+      <Pressable onPress={this.props.onPress} style={[styles.container, elevations[10], this.props.width ? { width: this.props.width, borderRadius: 10 } : {}]} >
         {this.props.type == "cart" && this.props.added ? (
           <Icon name="check-circle-outline" size={25} color={colors.white} />
         ) :
@@ -46,6 +46,6 @@ const styles = StyleSheet.create({
   btnText: {
     fontFamily: 'Tajawal-Bold',
     fontSize: 16,
-    color: colors.ebony
+    color: colors.white
   }
 })

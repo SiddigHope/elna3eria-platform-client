@@ -178,7 +178,7 @@ export const hrajProductsCategories = async (id) => {
   try {
     const options = {
       method: "GET",
-      url: mainDomain + "client/hraj/main-categories/"+id,
+      url: mainDomain + "client/hraj/main-categories/" + id,
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
@@ -203,7 +203,32 @@ export const hospitalsList = async (id) => {
   try {
     const options = {
       method: "GET",
-      url: mainDomain + "client/hospitals/"+id,
+      url: mainDomain + "client/hospitals/" + id,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    };
+    // console.log(options)
+
+    const request = await axios(options)
+      .then((response) => response.data)
+      .catch((error) => console.log(error));
+
+
+    return request.data;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
+
+export const getServices = async () => {
+
+  try {
+    const options = {
+      method: "GET",
+      url: mainDomain + "client/services",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",

@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Pressable } from 'react-native';
+import { View, Text, StyleSheet, Pressable, Dimensions, Linking } from 'react-native';
 import { colors, fonts } from '../../config/vars';
 import Icon from "react-native-vector-icons/MaterialIcons";
 import Icon1 from "react-native-vector-icons/MaterialCommunityIcons";
+import Icon2 from "react-native-vector-icons/Feather";
 import OrderButton from './OrderButton';
 import DoctorAppointmentComponent from './DoctorAppointmentComponent';
+import DoctorAppointmentModal from './DoctorAppointmentModal';
+
+
+const { width, height } = Dimensions.get("window")
 
 export default class DoctorInfo extends Component {
     constructor(props) {
@@ -15,17 +20,48 @@ export default class DoctorInfo extends Component {
             star3: "star",
             star4: "star",
             star5: "star",
+            showModal: false,
+            work_days: []
         };
     }
 
+    componentDidMount() {
+        const { work_days } = this.state
+
+        if (this.props.doctor.work_days) {
+            this.props.doctor.work_days.forEach(day => {
+                work_days.push({
+                    value: day.id,
+                    label: day.day.locale
+                })
+            });
+            this.setState({ work_days })
+        }
+    }
+
+    makeCall = () => {
+        const link = "tel:" + this.props.doctor.phone
+        Linking.openURL(link)
+    }
+
+
     render() {
         // const icon = <View style={{ height: 60, width: 60 }} > <Icon name="clipboard-list" size={25} color={colors.mainColor} /> </View>
-        const icon = <Icon1 name="clipboard-list" size={25} color={colors.mainColor} />
-        const { product } = this.props
+        const icon = <Icon1 name="clipboard-list" size={40} color={colors.mainColor} />
+        const icon2 = <Icon1 name="phone-in-talk" size={20} color={colors.blueLight} />
+        const time = this.props.doctor.work_days ? this.props.doctor.work_days[0].from + " - " + this.props.doctor.work_days[0].to : "08:00 - 16:00"
         return (
             <View style={styles.container}>
-                <Text style={styles.name}> {"د.سخنون ملك الجخنون"} </Text>
-                <Text style={styles.major}> {"جراحة القلب و الصدر و الاوعية الدموية"} </Text>
+
+                <DoctorAppointmentModal
+                    doctor={this.props.doctor}
+                    work_days={this.state.work_days}
+                    showModal={this.state.showModal}
+                    hideModal={() => this.setState({ showModal: false })}
+                />
+
+                <Text style={styles.name}> {this.props.doctor.name} </Text>
+                <Text style={styles.major}> {this.props.doctor.professional} </Text>
                 <Pressable onPress={this.showReviews} style={[styles.miniRow, { justifyContent: "flex-end" }]}>
                     <Text style={styles.ratingCount}>
                         {20}
@@ -40,13 +76,13 @@ export default class DoctorInfo extends Component {
                     </View>
                 </Pressable>
 
-                <Text style={styles.desc}> {"جراحة القلب و الصدر و الاوعية الدموية جراحة القلب و الصدر و الاوعية الدموية جراحة القلب و الصدر و الاوعية الدموية"} </Text>
+                <Text style={styles.desc}> {this.props.doctor.about} </Text>
 
-                <DoctorAppointmentComponent title={"حدد الموعد"} subTitle={"788/333/ 332/ 323"} icon={icon} />
-              
-                <DoctorAppointmentComponent title={"حدد الموعد"} subTitle={"788/333/ 332/ 323"} icon={icon} />
+                <DoctorAppointmentComponent onPress={() => this.setState({ showModal: true })} iconBackground={colors.white} title={"حدد الموعد"} subTitle={time} icon={icon} />
 
-                <OrderButton screen={this.props.screen} type={"toggler"} adding={this.state.adding} added={this.state.added} title={"اطلب الأن"} onPress={this.onButtonPress} item={this.props.product} />
+                <DoctorAppointmentComponent onPress={this.makeCall} iconBackground={"#DAD3FD"} title={"تواصل"} subTitle={this.props.doctor.phone} icon={icon2} />
+
+                {/* <OrderButton screen={this.props.screen} type={"toggler"} adding={this.state.adding} added={this.state.added} title={"احجز الأن"} onPress={this.onButtonPress} item={this.props.product} /> */}
             </View>
         );
     }
@@ -56,8 +92,9 @@ export default class DoctorInfo extends Component {
 const styles = StyleSheet.create({
     container: {
         marginTop: 70,
-        width: "85%",
+        width: (width * 90) / 100,
         alignItems: 'center',
+        alignSelf: 'center',
         // backgroundColor: colors.blackTransparent
     },
     miniRow: {

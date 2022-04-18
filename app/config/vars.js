@@ -16,6 +16,7 @@ export const colors = {
   softBlue: "#8ECaE6",
   borderColor: "#DFEAED",
   myFatoraBlue: "#0293CC",
+  black:"#000",
 };
 
 export const fonts = {

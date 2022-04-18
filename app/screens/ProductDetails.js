@@ -134,7 +134,15 @@ export default class ProductDetails extends Component {
             {/* <DoctorComponent /> */}
           </>
         ) : this.props.route.params.hospital ? (
-          <DoctorComponent />
+          <DoctorComponent
+            setFav={this.setFav}
+            fav={this.state.fav}
+            navigation={this.props.navigation}
+            hraj={this.props.route.params.hraj}
+            screen={this.props.route.params.screen}
+            image={this.state.product.image}
+            product={this.state.product}
+          />
         ) : (
           <>
             <ImageComponent

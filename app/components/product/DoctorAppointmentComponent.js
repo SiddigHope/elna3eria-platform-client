@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { fonts, colors } from '../../config/vars';
 
@@ -12,14 +12,16 @@ export default class DoctorAppointmentComponent extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
-                {this.props.icon}
+            <TouchableOpacity onPress={this.props.onPress} style={styles.container}>
+                <View style={{ height: 40, width: 40, borderRadius: 10, backgroundColor: this.props.iconBackground, justifyContent: 'center', alignItems: 'center' }}>
+                    {this.props.icon}
+                </View>
                 <View style={styles.infoCont} >
                     <Text style={styles.title}> {this.props.title} </Text>
                     <Text style={styles.subTitle}> {this.props.subTitle} </Text>
                 </View>
                 <Icon name='ios-chevron-back-outline' color={colors.blueLight} size={25} />
-            </View>
+            </TouchableOpacity>
         );
     }
 }
