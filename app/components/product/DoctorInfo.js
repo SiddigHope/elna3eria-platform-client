@@ -7,6 +7,7 @@ import Icon2 from "react-native-vector-icons/Feather";
 import OrderButton from './OrderButton';
 import DoctorAppointmentComponent from './DoctorAppointmentComponent';
 import DoctorAppointmentModal from './DoctorAppointmentModal';
+import { setDoctorAppointment } from '../../config/apis/posts';
 
 
 const { width, height } = Dimensions.get("window")
@@ -21,22 +22,7 @@ export default class DoctorInfo extends Component {
             star4: "star",
             star5: "star",
             showModal: false,
-            work_days: []
         };
-    }
-
-    componentDidMount() {
-        const { work_days } = this.state
-
-        if (this.props.doctor.work_days) {
-            this.props.doctor.work_days.forEach(day => {
-                work_days.push({
-                    value: day.id,
-                    label: day.day.locale
-                })
-            });
-            this.setState({ work_days })
-        }
     }
 
     makeCall = () => {
@@ -44,6 +30,20 @@ export default class DoctorInfo extends Component {
         Linking.openURL(link)
     }
 
+    setAppointment = async (data) => {
+        console.log(data)
+        // return
+        const appointment = await setDoctorAppointment(data)
+
+        if (appointment) {
+            console.log("appointment set successfully");
+            this.setState({
+                showModal: false
+            })
+        } else {
+            console.log("appointment not set");
+        }
+    }
 
     render() {
         // const icon = <View style={{ height: 60, width: 60 }} > <Icon name="clipboard-list" size={25} color={colors.mainColor} /> </View>
@@ -55,9 +55,9 @@ export default class DoctorInfo extends Component {
 
                 <DoctorAppointmentModal
                     doctor={this.props.doctor}
-                    work_days={this.state.work_days}
                     showModal={this.state.showModal}
                     hideModal={() => this.setState({ showModal: false })}
+                    setAppointment={this.setAppointment}
                 />
 
                 <Text style={styles.name}> {this.props.doctor.name} </Text>

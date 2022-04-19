@@ -241,3 +241,31 @@ export const orderService = async (data) => {
         return false;
     }
 }
+
+
+export const setDoctorAppointment = async (data) => {
+    const user = await getUser()
+    try {
+        const options = {
+            method: "POST",
+            url: mainDomain + "client/appointments",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+                Authorization: "Bearer " + user.token,
+            },
+            data
+        };
+
+        const request = await axios(options)
+            .then((response) => response.data)
+            .catch((error) => console.log(error.response));
+        console.log("request")
+        console.log(request)
+        // return
+        return request.data ? true : false;
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+}

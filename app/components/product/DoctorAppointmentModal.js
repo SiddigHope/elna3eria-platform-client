@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Modal, StyleSheet } from 'react-native';
+import { View, Text, Modal, StyleSheet, TouchableOpacity } from 'react-native';
 import { colors, fonts } from '../../config/vars';
 import GestureRecognizer from "react-native-swipe-gestures";
 import RNPickerSelect from "react-native-picker-select";
@@ -8,6 +8,7 @@ import OrderButton from './OrderButton';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment';
 import { Pressable } from 'react-native';
+import Icon from "react-native-vector-icons/Ionicons"
 
 
 const sourceMoment = moment.unix(1636797600);
@@ -22,11 +23,23 @@ export default class DoctorAppointmentModal extends Component {
             hour: 0,
             showDay: false,
             showTime: false,
+            doctorTimeTable: true
         };
     }
 
     onButtonPress = () => {
+        const { day, hour } = this.state
+        if (day != 0 && hour != 0) {
+            const data = {
+                doctor_id: this.props.doctor.id,
+                date: String(day),
+                time: String(hour),
+            }
 
+            this.props.setAppointment(data)
+        } else {
+            console.log("day & hour not specified")
+        }
     }
 
     onTimeChange = (event, newTime) => {
@@ -35,7 +48,7 @@ export default class DoctorAppointmentModal extends Component {
         this.setState({
             showDay: false,
             showTime: false,
-            hour: moment(newTime).format("LT")
+            hour: moment(newTime, "h:mm:ss A").format("HH:mm")
         })
     };
 
@@ -45,14 +58,20 @@ export default class DoctorAppointmentModal extends Component {
         this.setState({
             showDay: false,
             showTime: false,
-            day: moment(newDate).format("L")
+            day: moment(newDate).format("YYYY-MM-DD")
         })
     };
 
+    toggleTimeTable = () => {
+        console.log("indie");
+        this.setState((state) => ({
+            doctorTimeTable: !state.doctorTimeTable
+        }))
+    }
+
     render() {
-        // console.log(new Date())
-        const offset = new Date().getTimezoneOffset() * +1;
-        // console.log(offset)
+        // console.log(this.props.doctor)
+        const { doctor } = this.props
         return (
             <GestureRecognizer
                 // style={{ flex: 1 }}
@@ -67,57 +86,82 @@ export default class DoctorAppointmentModal extends Component {
                     animationType="fade">
                     <View style={styles.modalContainer}>
                         <View style={styles.modal}>
+
                             <View style={styles.topBar} />
 
-                            <View style={styles.contentContainer}>
-                                <Text style={styles.label} > {"الأيام التي يعمل فيها الطبيب"} </Text>
-                                <Pressable onPress={() => this.setState({ showDay: true })} style={[styles.textInputContainer, elevations[5]]}>
+                            {this.state.doctorTimeTable ? (
+                                <>
+                                    <View style={styles.contentContainer}>
 
-                                    <Text style={styles.textInput} > {this.state.day == 0 ? "اختر اليوم" : this.state.day} </Text>
+                                        <Text style={styles.label} > {"الأيام التي يعمل فيها الطبيب"} </Text>
 
-                                </Pressable>
+                                        {doctor.work_days && doctor.work_days.map(work_day => (
+                                            <View style={styles.rowContent}>
+                                                <Text style={styles.day} > {work_day.day.locale} </Text>
+                                                <Text style={styles.time} > {work_day.from + " - " + work_day.to} </Text>
+                                            </View>
+                                        ))}
+                                        <TouchableOpacity onPress={this.toggleTimeTable} style={styles.goToAppointment}>
+                                            <Icon name="arrow-forward-outline" size={25} color={colors.mainColor} />
+                                        </TouchableOpacity>
+                                    </View>
 
-                                {this.state.showDay && (
-                                    <DateTimePicker
-                                        mode="date"
-                                        value={sourceDate}
-                                        // timeZoneOffsetInMinutes={offset}
-                                        style={{ width: 300, opacity: 1, height: 30, marginTop: 50 }}
-                                        onChange={this.onDateChange}
-                                    // minuteInterval={interval}
-                                    />
-                                )}
-
-                                {/* {this.state.day != 0 && ( */}
+                                </>
+                            ) : (
                                 <>
 
-                                    {/* <Text style={[styles.label, { textAlign: 'center', lineHeight: 20 }]} > {"يعمل الطبيب في هذا اليوم من الساعة " + "this.state.chosenDay[0].from" + " الى الساعة " + "this.state.chosenDay[0].to"} </Text> */}
-                                    <Pressable onPress={() => this.setState({ showTime: true })} style={[styles.textInputContainer, elevations[5]]}>
+                                    <View style={styles.contentContainer}>
+                                        <Pressable onPress={this.toggleTimeTable} style={styles.closeModal}>
+                                            <Icon name="arrow-back-outline" size={25} color={colors.mainColor} />
+                                        </Pressable>
+                                        <Pressable onPress={() => this.setState({ showDay: true })} style={[styles.textInputContainer, elevations[5]]}>
 
-                                        <Text style={styles.textInput} > {this.state.hour == 0 ? "اختر الساعة" : this.state.hour} </Text>
+                                            <Text style={styles.textInput} > {this.state.day == 0 ? "اختر اليوم" : this.state.day} </Text>
 
-                                    </Pressable>
+                                        </Pressable>
+
+                                        {this.state.showDay && (
+                                            <DateTimePicker
+                                                mode="date"
+                                                value={sourceDate}
+                                                // timeZoneOffsetInMinutes={offset}
+                                                style={{ width: 300, opacity: 1, height: 30, marginTop: 50 }}
+                                                onChange={this.onDateChange}
+                                            // minuteInterval={interval}
+                                            />
+                                        )}
+
+                                        {/* {this.state.day != 0 && ( */}
+                                        <>
+
+                                            <Pressable onPress={() => this.setState({ showTime: true })} style={[styles.textInputContainer, elevations[5]]}>
+
+                                                <Text style={styles.textInput} > {this.state.hour == 0 ? "اختر الساعة" : this.state.hour} </Text>
+
+                                            </Pressable>
+                                        </>
+                                        {/* )} */}
+
+                                        {this.state.showTime && (
+                                            <DateTimePicker
+                                                mode="time"
+                                                value={sourceDate}
+                                                style={{ width: 300, opacity: 1, height: 30, marginTop: 50 }}
+                                                onChange={this.onTimeChange}
+                                                is24Hour
+                                            // timeZoneOffsetInMinutes={offset}
+                                            // minuteInterval={interval}
+                                            />
+                                        )}
+                                        <OrderButton width={"100%"} type={"toggler"} title={"احجز الأن"} onPress={this.onButtonPress} item={this.props.doctor} />
+                                    </View>
+
                                 </>
-                                {/* )} */}
-
-                                {this.state.showTime && (
-                                    <DateTimePicker
-                                        mode="time"
-                                        value={sourceDate}
-                                        style={{ width: 300, opacity: 1, height: 30, marginTop: 50 }}
-                                        onChange={this.onTimeChange}
-                                        is24Hour
-                                    // timeZoneOffsetInMinutes={offset}
-                                    // minuteInterval={interval}
-                                    />
-                                )}
-                            </View>
-                            <OrderButton width={"90%"} type={"toggler"} title={"احجز الأن"} onPress={this.onButtonPress} item={this.props.doctor} />
-
+                            )}
                         </View>
                     </View>
-                </Modal>
-            </GestureRecognizer>
+                </Modal >
+            </GestureRecognizer >
         );
     }
 }
@@ -176,5 +220,45 @@ const styles = StyleSheet.create({
         fontFamily: fonts.tajawalR,
         fontSize: 16,
         textAlign: "center",
+    },
+    closeModal: {
+        left: 20,
+        top: 10,
+        position: 'absolute',
+        // backgroundColor: colors.white,
+        // zIndex: 1111,
+        // elevation: 5,
+        borderRadius: 20,
+        padding: 5
+        // alignSelf: 'flex-start',
+    },
+    rowContent: {
+        flexDirection: 'row-reverse',
+        backgroundColor: colors.borderColor,
+        justifyContent: "space-between",
+        alignItems: 'center',
+        marginVertical: 5,
+        height: 40,
+        borderRadius: 10,
+        paddingHorizontal: 20,
+    },
+    day: {
+        fontFamily: fonts.tajawalR,
+        fontSize: 16
+    },
+    time: {
+        fontFamily: fonts.tajawalR,
+        fontSize: 16
+    },
+    goToAppointment: {
+        backgroundColor: colors.white,
+        elevation: 5,
+        height: 40,
+        width: 40,
+        borderRadius: 20,
+        alignSelf: 'flex-end',
+        marginBottom: 30,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
 })

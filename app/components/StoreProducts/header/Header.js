@@ -77,6 +77,15 @@ export default class Header extends Component {
                 />
               </>
             )}
+
+            {this.props.hospital && (
+              <RoundedIcons
+                onPress={() => goToScreen("DoctorAppointments", this.props.navigation, { store: this.props.store })}
+                type="appointment"
+                items={0}
+                fav={this.props.fav}
+              />
+            )}
           </View>
           <View style={styles.headerTextContainer}>
             <Text style={styles.hello}> {"مرحبا بك في"} </Text>
