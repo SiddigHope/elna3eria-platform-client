@@ -49,7 +49,7 @@ export default class CartList extends Component {
     )
 
     _renderItem = (item, index) => (
-        <CartComponent deleteItem={this.props.deleteItem} onPress={this.props.onPress} item={item} index={index} />
+        <CartComponent oneItem={this.props.oneItem} deleteItem={this.props.deleteItem} onPress={this.props.onPress} item={item} index={index} />
     )
 
     render() {

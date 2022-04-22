@@ -35,9 +35,11 @@ export default class CartComponent extends Component {
         // console.log(item)
         return (
             <View style={[styles.container, elevations[5]]}>
-                <TouchableOpacity onPress={this.deleteItem} style={[styles.deleteItem, elevations[5]]}>
-                    <Icon name="trash-can-outline" size={20} color={colors.danger} />
-                </TouchableOpacity>
+                {!this.props.oneItem && (
+                    <TouchableOpacity onPress={this.deleteItem} style={[styles.deleteItem, elevations[5]]}>
+                        <Icon name="trash-can-outline" size={20} color={colors.danger} />
+                    </TouchableOpacity>
+                )}
                 <Pressable onPress={() => this.props.onPress(item)} style={[styles.imageContainer, elevations[5]]}>
                     <Image style={styles.image} source={{ uri: item.image }} />
                 </Pressable>

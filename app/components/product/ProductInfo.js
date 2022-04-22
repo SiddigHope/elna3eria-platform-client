@@ -16,6 +16,7 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import Icon2 from "react-native-vector-icons/MaterialCommunityIcons";
 import { addToCart, removeItemFromCart } from "../../config/functions";
 import elevations from "../../config/elevations";
+import { goToScreen } from "../../config/functions"
 
 const { width, height } = Dimensions.get("window");
 
@@ -91,8 +92,6 @@ export default class ProductInfo extends Component {
         adding: false,
         added: true
       })
-      if (this.state.edit) {
-      }
       return
     }
     const added = addToCart({ ...item, order_id, quantity: this.state.productCount, total, order_comment: this.state.orderText }, this.props.store.id)
@@ -107,7 +106,14 @@ export default class ProductInfo extends Component {
     }, 1000)
   }
 
-  buyNow() {
+  buyNow = () => {
+    const item = this.props.product
+    console.log("buy now button pressed1")
+    const total = item.price * this.state.productCount
+    item.order_comment = this.state.orderText
+    item.quantity = this.state.productCount
+    item.total = total
+    goToScreen("Cart", this.props.navigation, { oneItem: true, item, store: this.props.store })
     console.log("buy now button pressed")
   }
 

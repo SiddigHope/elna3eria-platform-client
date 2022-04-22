@@ -33,6 +33,15 @@ export default class Cart extends Component {
     }
 
     getData = async () => {
+        if (this.props.route.params.oneItem) {
+            // TODO calculating the total plus the delivery fees
+            this.setState({
+                items: [this.props.route.params.item],
+                // total: this.props.route.params.item.total + this.props.route.params.store.delivery_fees,
+                total: this.props.route.params.item.total,
+            })
+            return
+        }
         this.setState({
             items: await getCartItem(this.props.route.params.store.id),
             total: await getCartTotal(this.props.route.params.store.id) + this.props.route.params.store.delivery_fees,
@@ -95,7 +104,9 @@ export default class Cart extends Component {
                 })
             }
 
-            removeAllCart(this.props.route.params.store.id)
+            if(!this.props.route.params.oneItem){
+                removeAllCart(this.props.route.params.store.id) 
+            }
             this.setState({ orderPlaced: true })
             setTimeout(() => {
                 this.setState({
@@ -190,7 +201,7 @@ export default class Cart extends Component {
                     <Text style={styles.title}> {"عربة التسوق"} </Text>
                     <Text style={styles.emptyText}> {""} </Text>
                 </View>
-                <CartList checkout={() => this.setState({ showModal: true })} deleteItem={this.deleteItem} onPress={this.onCartItemPress} total={this.state.total} items={this.state.items} refreshData={this.getData} navigation={this.props.navigation} />
+                <CartList oneItem={this.props.route.params.oneItem} checkout={() => this.setState({ showModal: true })} deleteItem={this.deleteItem} onPress={this.onCartItemPress} total={this.state.total} items={this.state.items} refreshData={this.getData} navigation={this.props.navigation} />
             </View>
         );
     }

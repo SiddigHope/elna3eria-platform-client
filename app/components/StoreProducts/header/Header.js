@@ -65,7 +65,7 @@ export default class Header extends Component {
             {!this.props.hraj && !this.props.hospital && (
               <>
                 <RoundedIcons
-                  onPress={() => goToScreen("Cart", this.props.navigation, { store: this.props.store })}
+                  onPress={() => goToScreen("Cart", this.props.navigation, { store: this.props.store, oneItem: false })}
                   items={this.state.cartItemsCount}
                   type="cart"
                 />

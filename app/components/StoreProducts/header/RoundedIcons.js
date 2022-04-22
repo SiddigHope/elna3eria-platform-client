@@ -14,7 +14,7 @@ export default class RoundedIcons extends Component {
   render() {
     const { type, fav } = this.props
     return (
-      <TouchableOpacity onPress={this.props.onPress} style={[styles.container, elevations[5], type == "fav" || type == "appointment" && { backgroundColor: colors.white, marginHorizontal: 10 }]}>
+      <TouchableOpacity onPress={this.props.onPress} style={[styles.container, elevations[5], type == "fav" || type == "appointment"? { backgroundColor: colors.white, marginHorizontal: 10 }: {}]}>
         {this.props.items != 0 && (
           <View style={[styles.numContainer, elevations[5]]}>
             <Text style={styles.numText}>{this.props.items}</Text>
