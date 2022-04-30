@@ -24,7 +24,8 @@ export default class Cart extends Component {
             paying: false,
             payingLink: "",
             paymentMethod: "CASH",
-            visible: true
+            visible: true,
+            pickup: false
         };
     }
 
@@ -84,6 +85,7 @@ export default class Cart extends Component {
             client_id: user.client.id,
             address: this.state.address,
             payment_method: this.state.paymentMethod,
+            pickup: this.state.pickup,
             details,
         }
 
@@ -104,8 +106,8 @@ export default class Cart extends Component {
                 })
             }
 
-            if(!this.props.route.params.oneItem){
-                removeAllCart(this.props.route.params.store.id) 
+            if (!this.props.route.params.oneItem) {
+                removeAllCart(this.props.route.params.store.id)
             }
             this.setState({ orderPlaced: true })
             setTimeout(() => {
@@ -127,6 +129,12 @@ export default class Cart extends Component {
 
     hideSpinner() {
         this.setState({ visible: false });
+    }
+
+    setPickup = (pickup) => {
+        this.setState({
+            pickup: pickup == 2 ? true : false
+        })
     }
 
     render() {
@@ -190,6 +198,7 @@ export default class Cart extends Component {
                             paymentMethod={this.state.paymentMethod}
                             setPaymentMethod={(paymentMethod) => this.setState({ paymentMethod })}
                             address={this.state.address}
+                            setPickup={this.setPickup}
                             setAddress={(address) => this.setState({ address })}
                             onCheckout={this.checkout}
                             closeModal={() => this.setState({ showModal: false })}

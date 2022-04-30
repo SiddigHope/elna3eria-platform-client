@@ -38,9 +38,10 @@ export default class StoreCategoriesComponent extends Component {
 
   checkSelected = () => {
     // console.log();
-    if (itemSelected == -1 && this.props.item.index == 0) {
-      this._setStore();
-    } else if (itemSelected == this.props.item.index) {
+    // if (this.props.item.index == 0) {
+    //   this._setStore();
+    // } else 
+    if (itemSelected == this.props.item.index) {
       this._setStore();
     } else {
       this.setState({

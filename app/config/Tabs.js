@@ -201,7 +201,8 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 5,
     borderRadius: 30,
-    flex: 1,
+    // flex: 1,
+    minHeight:50,
   },
   focusedTab: {
     // justifyContent: "flex-start",

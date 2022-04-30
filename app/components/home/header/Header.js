@@ -12,22 +12,22 @@ export default class Header extends Component {
     this.state = {};
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.getUser()
   }
 
   getUser = async () => {
     this.setState({
-        user: await UserClass.getUser()
+      user: await UserClass.getUser()
     })
-}
+  }
 
   render() {
     return (
-      <View style={[styles.container, this.props.searching?{height:50}:{}]}>
+      <View style={[styles.container, this.props.searching ? { height: 50 } : {}]}>
         <View style={styles.headerContainer}>
           <Avatar user={this.state.user} />
-          <Input closeSearching={this.props.closeSearching} onChangeText={this.props.onChangeText} searching={this.props.searching}/>
+          <Input closeSearching={this.props.closeSearching} onChangeText={this.props.onChangeText} searching={this.props.searching} />
           <View style={styles.barsContainer}>
             <View style={[styles.bars, elevations[5]]}></View>
             <View style={[styles.bars, elevations[5], { width: "70%" }]}></View>

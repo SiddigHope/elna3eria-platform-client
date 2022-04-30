@@ -50,6 +50,8 @@ export default class OrderOptions extends Component {
         this.setState({
             delivery: selected
         })
+
+        this.props.setPickup(selected)
     }
 
     render() {
@@ -66,7 +68,7 @@ export default class OrderOptions extends Component {
                     textStyle={styles.boxText}
                     initial={Number(this.state.delivery)}
                     data={delivery}
-                    icon={<Icon1 name="check-circle" size={25} color="#FF0011" />}
+                    icon={<Icon1 name="check-circle" size={25} color={colors.blueLight} />}
                 />
 
                 {this.state.delivery == 1 && (
