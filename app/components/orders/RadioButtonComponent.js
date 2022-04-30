@@ -26,7 +26,7 @@ const RadioButtonComponent = ({ selected, setSelected, item }) => {
     }
 
     return (
-        <Pressable onPress={changeOption} style={[styles.container, elevations[5], checked ? styles.borderedContainer : {}]}>
+        <Pressable key={item.value} onPress={changeOption} style={[styles.container, elevations[5], checked ? styles.borderedContainer : {}]}>
             {item.value == "CASH"? (
                 <Image source={require("../../../assets/icons/cash-payment.png")} style={styles.image} />
             ) : (

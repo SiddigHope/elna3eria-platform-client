@@ -114,6 +114,9 @@ export default class ProductInfo extends Component {
     item.quantity = this.state.productCount
     item.total = total
     goToScreen("Cart", this.props.navigation, { oneItem: true, item, store: this.props.store })
+    this.setState({
+      showModal: false
+    })
     console.log("buy now button pressed")
   }
 
