@@ -26,6 +26,7 @@ export default class StoreProducts extends Component {
   }
 
   checkInFav = async () => {
+    if (this.props.route.params.hraj || this.props.route.params.hospital) return
     const data = {
       favorite_id: this.props.route.params.store.id,
       type: "store"

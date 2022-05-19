@@ -29,7 +29,6 @@ import ProductScreen from './app/components/products/productScreen/ProductScreen
 import AskMe from './app/screens/AskMe';
 import AskMeOrders from './app/screens/AskMeOrders';
 import DoctorAppointments from './app/screens/DoctorAppointments';
-import ShowAdds from "./app/screens/ShowAdds";
 
 // I18nManager.forceRTL(false);
 // I18nManager.allowRTL(false);
@@ -99,13 +98,6 @@ function Stacks() {
       <Stack.Screen
         name="AskMeOrders"
         component={AskMeOrders}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="ShowAdds"
-        component={ShowAdds}
         options={{
           headerShown: false,
         }}

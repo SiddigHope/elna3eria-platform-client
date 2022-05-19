@@ -53,6 +53,7 @@ export default class Header extends Component {
 const styles = StyleSheet.create({
   container: {
     // height: 170,
+    marginTop: 20,
     width: "100%",
     // backgroundColor: 'red',
     alignItems: "center",

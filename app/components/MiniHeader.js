@@ -36,6 +36,7 @@ export default class MiniHeader extends Component {
 const styles = StyleSheet.create({
     header: {
         width: "100%",
+        // marginTop: 10,
         flexDirection: 'row',
         height: 70,
         // backgroundColor: 'red',

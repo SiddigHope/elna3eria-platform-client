@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image, Dimensions, Button } from 'react-native';
 import { Video, AVPlaybackStatus } from 'expo-av';
+import { colors } from '../../../config/vars';
 
 
 const { width, height } = Dimensions.get("window");
@@ -10,10 +11,15 @@ export default function AddComponent({ item }) {
     const media = item.item
     const [status, setStatus] = React.useState({});
 
+    // let margin = 0;
+    // if (this.props.item.index % 2 == 0) {
+    //     margin = 10;
+    // }
+
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, { marginRight: item.index % 2 == 0 ? 10 : 0 }]}>
             {media.type == "image" ? (
-                <Image resizeMode='contain' source={{ uri: media.file }} style={styles.image} />
+                <Image source={{ uri: media.file }} style={styles.image} />
             ) : (
                 <>
                     {/* <View></View> */}
@@ -46,16 +52,19 @@ export default function AddComponent({ item }) {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center"
+        width: ((width * 92) / 100) / 2,
+        height: 220,
+        backgroundColor: colors.white,
+        borderRadius: 10,
+        elevation: 5,
     },
     video: {
         height: (height * 40) / 100,
         width: width,
     },
     image: {
-        height: (height * 40) / 100,
-        width: width,
-    }
+        width: ((width * 92) / 100) / 2,
+        height: 220,
+        borderRadius: 10,
+    },
 })

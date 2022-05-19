@@ -10,7 +10,7 @@ import { getStores, storesSearch, getHrajCategories, getHospitals } from "../con
 import { goToScreen } from "../config/functions";
 import UserClass from '../config/authHandler';
 import { StatusBar } from "expo-status-bar";
-import ShowAdds from "./ShowAdds";
+import ShowAdds from '../components/home/showAdds/ShowAdds';
 
 export default class Home extends Component {
   constructor(props) {
@@ -108,20 +108,23 @@ export default class Home extends Component {
 
   _listFooter = () => (
     //this margin:65 is for elevating the elements upper than the bottom tabs because its absolute
-    <>
-      {this.state.showAdds ? (
-        <View style={{ marginBottom: 65 }}>
-          <ShowAdds navigation={this.props.navigation} />
-        </View>
-      ) : (
+    // 
+    // TODO show adds is disabled for a short time after backend is done
+    
+    // <>
+      // {this.state.showAdds ? (
+      //   <View style={{ marginBottom: 65 }}>
+      //     <ShowAdds navigation={this.props.navigation} />
+      //   </View>
+      // ) : (
         <StoresList
-          goToScreen={this.goToScreen}
-          stores={this.state.stores}
-          hraj={this.state.hraj}
-          navigation={this.props.navigation}
+        goToScreen={this.goToScreen}
+        stores={this.state.stores}
+        hraj={this.state.hraj}
+        navigation={this.props.navigation}
         />
-      )}
-    </>
+    //     )}
+    // </>
   );
 
   render() {

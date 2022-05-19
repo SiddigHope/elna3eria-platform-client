@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import AddsList from '../components/home/showAdds/AddsList';
-import { colors } from '../config/vars';
+import AddsList from './AddsList';
+import { colors } from '../../../config/vars';
 
 
 const data = [
@@ -10,12 +10,12 @@ const data = [
         type: "image",
         file: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRH5Q09fKQOrDsbGZ5jjuHlxTsLmVY2xsc-7A&usqp=CAU",
     },
-    {
-        id: "2",
-        type: "video",
-        file: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"
-        // file: "https://www.youtube.com/watch?v=l9Ny3CrYYWk",
-    },
+    // {
+    //     id: "2",
+    //     type: "video",
+    //     file: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"
+    //     // file: "https://www.youtube.com/watch?v=l9Ny3CrYYWk",
+    // },
     {
         id: "3",
         type: "image",
