@@ -198,6 +198,31 @@ export const hrajProductsCategories = async (id) => {
   }
 };
 
+export const getHrajProductComments = async (id) => {
+
+  try {
+    const options = {
+      method: "GET",
+      url: mainDomain + "client/hraj/comments/" + id,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    };
+    // console.log(options)
+
+    const request = await axios(options)
+      .then((response) => response.data)
+      .catch((error) => console.log(error));
+
+
+    return request.data;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
+
 export const hospitalsList = async (id) => {
 
   try {

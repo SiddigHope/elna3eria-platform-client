@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { Component } from "react";
-import { View, Text, StyleSheet, ScrollView, ActivityIndicator, Modal } from "react-native";
+import { View, Text, StyleSheet, ScrollView, ActivityIndicator, Modal, Dimensions, FlatList } from "react-native";
 import { colors } from "../config/vars";
 import ImageComponent from "../components/product/ImageComponent";
 import ProductInfo from "../components/product/ProductInfo";
@@ -10,6 +10,10 @@ import { GestureDetector } from "react-native-gesture-handler";
 import GestureRecognizer from "react-native-swipe-gestures";
 import DoctorComponent from "../components/product/DoctorComponent";
 import HrajProductInfo from '../components/product/HrajProductInfo';
+import CommentsList from '../components/product/comments/CommentsList';
+
+
+const { width, height } = Dimensions.get("window")
 
 export default class ProductDetails extends Component {
   constructor(props) {
@@ -68,6 +72,33 @@ export default class ProductDetails extends Component {
     const success = await deleteFavProduct(this.state.product.id)
   }
 
+
+  _listFooter = () => (
+    <CommentsList productId={this.state.product.id} />
+  )
+
+  _listHeader = () => (
+    <ImageComponent
+      setFav={this.setFav}
+      fav={this.state.fav}
+      navigation={this.props.navigation}
+      hraj={this.props.route.params.hraj}
+      screen={this.props.route.params.screen}
+      image={this.state.product.images}
+    />
+  )
+
+  _renderItem = (item, index) => (
+    <HrajProductInfo
+      showReviews={() => this.setState({ showReviews: !this.state.showReviews })}
+      navigation={this.props.navigation}
+      screen={this.props.route.params.screen}
+      store={this.state.store}
+      product={this.state.product}
+    />
+  )
+
+
   render() {
     // console.log(this.state.product)
     return (
@@ -94,44 +125,20 @@ export default class ProductDetails extends Component {
             </View>
           </Modal>
         </GestureRecognizer>
-        {/* <Modal
-          transparent={true}
-          onBackdropPress={() => this.setState({ showReviews: false })}
-          onSwipeComplete={() => this.setState({ showReviews: false })}
-          onRequestClose={() => this.setState({ showReviews: false })}
-          visible={this.state.showReviews}
-          animationType="slide">
-          <View style={styles.modalContainer}>
-            <View style={styles.modal}>
-              <ReviewsList
-                closeModal={() => this.setState({ showReviews: false })}
-                reviews={this.state.product && this.state.product.reviews}
-              />
-            </View>
-          </View>
-        </Modal> */}
         {this.state.loading ? (
           <View style={{ justifyContent: "center", alignItems: "center", flex: 1 }} >
             <ActivityIndicator size={50} color={colors.mainColor} />
           </View>
         ) : this.props.route.params.hraj ? (
           <>
-            <ImageComponent
-              setFav={this.setFav}
-              fav={this.state.fav}
-              navigation={this.props.navigation}
-              hraj={this.props.route.params.hraj}
-              screen={this.props.route.params.screen}
-              image={this.state.product.images}
+            <FlatList
+              data={[1]}
+              keyExtractor={(item, index) => index.toString()}
+              showsVerticalScrollIndicator={false}
+              ListHeaderComponent={this._listHeader}
+              ListFooterComponent={this._listFooter}
+              renderItem={this._renderItem}
             />
-            <HrajProductInfo
-              showReviews={() => this.setState({ showReviews: !this.state.showReviews })}
-              navigation={this.props.navigation}
-              screen={this.props.route.params.screen}
-              store={this.state.store}
-              product={this.state.product}
-            />
-            {/* <DoctorComponent /> */}
           </>
         ) : this.props.route.params.hospital ? (
           <DoctorComponent

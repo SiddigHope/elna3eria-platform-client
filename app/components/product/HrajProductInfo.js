@@ -20,6 +20,7 @@ import Icon3 from 'react-native-vector-icons/Ionicons';
 
 import { addToCart, removeItemFromCart } from "../../config/functions";
 import elevations from "../../config/elevations";
+import CommentsList from './comments/CommentsList';
 
 const { width, height } = Dimensions.get("window");
 
@@ -89,7 +90,7 @@ export default class HrajProductInfo extends Component {
         }
 
         return (
-            <View style={[styles.container, elevations[10]]}>
+            <View style={[styles.container]}>
                 <View style={styles.infoContainer}>
                     <View style={styles.headerInfo}>
                         <View style={styles.miniRow}>
@@ -106,18 +107,17 @@ export default class HrajProductInfo extends Component {
                         </View>
                         <Text style={styles.name}> {this.props.product.title} </Text>
                     </View>
-                    <ScrollView>
-                        <Text style={styles.desc}> {this.props.product.description} </Text>
-                        <View style={styles.miniRow}>
-                            <TouchableOpacity onPress={this.whatsapp} style={[styles.iconContainer, elevations[5], { marginLeft: 10, marginRight: 5 }]}>
-                                <Icon3 name="chatbox-ellipses" size={20} color={colors.mainColor} />
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={this.phoneCall} style={[styles.iconContainer, elevations[5]]}>
-                                <Icon2 name="phone-in-talk" size={20} color={colors.mainColor} />
-                            </TouchableOpacity>
-                        </View>
-                        {/* <OrderButton screen={this.props.screen} type={"toggler"} adding={this.state.adding} added={this.state.added} title={"اطلب الأن"} onPress={this.onButtonPress} item={this.props.product} /> */}
-                    </ScrollView>
+                    {/* <ScrollView> */}
+                    <Text style={styles.desc}> {this.props.product.description} </Text>
+                    <View style={styles.miniRow}>
+                        <TouchableOpacity onPress={this.whatsapp} style={[styles.iconContainer, elevations[5], { marginLeft: 10, marginRight: 5 }]}>
+                            <Icon3 name="chatbox-ellipses" size={20} color={colors.mainColor} />
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={this.phoneCall} style={[styles.iconContainer, elevations[5]]}>
+                            <Icon2 name="phone-in-talk" size={20} color={colors.mainColor} />
+                        </TouchableOpacity>
+                    </View>
+                    {/* </ScrollView> */}
                 </View>
             </View>
         );
@@ -126,13 +126,11 @@ export default class HrajProductInfo extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        position: "absolute",
         width,
         // borderTopLeftRadius: 80,
-        height: (height * 50) / 100,
+        // height: (height * 50) / 100,
         backgroundColor: colors.white,
-        bottom: 0,
-        elevation: 10,
+        // elevation: 10,
         padding: 20,
         paddingTop: 50,
     },

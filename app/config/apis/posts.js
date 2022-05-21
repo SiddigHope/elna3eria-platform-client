@@ -261,7 +261,61 @@ export const setDoctorAppointment = async (data) => {
             .then((response) => response.data)
             .catch((error) => console.log(error.response));
         console.log("request")
-        console.log(request)
+        // console.log(request)
+        // return
+        return request.data ? true : false;
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+}
+
+export const submitHrajComment = async (data) => {
+    const user = await getUser()
+    try {
+        const options = {
+            method: "POST",
+            url: mainDomain + "client/hraj/comments",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+                Authorization: "Bearer " + user.token,
+            },
+            data
+        };
+
+        const request = await axios(options)
+            .then((response) => response.data)
+            .catch((error) => console.log(error.response));
+        console.log("request")
+        // console.log(request)
+        // return
+        return request.data ? true : false;
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+}
+
+export const deleteHrajComment = async (id) => {
+    const user = await getUser()
+    try {
+        const options = {
+            method: "POST",
+            url: mainDomain + "client/hraj/comments/" + id,
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+                Authorization: "Bearer " + user.token,
+            },
+            data
+        };
+
+        const request = await axios(options)
+            .then((response) => response.data)
+            .catch((error) => console.log(error.response));
+        console.log("request")
+        // console.log(request)
         // return
         return request.data ? true : false;
     } catch (error) {
