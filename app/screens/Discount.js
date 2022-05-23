@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, FlatList, ActivityIndicator } from "react-native";
+import { View, Text, StyleSheet, FlatList, ActivityIndicator, BackHandler, Alert } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import BannerList from "../components/home/BannerList";
 import ProductsList from "../components/discount/products/ProductsList";
@@ -28,7 +28,32 @@ export default class Discount extends Component {
             loading: true
         })
         this.getData()
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
     }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
+    }
+
+    handleBackPress = () => {
+        if (this.props.navigation.isFocused()) {
+            Alert.alert(
+                'إنهاء التطبيق',
+                'هل حقاً تريد إنهاء التطبيق',
+                [
+                    {
+                        text: 'لا',
+                        onPress: () => console.log('Cancel Pressed'),
+                        style: 'cancel',
+                    },
+                    { text: 'نعم', onPress: () => BackHandler.exitApp() },
+                ],
+                { cancelable: false },
+            );
+            return true;
+        }
+        // return true;  // Do nothing when back button is pressed
+    };
 
     getData = async () => {
         const products = await getDiscountedProducts()

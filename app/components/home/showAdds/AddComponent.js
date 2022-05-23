@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image, Dimensions, Button } from 'react-native';
+import { View, Text, StyleSheet, Image, Dimensions, Button, TouchableOpacity } from 'react-native';
 import { Video, AVPlaybackStatus } from 'expo-av';
 import { colors } from '../../../config/vars';
+import { goToScreen } from '../../../config/functions';
 
 
 const { width, height } = Dimensions.get("window");
 
-export default function AddComponent({ item }) {
+export default function AddComponent({ item, openModal }) {
     const video = React.useRef(null);
     const media = item.item
     const [status, setStatus] = React.useState({});
@@ -16,8 +17,12 @@ export default function AddComponent({ item }) {
     //     margin = 10;
     // }
 
+    const openAdds = () => {
+        openModal(item)
+    }
+
     return (
-        <View style={[styles.container, { marginRight: item.index % 2 == 0 ? 10 : 0 }]}>
+        <TouchableOpacity onPress={openAdds} style={[styles.container, { marginRight: item.index % 2 == 0 ? 10 : 0 }]}>
             {media.type == "image" ? (
                 <Image source={{ uri: media.file }} style={styles.image} />
             ) : (
@@ -46,7 +51,7 @@ export default function AddComponent({ item }) {
                     /> */}
                 </>
             )}
-        </View>
+        </TouchableOpacity>
     );
 }
 

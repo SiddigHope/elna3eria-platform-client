@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, Text, StyleSheet, ScrollView, BackHandler, Alert } from "react-native";
 import SigninComponent from "../components/authentication/signin/SigninComponent";
 import { login } from '../config/apis/authentication';
 import UserClass from '../config/authHandler';
@@ -19,10 +19,35 @@ export default class Signin extends Component {
 
   componentDidMount() {
     this.checkUser();
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
   }
   componentDidUpdate() {
     this.checkUser();
   }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
+  }
+
+  handleBackPress = () => {
+    if (this.props.navigation.isFocused()) {
+      Alert.alert(
+        'إنهاء التطبيق',
+        'هل حقاً تريد إنهاء التطبيق',
+        [
+          {
+            text: 'لا',
+            onPress: () => console.log('Cancel Pressed'),
+            style: 'cancel',
+          },
+          {text: 'نعم', onPress: () => BackHandler.exitApp()},
+        ],
+        {cancelable: false},
+      );
+      return true;
+    }
+    // return true;  // Do nothing when back button is pressed
+  };
 
   checkUser = async () => {
     // UserClass.logout()

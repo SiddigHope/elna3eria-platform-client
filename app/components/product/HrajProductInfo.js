@@ -119,6 +119,7 @@ export default class HrajProductInfo extends Component {
                     </View>
                     {/* </ScrollView> */}
                 </View>
+                <CommentsList productId={this.props.product.id} />
             </View>
         );
     }
@@ -131,7 +132,7 @@ const styles = StyleSheet.create({
         // height: (height * 50) / 100,
         backgroundColor: colors.white,
         // elevation: 10,
-        padding: 20,
+        paddingVertical: 20,
         paddingTop: 50,
     },
     name: {
@@ -179,6 +180,7 @@ const styles = StyleSheet.create({
     infoContainer: {
         // backgroundColor: "#e3e3e3",
         // flex: 1,
+        padding: 20
     },
     headerInfo: {
         // backgroundColor: "red",

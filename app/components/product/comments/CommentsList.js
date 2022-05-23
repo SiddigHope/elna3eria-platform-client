@@ -7,6 +7,7 @@ import UserClass from '../../../config/authHandler';
 import CommentComponent from './CommentComponent';
 import CommentForm from './CommentForm';
 import { submitHrajComment } from '../../../config/apis/posts';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default class CommentsList extends Component {
     constructor(props) {
@@ -39,11 +40,7 @@ export default class CommentsList extends Component {
         <View style={{ height: 10 }} />
     )
 
-    _listHeader = () => (
-        <View style={styles.labelContainer}>
-            <Text style={styles.label}> {"التعليقات"} </Text>
-        </View>
-    )
+
 
     submitForm = async (comment) => {
         const data = {
@@ -59,6 +56,18 @@ export default class CommentsList extends Component {
         })
     }
 
+    _listHeader = () => (
+        <View style={styles.labelContainer}>
+            <Text style={styles.label}> {"التعليقات"} </Text>
+        </View>
+    )
+
+    _renderEmptyContainer = () => (
+        <View style={[styles.labelContainer, {borderTopWidth: 0, borderBottomWidth: 0}]}>
+            <Text style={[styles.label, { fontFamily: fonts.tajawalR, fontSize: 14, textAlign: "center" }]}> {"لا توجد تعليقات حتى الان..."} </Text>
+        </View>
+    )
+
     _listFooter = () => (
         <CommentForm
             setLoading={() => this.setState({ loading: true })}
@@ -71,21 +80,29 @@ export default class CommentsList extends Component {
         <CommentComponent user={this.state.user} item={item.item} index={index} />
     )
 
-
     render() {
+        console.log(this.state.comments)
         return (
             <View style={styles.container}>
-                <FlatList
-                    data={this.state.comments}
-                    keyExtractor={(item, index) => index.toString()}
-                    showsVerticalScrollIndicator={false}
-                    ListHeaderComponent={this._listHeader}
-                    style={{ width: "100%" }}
-                    contentContainerStyle={{ alignItems: 'center' }}
-                    ListFooterComponent={this._listFooter}
-                    ItemSeparatorComponent={this._itemSeparator}
-                    renderItem={this._renderItem}
-                />
+                {this.state.comments ?
+                    <FlatList
+                        data={this.state.comments}
+                        keyExtractor={(item, index) => index.toString()}
+                        showsVerticalScrollIndicator={false}
+                        ListHeaderComponent={this._listHeader}
+                        style={{ width: "100%" }}
+                        ListEmptyComponent={this._renderEmptyContainer}
+                        contentContainerStyle={{ alignItems: 'center' }}
+                        ListFooterComponent={this._listFooter}
+                        ItemSeparatorComponent={this._itemSeparator}
+                        renderItem={this._renderItem}
+                    /> :
+                    <CommentForm
+                        setLoading={() => this.setState({ loading: true })}
+                        loading={this.state.loading}
+                        submitForm={this.submitForm}
+                    />
+                }
             </View>
         );
     }

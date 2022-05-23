@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { Component } from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, Text, StyleSheet, ScrollView, Alert, BackHandler } from "react-native";
 import ProfileComponent from "../components/profile/ProfileComponent";
 import Header from "../config/header/Header";
 import { colors } from '../config/vars';
@@ -16,12 +16,35 @@ export default class Profile extends Component {
     navigation.addListener("focus", () => {
       this.setState(this.state)
     })
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
   }
 
   componentWillUnmount() {
     const navigation = this.props.navigation
     navigation.removeListener("focus")
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
   }
+
+  handleBackPress = () => {
+    if (this.props.navigation.isFocused()) {
+      Alert.alert(
+        'إنهاء التطبيق',
+        'هل حقاً تريد إنهاء التطبيق',
+        [
+          {
+            text: 'لا',
+            onPress: () => console.log('Cancel Pressed'),
+            style: 'cancel',
+          },
+          { text: 'نعم', onPress: () => BackHandler.exitApp() },
+        ],
+        { cancelable: false },
+      );
+      return true;
+    }
+    // return true;  // Do nothing when back button is pressed
+  };
+
 
   render() {
     return (

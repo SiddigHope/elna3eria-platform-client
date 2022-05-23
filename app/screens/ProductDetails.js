@@ -135,8 +135,9 @@ export default class ProductDetails extends Component {
               data={[1]}
               keyExtractor={(item, index) => index.toString()}
               showsVerticalScrollIndicator={false}
+              // keyboardShouldPersistTaps={false}
               ListHeaderComponent={this._listHeader}
-              ListFooterComponent={this._listFooter}
+              // ListFooterComponent={this._listFooter}
               renderItem={this._renderItem}
             />
           </>

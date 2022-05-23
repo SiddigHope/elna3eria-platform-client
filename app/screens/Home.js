@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, FlatList } from "react-native";
+import { View, Text, StyleSheet, FlatList, BackHandler, Alert } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import BannerList from "../components/home/BannerList";
 import StoresList from "../components/home/Stores/StoresList";
@@ -24,6 +24,35 @@ export default class Home extends Component {
       showAdds: true
     };
   }
+
+  componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
+  }
+
+  handleBackPress = () => {
+    if (this.props.navigation.isFocused()) {
+      Alert.alert(
+        'إنهاء التطبيق',
+        'هل حقاً تريد إنهاء التطبيق',
+        [
+          {
+            text: 'لا',
+            onPress: () => console.log('Cancel Pressed'),
+            style: 'cancel',
+          },
+          { text: 'نعم', onPress: () => BackHandler.exitApp() },
+        ],
+        { cancelable: false },
+      );
+      return true;
+    }
+    // return true;  // Do nothing when back button is pressed
+  };
+
 
   setStores = async (id) => {
 
@@ -110,28 +139,28 @@ export default class Home extends Component {
     //this margin:65 is for elevating the elements upper than the bottom tabs because its absolute
     // 
     // TODO show adds is disabled for a short time after backend is done
-    
-    // <>
-      // {this.state.showAdds ? (
-      //   <View style={{ marginBottom: 65 }}>
-      //     <ShowAdds navigation={this.props.navigation} />
-      //   </View>
-      // ) : (
+
+    <>
+      {this.state.showAdds ? (
+        <View style={{ marginBottom: 65 }}>
+          <ShowAdds navigation={this.props.navigation} />
+        </View>
+      ) : (
         <StoresList
-        goToScreen={this.goToScreen}
-        stores={this.state.stores}
-        hraj={this.state.hraj}
-        navigation={this.props.navigation}
+          goToScreen={this.goToScreen}
+          stores={this.state.stores}
+          hraj={this.state.hraj}
+          navigation={this.props.navigation}
         />
-    //     )}
-    // </>
+      )}
+    </>
   );
 
   render() {
     // UserClass.logout()
     return (
       <View style={styles.container}>
-        <StatusBar translucent={false} backgroundColor={colors.whiteF7} />
+        <StatusBar translucent={false} style="dark" backgroundColor={colors.whiteF7} />
         <FlatList
           data={[1]}
           keyExtractor={(item, index) => index.toString()}

@@ -20,7 +20,7 @@ export default class AddsList extends Component {
     }
 
     _renderItem = (item, index) => (
-        <AddComponent item={item} index={index} />
+        <AddComponent openModal={this.props.openModal} item={item} index={index} />
     );
 
     _itemSeparator = () => <View style={{ height: 15 }} />;
