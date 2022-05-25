@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { View, Text, StyleSheet, Image, Pressable, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import Icon1 from "react-native-vector-icons/MaterialCommunityIcons";
+import Icon2 from "react-native-vector-icons/SimpleLineIcons";
 import elevations from "../../../config/elevations";
 import { colors, fonts } from "../../../config/vars";
 
@@ -14,7 +15,7 @@ export default class RoundedIcons extends Component {
   render() {
     const { type, fav } = this.props
     return (
-      <TouchableOpacity onPress={this.props.onPress} style={[styles.container, elevations[5], type == "fav" || type == "appointment"? { backgroundColor: colors.white, marginHorizontal: 10 }: {}]}>
+      <TouchableOpacity onPress={this.props.onPress} style={[styles.container, elevations[5], type == "fav" || type == "appointment" || type=="hraj"? { backgroundColor: colors.white, marginHorizontal: 10 }: {}]}>
         {this.props.items != 0 && (
           <View style={[styles.numContainer, elevations[5]]}>
             <Text style={styles.numText}>{this.props.items}</Text>
@@ -28,6 +29,8 @@ export default class RoundedIcons extends Component {
           <Icon1 name={fav ? "heart" : "heart-outline"} size={25} color={colors.danger} />
         ) : type == "appointment" ? (
           <Icon1 name={"bookmark-multiple-outline"} size={25} color={colors.darkBlue} />
+        ): type == "hraj" ? (
+          <Icon2 name={"handbag"} size={25} color={colors.mainColor} />
         ) : (
           <Icon name={"md-chatbox-ellipses"} size={25} color={colors.ebony} />
         )}

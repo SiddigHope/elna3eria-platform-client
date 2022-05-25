@@ -7,7 +7,7 @@ import { StatusBar } from 'expo-status-bar';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 import MediaContainer from './MediaContainer';
 import { ProgressBar } from 'react-native-paper';
-
+import Dots from 'react-native-dots-pagination';
 const data = [
     // {
     //     id: "1",
@@ -53,8 +53,9 @@ export default class ShowAdds extends Component {
         super(props);
         this.state = {
             data: [],
-            progress: 0,
-            showAdds: false
+            progress: Number("0." + 6),
+            showAdds: false,
+            active: 0
         };
     }
 
@@ -105,7 +106,24 @@ export default class ShowAdds extends Component {
                                     </TouchableOpacity>
                                 </View>
                                 <ProgressBar progress={this.state.progress} color={colors.mainColor} />
-                                <MediaContainer data={this.state.data} />
+                                <MediaContainer
+                                    setActive={(active) => this.setState({ active })}
+                                    data={this.state.data}
+                                    navigation={this.props.navigation}
+                                />
+                                <View style={styles.dotsPaging}>
+                                    <Dots
+                                        activeColor={colors.mainColor}
+                                        passiveColor={"rgba(255, 130, 66,0.5)"}
+                                        length={this.state.data.length}
+                                        active={this.state.active}
+                                        activeDotHeight = {20}
+                                        activeDotWidth = {25}
+                                        passiveDotHeight = {15}
+                                        passiveDotWidth = {15}
+                                        marginHorizontal={5}
+                                    />
+                                </View>
                             </View>
                         </View>
                     </Modal>
@@ -150,5 +168,11 @@ const styles = StyleSheet.create({
         color: colors.softWhite,
         fontSize: 16,
         fontFamily: fonts.tajawalB
+    },
+    dotsPaging: {
+        // backgroundColor: "red",
+        position: "absolute",
+        bottom: 50,
+        width: "100%",
     }
 })

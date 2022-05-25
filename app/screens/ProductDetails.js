@@ -85,6 +85,7 @@ export default class ProductDetails extends Component {
       hraj={this.props.route.params.hraj}
       screen={this.props.route.params.screen}
       image={this.state.product.images}
+      product={this.state.product}
     />
   )
 

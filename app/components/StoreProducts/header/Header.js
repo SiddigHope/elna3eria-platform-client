@@ -78,6 +78,15 @@ export default class Header extends Component {
               </>
             )}
 
+            {this.props.hraj && (
+              <RoundedIcons
+                onPress={() => goToScreen("Hiraj", this.props.navigation, { store: this.props.store })}
+                type="hraj"
+                items={0}
+                fav={this.props.fav}
+              />
+            )}
+
             {this.props.hospital && (
               <RoundedIcons
                 onPress={() => goToScreen("DoctorAppointments", this.props.navigation, { store: this.props.store })}

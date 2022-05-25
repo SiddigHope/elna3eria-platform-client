@@ -10,6 +10,8 @@ export default class AddMediaComponent extends Component {
         super(props);
         this.state = {
         };
+        this.navigation = this.props.navigation
+
     }
 
     render() {
@@ -18,7 +20,7 @@ export default class AddMediaComponent extends Component {
         return (
             <View style={styles.container}>
                 <Image
-                onLoad={this.props.startCount}
+                    onLoadEnd={this.props.startCount}
                     PlaceholderContent={<ActivityIndicator color={colors.mainColor} size="small" />}
                     resizeMode='contain'
                     style={styles.image}

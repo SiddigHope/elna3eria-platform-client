@@ -26,19 +26,24 @@ export default class StoresList extends Component {
   _listFooter = () => <View style={{ height: 20 }} />;
 
   _listHeader = () => (
-    <View style={{ width: "100%", alignItems: "flex-end", height: 60 }}>
-      <View style={styles.titleContainer}>
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <Text style={styles.subTitle}>
-            {" "}
-            {this.props.stores.length}
-            {"متجر"}{" "}
-          </Text>
-          <Text style={styles.title}> {"المتاجر :"} </Text>
+    this.props.hraj ? (
+      <View style={{ height: 30 }} />
+    ) : (
+      <View style={{ width: "100%", alignItems: "flex-end", height: 60 }}>
+        <View style={styles.titleContainer}>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <Text style={styles.subTitle}>
+              {" "}
+              {this.props.stores.length}
+              {"متجر"}{" "}
+            </Text>
+            <Text style={styles.title}> {"المتاجر :"} </Text>
+          </View>
+          <View style={[styles.titleUnderline, elevations[5]]} />
         </View>
-        <View style={[styles.titleUnderline, elevations[5]]} />
       </View>
-    </View>
+    )
+
   );
 
   render() {

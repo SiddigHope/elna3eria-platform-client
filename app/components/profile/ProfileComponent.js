@@ -32,12 +32,12 @@ export default class ProfileComponent extends Component {
                 onPress: "FavProducts",
                 icon: <Icon1 name="heart-outline" size={25} color={colors.mainColor} />,
             },
-            {
-                id: 3,
-                title: "الحراج",
-                onPress: "Hiraj",
-                icon: <Icon name="storefront-outline" size={25} color={colors.mainColor} />,
-            },
+            // {
+            //     id: 3,
+            //     title: "الحراج",
+            //     onPress: "Hiraj",
+            //     icon: <Icon name="storefront-outline" size={25} color={colors.mainColor} />,
+            // },
             {
                 id: 4,
                 title: "تقيماتي",
