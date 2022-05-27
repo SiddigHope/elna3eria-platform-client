@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Platform } from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons"
 import { fonts, colors } from '../config/vars';
 
@@ -11,7 +11,7 @@ export default class MiniHeader extends Component {
     }
     render() {
         return (
-            <View style={styles.header}>
+            <View style={[styles.header, Platform.OS == "ios" && {marginTop: 20}]}>
                 {this.props.backgroundColor ? (
                     <View style={styles.background}>
                         <Icon onPress={() => this.props.navigation.goBack()} name="arrow-back-outline" size={30} color={colors.ebony} />
@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         paddingHorizontal: 20,
+        // marginTop: 20
     },
     background: {
         // flex: 0.3,

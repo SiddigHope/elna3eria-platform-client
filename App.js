@@ -29,6 +29,7 @@ import ProductScreen from './app/components/products/productScreen/ProductScreen
 import AskMe from './app/screens/AskMe';
 import AskMeOrders from './app/screens/AskMeOrders';
 import DoctorAppointments from './app/screens/DoctorAppointments';
+import HospitalProfile from './app/screens/HospitalProfile';
 
 // I18nManager.forceRTL(false);
 // I18nManager.allowRTL(false);
@@ -77,6 +78,13 @@ function Stacks() {
       <Stack.Screen
         name="Tabs"
         component={Tabs}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="HospitalProfile"
+        component={HospitalProfile}
         options={{
           headerShown: false,
         }}

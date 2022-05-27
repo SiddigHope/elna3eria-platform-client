@@ -15,7 +15,7 @@ export default class RoundedIcons extends Component {
   render() {
     const { type, fav } = this.props
     return (
-      <TouchableOpacity onPress={this.props.onPress} style={[styles.container, elevations[5], type == "fav" || type == "appointment" || type=="hraj"? { backgroundColor: colors.white, marginHorizontal: 10 }: {}]}>
+      <TouchableOpacity onPress={this.props.onPress} style={[styles.container, elevations[5], type == "fav" || type == "appointment" || type=="hraj" ? { backgroundColor: colors.white, marginHorizontal: 10 }: {}]}>
         {this.props.items != 0 && (
           <View style={[styles.numContainer, elevations[5]]}>
             <Text style={styles.numText}>{this.props.items}</Text>
@@ -28,10 +28,12 @@ export default class RoundedIcons extends Component {
         ) : type == "fav" ? (
           <Icon1 name={fav ? "heart" : "heart-outline"} size={25} color={colors.danger} />
         ) : type == "appointment" ? (
-          <Icon1 name={"bookmark-multiple-outline"} size={25} color={colors.darkBlue} />
+          <Icon1 name={"bookmark-multiple-outline"} size={25} color={colors.mainColor} />
         ): type == "hraj" ? (
           <Icon2 name={"handbag"} size={25} color={colors.mainColor} />
-        ) : (
+        ) : type == "hospitalProfile" ? (
+          <Icon1 name={"information-outline"} size={25} color={colors.white} />
+        ): (
           <Icon name={"md-chatbox-ellipses"} size={25} color={colors.ebony} />
         )}
       </TouchableOpacity>
@@ -41,8 +43,8 @@ export default class RoundedIcons extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    height: 50,
-    width: 50,
+    height: 40,
+    width: 40,
     borderRadius: 15,
     elevation: 5,
     justifyContent: "center",

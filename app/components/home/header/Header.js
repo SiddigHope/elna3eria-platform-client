@@ -5,6 +5,7 @@ import { colors } from "../../../config/vars";
 import Avatar from "./Avatar";
 import Input from "./Input";
 import UserClass from '../../../config/authHandler';
+import { StatusBar } from 'expo-status-bar';
 
 export default class Header extends Component {
   constructor(props) {
@@ -25,6 +26,7 @@ export default class Header extends Component {
   render() {
     return (
       <View style={[styles.container, this.props.searching ? { height: 50 } : {}]}>
+      <StatusBar translucent={false} style="dark" backgroundColor={colors.whiteF7} />
         <View style={styles.headerContainer}>
           <Avatar user={this.state.user} />
           <Input closeSearching={this.props.closeSearching} onChangeText={this.props.onChangeText} searching={this.props.searching} />

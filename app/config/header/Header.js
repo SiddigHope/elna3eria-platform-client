@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, Platform } from "react-native";
 import elevations from "../elevations";
 import { colors, fonts } from "../vars";
 import Avatar from "./Avatar";
@@ -23,7 +23,7 @@ export default class Header extends Component {
   }
   render() {
     return (
-      <View style={[styles.container, this.props.searching ? { height: 50 } : {}]}>
+      <View style={[styles.container, this.props.searching ? { height: 50 } :Platform.OS == "ios" ? { marginTop: 40 } :  {}]}>
         <View style={styles.headerContainer}>
           <Avatar user={this.state.user} />
           {this.props.screen == "home" || this.props.screen == "discount" ? (
@@ -53,7 +53,6 @@ export default class Header extends Component {
 const styles = StyleSheet.create({
   container: {
     // height: 170,
-    marginTop: 20,
     width: "100%",
     // backgroundColor: 'red',
     alignItems: "center",

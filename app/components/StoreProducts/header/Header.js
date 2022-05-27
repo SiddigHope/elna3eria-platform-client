@@ -88,18 +88,30 @@ export default class Header extends Component {
             )}
 
             {this.props.hospital && (
-              <RoundedIcons
-                onPress={() => goToScreen("DoctorAppointments", this.props.navigation, { store: this.props.store })}
-                type="appointment"
-                items={0}
-                fav={this.props.fav}
-              />
+              <>
+                <RoundedIcons
+                  onPress={() => goToScreen("DoctorAppointments", this.props.navigation, { store: this.props.store })}
+                  type="appointment"
+                  items={0}
+                  fav={this.props.fav}
+                />
+              </>
             )}
           </View>
           <View style={styles.headerTextContainer}>
             <Text style={styles.hello}> {"مرحبا بك في"} </Text>
-            <Text style={styles.storeTitle}> {this.props.hraj && "حراج"} {this.props.store.name} </Text>
+            <Text style={styles.storeTitle}>{this.props.hraj && "حراج"} {this.props.store.name} </Text>
           </View>
+          {this.props.hospital && (
+            <>
+              <RoundedIcons
+                onPress={() => goToScreen("HospitalProfile", this.props.navigation, { store: this.props.store })}
+                type="hospitalProfile"
+                items={0}
+                fav={this.props.fav}
+              />
+            </>
+          )}
         </View>
         <View style={styles.headerContainer}>
           <Input
@@ -130,6 +142,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     marginBottom: 30,
+    // flexWrap: "wrap-reverse",
   },
   headerTextContainer: {
     // height: 25,
@@ -146,6 +159,7 @@ const styles = StyleSheet.create({
   storeTitle: {
     fontFamily: "Tajawal-Bold",
     fontSize: 18,
+    // flexWrap: "wrap",
     color: colors.softBlack,
   },
   icons: {
