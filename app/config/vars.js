@@ -12,6 +12,7 @@ export const colors = {
   grey: "grey",
   whiteF7: "#F7F7F7",
   blackTransparent: "rgba(0,0,0,0.1)",
+  blackTransparent2: "rgba(0,0,0,0.5)",
   blueLight: '#42a5f5',
   softBlue: "#8ECaE6",
   borderColor: "#DFEAED",

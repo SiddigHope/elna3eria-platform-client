@@ -20,7 +20,7 @@ export default function Input(props) {
       <View style={[styles.container, elevations[5]]}>
         <TextInput
           style={styles.text}
-          placeholder={"ابحث عن منتج"}
+          placeholder={props.hospital?"ابحث عن طبيب": "ابحث عن منتج"}
           placeholderTextColor="#515C6F"
           onChangeText={(text) => props.onChangeText(text)}
         />

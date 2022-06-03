@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, Dimensions, ImageBackground, TouchableOpacity, Modal } from "react-native";
+import { View, Text, StyleSheet, Dimensions, ImageBackground, TouchableOpacity, Modal, Platform } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { colors, fonts } from '../../../config/vars';
 import MiniHeader from "../../MiniHeader";
@@ -179,7 +179,7 @@ export default class ImageComponent extends Component {
           visible={this.state.imagesModal}
           animationType="fade">
           <View style={styles.modalContainer}>
-            <View style={styles.modal}>
+            <View style={[styles.modal, Platform.OS =="ios" && {marginTop: 30}]}>
               <AssetsSelector
                 Settings={widgetSettings}
                 Errors={widgetErrors}
@@ -242,7 +242,7 @@ const styles = StyleSheet.create({
     height,
     width,
     justifyContent: "center",
-    backgroundColor: colors.blackTransparent
+    backgroundColor: colors.whiteF7
   },
   modal: {
     height: "100%",

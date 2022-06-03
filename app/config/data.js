@@ -302,3 +302,27 @@ export const productsSearch = async (store_id, search_key) => {
     return [];
   }
 };
+
+export const getAdvertisements = async () => {
+  try {
+    const options = {
+      method: "GET",
+      url: mainDomain + "client/advertisements",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    };
+
+    const data = await axios(options)
+      .then((response) => response.data)
+      .catch((error) => console.log(error));
+
+    // console.log(store_id);
+
+    return data.success ? data.data : [];
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};

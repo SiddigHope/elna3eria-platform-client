@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, Platform } from "react-native";
 import elevations from "../../../config/elevations";
 import { colors } from "../../../config/vars";
 import Avatar from "./Avatar";
@@ -25,8 +25,8 @@ export default class Header extends Component {
 
   render() {
     return (
-      <View style={[styles.container, this.props.searching ? { height: 50 } : {}]}>
-      <StatusBar translucent={false} style="dark" backgroundColor={colors.whiteF7} />
+      <View style={[styles.container, this.props.searching ? { height: 50 } : Platform.OS == "ios" ? { marginTop: 40 } : {}]}>
+        <StatusBar translucent={false} style="dark" backgroundColor={colors.whiteF7} />
         <View style={styles.headerContainer}>
           <Avatar user={this.state.user} />
           <Input closeSearching={this.props.closeSearching} onChangeText={this.props.onChangeText} searching={this.props.searching} />

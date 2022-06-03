@@ -1,11 +1,13 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, Image, Linking, Alert } from "react-native";
+import { View, Text, StyleSheet, Image, Linking, Alert, Dimensions } from "react-native";
 import { colors } from "../../../config/vars";
 import RoundedIcons from "./RoundedIcons";
 import Input from "./Input";
 import Icon from "react-native-vector-icons/Ionicons";
 import Icon1 from "react-native-vector-icons/Feather";
 import { getCartItem, goToScreen } from "../../../config/functions";
+
+const {width, height} = Dimensions.get("window")
 
 export default class Header extends Component {
   constructor(props) {
@@ -60,7 +62,7 @@ export default class Header extends Component {
       <View
         style={[styles.container]}
       >
-        <View style={styles.headerContainer}>
+        <View style={[styles.headerContainer, {minHeight: 50}]}>
           <View style={styles.icons}>
             {!this.props.hraj && !this.props.hospital && (
               <>
@@ -100,7 +102,7 @@ export default class Header extends Component {
           </View>
           <View style={styles.headerTextContainer}>
             <Text style={styles.hello}> {"مرحبا بك في"} </Text>
-            <Text style={styles.storeTitle}>{this.props.hraj && "حراج"} {this.props.store.name} </Text>
+            <Text style={[styles.storeTitle, this.props.hospital && {fontSize: 16}]}>{this.props.hraj && "حراج"} {this.props.store.name} </Text>
           </View>
           {this.props.hospital && (
             <>
@@ -118,6 +120,7 @@ export default class Header extends Component {
             closeSearching={this.props.closeSearching}
             onChangeText={this.props.onChangeText}
             searching={this.props.searching}
+            hospital={this.props.hospital}
           />
           {!this.props.hraj && (
             <RoundedIcons onPress={this.whatsapp} items={0} type="chat" />
@@ -131,21 +134,22 @@ export default class Header extends Component {
 const styles = StyleSheet.create({
   container: {
     height: 155,
-    width: "100%",
+    width: width,
     // backgroundColor: 'red',
     alignItems: "center",
     marginTop: 40,
   },
   headerContainer: {
     flexDirection: "row",
-    width: "90%",
+    width: (width * 90) / 100,
     alignItems: "center",
     justifyContent: "space-between",
     marginBottom: 30,
+    // backgroundColor: "blue"
     // flexWrap: "wrap-reverse",
   },
   headerTextContainer: {
-    // height: 25,
+    height: 70,
     // backgroundColor: 'red',
     // alignSelf: "flex-end",
     alignItems: "flex-end",
@@ -158,7 +162,11 @@ const styles = StyleSheet.create({
   },
   storeTitle: {
     fontFamily: "Tajawal-Bold",
+    flex: 1,
     fontSize: 18,
+    maxWidth: width - 90,
+    // height: 40,
+    // backgroundColor: "red",
     // flexWrap: "wrap",
     color: colors.softBlack,
   },

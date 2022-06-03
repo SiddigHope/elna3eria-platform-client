@@ -21,15 +21,22 @@ export default class Home extends Component {
       searchText: "",
       hraj: false,
       hospital: false,
-      showAdds: true
+      showAdds: true,
     };
+    this.navigation = this.props.navigation
   }
 
   componentDidMount() {
+    this.navigation.addListener("focus", () => {
+      this.setState({
+        showAdds: true
+      })
+    })
     BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
   }
 
   componentWillUnmount() {
+    this.navigation.removeListener("focus")
     BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
   }
 

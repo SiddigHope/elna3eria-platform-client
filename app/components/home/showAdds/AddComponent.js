@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image, Dimensions, Button, TouchableOpacity } from 'react-native';
 import { Video, AVPlaybackStatus } from 'expo-av';
-import { colors } from '../../../config/vars';
+import { colors, fonts } from '../../../config/vars';
 import { goToScreen } from '../../../config/functions';
 
 
@@ -18,39 +18,22 @@ export default function AddComponent({ item, openModal }) {
     // }
 
     const openAdds = () => {
-        openModal(item)
+        openModal(media)
+        // console.log("item.advertisements")
+        // console.log()
     }
 
     return (
         <TouchableOpacity onPress={openAdds} style={[styles.container, { marginRight: item.index % 2 == 0 ? 10 : 0 }]}>
-            {media.type == "image" ? (
-                <Image source={{ uri: media.file }} style={styles.image} />
-            ) : (
-                <>
-                    {/* <View></View> */}
-                    <Video
-                        ref={video}
-                        style={styles.video}
-                        source={{
-                            uri: media.file,
-                        }}
-                        onFullscreenUpdate={() => { video.current.isMuted = false }}
-                        isMuted
-                        onLoad={() => video.current.playAsync()}
-                        useNativeControls
-                        resizeMode="contain"
-                        isLooping
-                        // status={status}
-                        onPlaybackStatusUpdate={status => setStatus(() => status)}
-                    />
-                    {/* <Button
-                        title={status.isPlaying ? 'Pause' : 'Play'}
-                        onPress={() =>
-                            status.isPlaying ? video.current.pauseAsync() : video.current.playAsync()
-                        }
-                    /> */}
-                </>
-            )}
+            <Image source={{ uri: media.image }} style={styles.image} />
+            <View style={styles.overlayCard}>
+                <View style={styles.labelContainer}>
+                    <Text style={styles.label}> {media.name} </Text>
+                    <View style={styles.labelImageContainer}>
+                        <Image style={styles.labelImage} source={{ uri: media.image }} />
+                    </View>
+                </View>
+            </View>
         </TouchableOpacity>
     );
 }
@@ -62,6 +45,41 @@ const styles = StyleSheet.create({
         backgroundColor: colors.white,
         borderRadius: 10,
         elevation: 5,
+    },
+    overlayCard: {
+        position: "absolute",
+        width: ((width * 92) / 100) / 2,
+        height: 220,
+        backgroundColor: colors.blackTransparent2,
+        borderRadius: 10,
+        justifyContent: "flex-end",
+        alignItems: "flex-end",
+    },
+    labelContainer: {
+        flexDirection: "row",
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexWrap: "wrap-reverse",
+        margin: 10
+    },
+    labelImageContainer: {
+        height: 60,
+        width: 60,
+        borderRadius: 30,
+        backgroundColor: colors.mainColor,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    labelImage: {
+        height: 55,
+        width: 55,
+        borderRadius: 40,
+    },
+    label: {
+        fontFamily: fonts.tajawalB,
+        fontSize: 18,
+        color: colors.white,
+        marginRight: 5,
     },
     video: {
         height: (height * 40) / 100,
