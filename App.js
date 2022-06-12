@@ -30,6 +30,7 @@ import AskMe from './app/screens/AskMe';
 import AskMeOrders from './app/screens/AskMeOrders';
 import DoctorAppointments from './app/screens/DoctorAppointments';
 import HospitalProfile from './app/screens/HospitalProfile';
+import Chat from './app/screens/Chat';
 
 // I18nManager.forceRTL(false);
 // I18nManager.allowRTL(false);
@@ -99,6 +100,13 @@ function Stacks() {
       <Stack.Screen
         name="AskMe"
         component={AskMe}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Chat"
+        component={Chat}
         options={{
           headerShown: false,
         }}

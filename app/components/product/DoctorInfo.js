@@ -8,6 +8,7 @@ import OrderButton from './OrderButton';
 import DoctorAppointmentComponent from './DoctorAppointmentComponent';
 import DoctorAppointmentModal from './DoctorAppointmentModal';
 import { setDoctorAppointment } from '../../config/apis/posts';
+import { goToScreen } from '../../config/functions';
 
 
 const { width, height } = Dimensions.get("window")
@@ -26,6 +27,8 @@ export default class DoctorInfo extends Component {
     }
 
     makeCall = () => {
+        goToScreen("Chat", this.props.navigation)
+        return
         const link = "tel:" + this.props.doctor.phone
         Linking.openURL(link)
     }

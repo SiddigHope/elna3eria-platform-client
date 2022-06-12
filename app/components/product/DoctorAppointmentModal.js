@@ -96,7 +96,7 @@ export default class DoctorAppointmentModal extends Component {
                                         <Text style={styles.label} > {"الأيام التي يعمل فيها الطبيب"} </Text>
 
                                         {doctor.work_days && doctor.work_days.map(work_day => (
-                                            <View style={styles.rowContent}>
+                                            <View key={work_day.day.id} style={styles.rowContent}>
                                                 <Text style={styles.day} > {work_day.day.locale} </Text>
                                                 <Text style={styles.time} > {work_day.from + " - " + work_day.to} </Text>
                                             </View>

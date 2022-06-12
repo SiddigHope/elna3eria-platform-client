@@ -45,6 +45,7 @@ export default class DoctorComponent extends Component {
                 <ScrollView showsVerticalScrollIndicator={false} style={{ width: "100%" }}>
                     <DoctorInfo
                         doctor={this.props.product}
+                        navigation={this.props.navigation}
                     />
                 </ScrollView>
             </View>
