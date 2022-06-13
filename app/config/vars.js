@@ -17,8 +17,12 @@ export const colors = {
   softBlue: "#8ECaE6",
   borderColor: "#DFEAED",
   myFatoraBlue: "#0293CC",
-  black:"#000",
+  black: "#000",
 };
+
+export const mainColorWithOpacity = (opacity) => {
+  return "rgba(255, 130, 66," + opacity + ")"
+}
 
 export const fonts = {
   tajawalR: "Tajawal-Regular",

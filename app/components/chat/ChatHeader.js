@@ -36,7 +36,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         borderColor: colors.borderColor,
         justifyContent: "space-between",
-        backgroundColor: colors.whiteF7
+        backgroundColor: colors.whiteF7,
+        elevation: 3,
     },
     username: {
         fontFamily: fonts.tajawalB,
