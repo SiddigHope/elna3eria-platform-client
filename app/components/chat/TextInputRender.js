@@ -25,6 +25,9 @@ export default class TextInputRender extends Component {
                         placeholderTextColor={colors.grey}
                         onChangeText={(message) => this.props.textChange(message)}
                     />
+                    <TouchableOpacity style={styles.imageIconCont}>
+                        <Icon name='image' color={colors.grey} size={20} />
+                    </TouchableOpacity>
                 </View>
                 <TouchableOpacity style={styles.sendBtnCont} onPress={this.props.submitMessage}>
                     {this.props.loading ? (
@@ -46,29 +49,39 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: 'center',
         justifyContent: 'center',
-        // backgroundColor: colors.softWhite,
         marginBottom: 20,
         paddingHorizontal: 10,
     },
     textInputCont: {
         flex: 1,
+        flexDirection: "row-reverse",
+        alignItems: 'center',
         minHeight: 40,
         maxHeight: 80,
-        paddingHorizontal: 20,
+        paddingLeft: 20,
         backgroundColor: colors.blackTransparent,
-        // width: "90%",
         borderRadius: 20,
-        marginRight: 5,
+        marginLeft: 5,
     },
     textInput: {
+        flex: 1,
         fontFamily: fonts.tajawalR,
         fontSize: 16,
         color: colors.ebony,
         lineHeight: 20,
         minHeight: 40,
         maxHeight: 80,
+        // backgroundColor: colors.mainColor,
     },
     sendBtnCont: {
+        backgroundColor: mainColorWithOpacity(0.6),
+        width: 40,
+        height: 40,
+        borderRadius: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    imageIconCont: {
         backgroundColor: mainColorWithOpacity(0.6),
         width: 40,
         height: 40,

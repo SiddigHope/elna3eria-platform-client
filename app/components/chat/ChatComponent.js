@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, ImageBackground } from 'react-native';
 import { colors } from '../../config/vars';
 import ChatHeader from './ChatHeader';
 import MessageList from './MessageList';
 import TextInputRender from './TextInputRender';
 
+const {width, height} = Dimensions.get("window")
 
 const messages = [
     {
@@ -40,7 +41,7 @@ export default class ChatComponent extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
+            <ImageBackground source={require('../../../assets/icons/chatBackground.png')} style={styles.container}>
                 <ChatHeader
                     navigation={this.props.navigation}
                 />
@@ -50,7 +51,7 @@ export default class ChatComponent extends Component {
                     textChange={this.writeMessage}
                     submitMessage={this.submitMessage}
                 />
-            </View>
+            </ImageBackground>
         );
     }
 }
@@ -58,6 +59,8 @@ export default class ChatComponent extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        // width,
+        // height,
         backgroundColor: colors.whiteF7
     }
 })
