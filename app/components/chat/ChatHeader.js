@@ -13,13 +13,16 @@ export default class ChatHeader extends Component {
     }
 
     render() {
+        const {client} = this.props
         return (
             <View style={[styles.container, Platform.OS === "ios" && { paddingTop: 20, height: 100 }]}>
                 <View style={styles.avatarContainer}>
-                    <Image source={require("../../../assets/images/avatar.png")} style={styles.avatar} />
+                    {/* <Image source={require("../../../assets/images/avatar.png")} style={styles.avatar} /> */}
+                    <Image source={{uri: client.image}} style={styles.avatar} />
                 </View>
-                <Text style={styles.username}>{"Siddig A.Hamoda"}</Text>
-                <Icon name="md-chevron-back-outline" size={25} color={colors.ebony} />
+                {/* <Text style={styles.username}>{"Siddig A.Hamoda"}</Text> */}
+                <Text style={styles.username}>{client.name}</Text>
+                <Icon onPress={() => this.props.navigation.goBack()} name="md-chevron-back-outline" size={25} color={colors.ebony} />
             </View>
         );
     }

@@ -22,6 +22,7 @@ export default class TextInputRender extends Component {
                         style={styles.textInput}
                         placeholder={"أكتب رسالتك..."}
                         multiline
+                        value={this.props.message}
                         placeholderTextColor={colors.grey}
                         onChangeText={(message) => this.props.textChange(message)}
                     />

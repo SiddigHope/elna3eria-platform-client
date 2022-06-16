@@ -13,9 +13,9 @@ export default class MessageComponent extends Component {
     render() {
         const message = this.props.item.item
         return (
-            <View style={[styles.container, message.sender == 1 && {alignSelf: "flex-end", backgroundColor:colors.mainColor}]}>
+            <View style={[styles.container, message.sender_id == this.props.user.id && {alignSelf: "flex-end", backgroundColor:colors.mainColor}]}>
                 <Text style={styles.messageText}>{message.message}</Text>
-                <Text style={styles.messageTime}>{moment("2022-05-21T10:58:19.000000Z").fromNow()}</Text>
+                <Text style={styles.messageTime}>{moment(message.created_at).fromNow()}</Text>
             </View>
         );
     }

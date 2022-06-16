@@ -57,7 +57,7 @@ const Stack = createStackNavigator();
 function Stacks() {
   return (
     <Stack.Navigator
-      initialRouteName={"Chat"}
+      // initialRouteName={"Chat"}
       screenOptions={{
         cardStyleInterpolator: CardStyleInterpolators.forRevealFromBottomAndroid,
       }}

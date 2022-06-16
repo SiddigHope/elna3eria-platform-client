@@ -7,8 +7,20 @@ export default class MessageList extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            messages: []
         };
     }
+
+    componentWillReceiveProps(nextProps) {
+        // You don't have to do this check first, but it can help prevent an unneeded render
+        // if (nextProps.conversation.messages.length != this.state.messages.length) {
+        this.setState({
+            messages: nextProps.messages,
+        });
+
+        // }
+    }
+    
 
     _listHeader = () => (
         <View style={{height: 5}} />
@@ -23,7 +35,7 @@ export default class MessageList extends Component {
     )
 
     _renderItem = (item) => (
-        <MessageComponent item={item} />
+        <MessageComponent user={this.props.user} item={item} />
     )
     render() {
         return (

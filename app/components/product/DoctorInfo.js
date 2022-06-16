@@ -27,7 +27,7 @@ export default class DoctorInfo extends Component {
     }
 
     makeCall = () => {
-        goToScreen("Chat", this.props.navigation)
+        goToScreen("Chat", this.props.navigation, {doctor: this.props.doctor})
         return
         const link = "tel:" + this.props.doctor.phone
         Linking.openURL(link)

@@ -187,3 +187,29 @@ export const getMyDoctorAppointments = async () => {
         return [];
     }
 }
+
+export const getConversation = async (id) => {
+    const user = await getUser()
+    try {
+        const options = {
+            method: "GET",
+            url: mainDomain + "client/hospitals/chat/conversation/" + id,
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+                Authorization: "Bearer " + user.token,
+            },
+        };
+
+        const request = await axios(options)
+            .then((response) => response.data)
+            .catch((error) => console.log(error));
+        // console.log("request")
+        // console.log(request)
+        // return
+        return request.success ? request.data : [];
+    } catch (error) {
+        console.log(error);
+        return [];
+    }
+}
