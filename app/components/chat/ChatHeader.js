@@ -47,20 +47,20 @@ const styles = StyleSheet.create({
         color: colors.ebony,
         // backgroundColor: colors.blueLight,
         flex: 1,
-        fontSize: 18,
+        fontSize: 16,
         marginHorizontal: 10,
         textAlign: 'right'
     },
     avatarContainer: {
-        height: 50,
-        width: 50,
+        height: 40,
+        width: 40,
         borderRadius: 30,
         backgroundColor: colors.mainColor,
         elevation: 10,
     },
     avatar: {
-        height: 50,
-        width: 50,
+        height: 40,
+        width: 40,
         borderRadius: 30
     },
 })
