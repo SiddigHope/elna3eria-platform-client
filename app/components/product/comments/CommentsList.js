@@ -50,6 +50,7 @@ export default class CommentsList extends Component {
         const submitted = await submitHrajComment(data);
         if (submitted) {
             this.getComments()
+            this.flatlist.scrollToEnd()
         }
         this.setState({
             loading: false
@@ -86,6 +87,7 @@ export default class CommentsList extends Component {
             <View style={styles.container}>
                 {this.state.comments ?
                     <FlatList
+                        ref={flatlist => this.flatlist = flatlist}
                         data={this.state.comments}
                         keyExtractor={(item, index) => index.toString()}
                         showsVerticalScrollIndicator={false}

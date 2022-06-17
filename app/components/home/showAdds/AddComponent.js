@@ -41,7 +41,7 @@ export default function AddComponent({ item, openModal }) {
 const styles = StyleSheet.create({
     container: {
         width: ((width * 92) / 100) / 2,
-        height: 220,
+        height: 240,
         backgroundColor: colors.white,
         borderRadius: 10,
         elevation: 5,
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     overlayCard: {
         position: "absolute",
         width: ((width * 92) / 100) / 2,
-        height: 220,
+        height: 240,
         backgroundColor: colors.blackTransparent2,
         borderRadius: 10,
         justifyContent: "flex-end",
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     },
     image: {
         width: ((width * 92) / 100) / 2,
-        height: 220,
+        height: 240,
         borderRadius: 10,
     },
 })

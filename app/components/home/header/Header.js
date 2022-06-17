@@ -6,6 +6,7 @@ import Avatar from "./Avatar";
 import Input from "./Input";
 import UserClass from '../../../config/authHandler';
 import { StatusBar } from 'expo-status-bar';
+import BannerList from './BannerList';
 
 export default class Header extends Component {
   constructor(props) {
@@ -37,12 +38,7 @@ export default class Header extends Component {
           </View>
         </View>
         {this.props.searching ? null : (
-          <View style={[styles.imageBanner, elevations[10]]}>
-            <Image
-              style={styles.image}
-              source={require("../../../../assets/images/publicity.jpg")}
-            />
-          </View>
+          <BannerList navigation={this.props.navigation} />
         )}
       </View>
     );
@@ -51,7 +47,7 @@ export default class Header extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    height: 170,
+    height: 210,
     width: "100%",
     // backgroundColor: 'red',
     alignItems: "center",
@@ -79,15 +75,15 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   imageBanner: {
-    width: "90%",
+    width: "95%",
     marginTop: 15,
-    height: 80,
-    borderRadius: 20,
+    height: 120,
+    borderRadius: 10,
     elevation: 10,
   },
   image: {
     width: "100%",
     height: "100%",
-    borderRadius: 20,
+    borderRadius: 10,
   },
 });
