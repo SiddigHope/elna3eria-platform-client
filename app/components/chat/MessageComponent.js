@@ -23,13 +23,14 @@ export default class MessageComponent extends Component {
 
 const styles = StyleSheet.create({
     container:{
-        backgroundColor: mainColorWithOpacity(0.7),
+        backgroundColor: "#ffb142",
         // minHeight: 40,
         padding: 10,
         maxWidth: "70%",
         alignSelf: "flex-start",
         marginHorizontal: 10,
         borderRadius: 15,
+        elevation: 3,
     },
     messageText:{
         fontFamily:fonts.tajawalR,

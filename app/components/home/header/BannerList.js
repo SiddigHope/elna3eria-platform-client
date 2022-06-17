@@ -35,8 +35,8 @@ export default function BannerList(props) {
             // Change data.length to ads.length here
             const nextIndex = (active + 1) % images.length
             setActive(nextIndex);
-            console.log("the change happen")
-            console.log(nextIndex)
+            // console.log("the change happen")
+            // console.log(nextIndex)
             // myRef.current.scrollToIndex({
             //     animated: true,
             //     index: active,

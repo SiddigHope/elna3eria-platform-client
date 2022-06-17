@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
 import elevations from '../../../config/elevations';
+import { colors } from '../../../config/vars';
 
 const { width, height } = Dimensions.get("window")
 
@@ -28,7 +29,7 @@ export default class BannerComponent extends Component {
 const styles = StyleSheet.create({
     container:{
         width,
-        alignItems: 'center'
+        alignItems: 'center',
     },
     imageBanner: {
         width: (width * 95) / 100,
@@ -36,6 +37,7 @@ const styles = StyleSheet.create({
         height: 120,
         borderRadius: 10,
         elevation: 10,
+        backgroundColor: colors.white
     },
     image: {
         width: "100%",
