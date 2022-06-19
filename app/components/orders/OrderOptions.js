@@ -11,10 +11,12 @@ const branch = [
     {
         label: "الدفع كاش عند الاستلام",
         value: "CASH",
+        id: 1,
     },
     {
         label: "**** **** **** 1234",
         value: "ONLINE",
+        id: 2,
     },
 ];
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Modal, ActivityIndicator, Pressable } from 'react-native';
+import { View, Text, StyleSheet, Modal, ActivityIndicator, Pressable, Platform } from 'react-native';
 import CartList from '../components/cart/CartList';
 import { getCartItem, getCartTotal, goToScreen, removeAllCart, removeItemFromCart } from '../config/functions';
 import { colors, fonts } from '../config/vars';
@@ -10,6 +10,7 @@ import UserClass from '../config/authHandler';
 import { checkout, onlinePayment } from '../config/apis/posts';
 import OrderOptions from '../components/orders/OrderOptions';
 import WebView from 'react-native-webview';
+import MiniHeader from '../components/MiniHeader';
 
 export default class Cart extends Component {
     constructor(props) {
@@ -67,7 +68,7 @@ export default class Cart extends Component {
             ordering: true
         })
         const user = await UserClass.getUser()
-        console.log(user)
+        // console.log(user)
 
         const details = []
 
@@ -104,21 +105,27 @@ export default class Cart extends Component {
                     paying: true,
                     showModal: false
                 })
+            } else {
+                console.log("done done done done")
+                console.log(done)
             }
 
             if (!this.props.route.params.oneItem) {
                 removeAllCart(this.props.route.params.store.id)
             }
-            this.setState({ orderPlaced: true })
+            this.setState({ orderPlaced: true, ordering: true })
             setTimeout(() => {
                 this.setState({
-                    ordering: false
+                    ordering: false,
+                    showModal: false,
+                    items: []
                 })
             }, 3000)
         } else {
             this.setState({
                 ordering: false
             })
+            console.log("order is not done")
         }
     }
 
@@ -151,9 +158,11 @@ export default class Cart extends Component {
                     animationType="fade">
                     <View style={styles.modalPayContainer}>
                         <StatusBar translucent={false} backgroundColor={colors.myFatoraBlue} style="light" />
-                        <Pressable onPress={this.closeModal} style={styles.closeModal}>
-                            <Icon name="arrow-back-outline" size={25} color={colors.ebony} />
-                        </Pressable>
+                        <View style={[styles.fakeHeader, Platform.OS === "ios" && { height: 80 }]}>
+                            <Pressable onPress={this.closeModal} style={styles.closeModal}>
+                                <Icon name="arrow-back-outline" size={25} color={colors.ebony} />
+                            </Pressable>
+                        </View>
                         <WebView
                             onLoad={() => this.hideSpinner()}
                             style={{ flex: 1 }}
@@ -205,12 +214,16 @@ export default class Cart extends Component {
                         />
                     </View>
                 </Modal>
-                <View style={styles.header}>
-                    <Icon onPress={() => this.props.navigation.goBack()} style={{ flex: 1 }} name="arrow-back-outline" size={35} color={colors.softBlack} />
-                    <Text style={styles.title}> {"عربة التسوق"} </Text>
-                    <Text style={styles.emptyText}> {""} </Text>
-                </View>
-                <CartList oneItem={this.props.route.params.oneItem} checkout={() => this.setState({ showModal: true })} deleteItem={this.deleteItem} onPress={this.onCartItemPress} total={this.state.total} items={this.state.items} refreshData={this.getData} navigation={this.props.navigation} />
+                <MiniHeader right={"dkj"} title={"عربة التسوق"} navigation={this.props.navigation} />
+                <CartList
+                    oneItem={this.props.route.params.oneItem}
+                    checkout={() => this.setState({ showModal: true })}
+                    deleteItem={this.deleteItem} onPress={this.onCartItemPress}
+                    total={this.state.total}
+                    items={this.state.items}
+                    refreshData={this.getData}
+                    navigation={this.props.navigation}
+                />
             </View>
         );
     }
@@ -239,6 +252,13 @@ const styles = StyleSheet.create({
     emptyText: {
         flex: 1,
     },
+    fakeHeader: {
+        width: "100%",
+        height: 50,
+        alignItems: "flex-start",
+        justifyContent: 'flex-end',
+        backgroundColor: colors.myFatoraBlue
+    },
     modalContainer: {
         height: '100%',
         width: '100%',
@@ -254,14 +274,16 @@ const styles = StyleSheet.create({
         justifyContent: "flex-end",
     },
     closeModal: {
-        left: 20,
-        top: 10,
-        position: 'absolute',
+        // left: 20,
+        // top: 40,
+        marginLeft: 20,
         backgroundColor: colors.white,
-        zIndex: 1111,
+        // zIndex: 1111,
         elevation: 5,
         borderRadius: 20,
-        padding: 5
+        padding: 5,
+        marginBottom: 5
+
         // alignSelf: 'flex-start',
     },
     modalPayContainer: {

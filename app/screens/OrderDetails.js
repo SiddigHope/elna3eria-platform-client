@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, RefreshControl, ScrollView, Modal as OModal, Pressable, Dimensions, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, RefreshControl, ScrollView, Modal as OModal, Pressable, Dimensions, ActivityIndicator, Platform } from 'react-native';
 import MiniHeader from '../components/MiniHeader';
 import OrderDetailsComponent from '../components/orderDetails/OrderDetailsComponent';
 import { getOrder } from '../config/apis/gets';
@@ -94,9 +94,11 @@ export default class OrderDetails extends Component {
                     <View style={styles.modalContainer}>
                         <StatusBar translucent={false} backgroundColor={colors.myFatoraBlue} style="light" />
 
-                        <Pressable onPress={this.closeModal} style={styles.closeModal}>
-                            <Icon name="arrow-back-outline" size={25} color={colors.ebony} />
-                        </Pressable>
+                        <View style={[styles.fakeHeader, Platform.OS === "ios" && { height: 80 }]}>
+                            <Pressable onPress={this.closeModal} style={styles.closeModal}>
+                                <Icon name="arrow-back-outline" size={25} color={colors.ebony} />
+                            </Pressable>
+                        </View>
                         <WebView
                             onLoad={() => this.hideSpinner()}
                             style={{ width, height, backgroundColor: colors.white }}
@@ -153,15 +155,23 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: colors.mainColor
     },
+    fakeHeader: {
+        width: "100%",
+        height: 50,
+        alignItems: "flex-start",
+        justifyContent: 'flex-end',
+        backgroundColor: colors.myFatoraBlue
+    },
     closeModal: {
-        left: 20,
-        top: 10,
-        position: 'absolute',
+        // left: 20,
+        // top: 40,
+        marginLeft: 20,
         backgroundColor: colors.white,
-        zIndex: 1111,
+        // zIndex: 1111,
         elevation: 5,
         borderRadius: 20,
-        padding: 5
+        padding: 5,
+        marginBottom: 5
         // alignSelf: 'flex-start',
     },
     modalContainer: {
