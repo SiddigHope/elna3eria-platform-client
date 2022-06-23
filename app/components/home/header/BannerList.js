@@ -18,11 +18,22 @@ const images = [
         image: require("./../../../../assets/images/smiling-woman-writing-notes-tablet-digital-device.jpg"),
     },
 ]
+
 export default function BannerList(props) {
     const [active, setActive] = useState(0)
     const myRef = useRef(null);
-    
+
+    const onViewRef = React.useRef(({viewableItems}) => {
+        // console.log(viewableItems.length != 0?viewableItems[0].index: "noview")
+        // Use viewable items in state or as intended
+        setActive(viewableItems[0].index)
+    })
+    const viewConfigRef = React.useRef({ viewAreaCoveragePercentThreshold: 50 })
+
+
     useEffect(() => {
+        // console.log(active)
+        if (props.adds.length === 0) return
         myRef.current.scrollToIndex({
             animated: true,
             index: active,
@@ -31,16 +42,11 @@ export default function BannerList(props) {
 
 
     useEffect(() => {
+        if (props.adds.length === 0) return
+
         const timer = setTimeout(() => {
-            // Change data.length to ads.length here
             const nextIndex = (active + 1) % images.length
             setActive(nextIndex);
-            // console.log("the change happen")
-            // console.log(nextIndex)
-            // myRef.current.scrollToIndex({
-            //     animated: true,
-            //     index: active,
-            // });
         }, 5000);
         return () => clearTimeout(timer);
     }, [active])
@@ -50,22 +56,24 @@ export default function BannerList(props) {
         <BannerComponent item={item} />
     );
 
-    const scrollEnd = ({ viewableItems, changed }) => {
-        console.log("Visible items are", viewableItems[0].index);
-        setActive(viewableItems[0].index)
-        console.log("Changed in this iteration", changed);
-    }
+    // const scrollEnd = (e) => {
+    //     console.log("Visible items are", e.index);
+
+    // }
+
 
     return (
         <>
             <FlatList
                 ref={myRef}
-                data={images}
+                data={props.adds}
                 keyExtractor={(item, index) => index.toString()}
                 showsHorizontalScrollIndicator={false}
                 horizontal
+                onViewableItemsChanged={onViewRef.current}
                 // onViewableItemsChanged={scrollEnd}
-                // onScroll={this.scrollEnd}
+                viewabilityConfig={viewConfigRef.current}
+                // onScroll={scrollEnd}
                 pagingEnabled
                 // ListFooterComponent={this._listFooter}
                 // ListHeaderComponent={this._listHeader}
@@ -75,7 +83,7 @@ export default function BannerList(props) {
                 <Dots
                     activeColor={colors.white}
                     passiveColor={colors.softWhite}
-                    length={images.length}
+                    length={props.adds.length}
                     active={active}
                     activeDotHeight={10}
                     activeDotWidth={15}

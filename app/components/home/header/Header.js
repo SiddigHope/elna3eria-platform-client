@@ -7,11 +7,30 @@ import Input from "./Input";
 import UserClass from '../../../config/authHandler';
 import { StatusBar } from 'expo-status-bar';
 import BannerList from './BannerList';
+import { getAdvertisements } from '../../../config/data';
+
+const images = [
+  {
+    id: 1,
+    image: require("./../../../../assets/images/woman-holding-various-shopping-bags-copy-space.jpg"),
+  },
+  {
+    id: 2,
+    image: require("./../../../../assets/images/publicity.jpg"),
+  },
+  {
+    id: 3,
+    image: require("./../../../../assets/images/smiling-woman-writing-notes-tablet-digital-device.jpg"),
+  },
+]
 
 export default class Header extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      // user: {},
+      adds: []
+    };
   }
 
   componentDidMount() {
@@ -19,8 +38,12 @@ export default class Header extends Component {
   }
 
   getUser = async () => {
+    const data = await getAdvertisements()
+
     this.setState({
-      user: await UserClass.getUser()
+      user: await UserClass.getUser(),
+      adds: data.filter(add => add.slug === 'static')
+        .map(add => add.advertisements.filter(oneAdd => oneAdd.is_active))
     })
   }
 
@@ -38,7 +61,7 @@ export default class Header extends Component {
           </View>
         </View>
         {this.props.searching ? null : (
-          <BannerList navigation={this.props.navigation} />
+          <BannerList adds={this.state.adds.length != 0 ? this.state.adds[0] : images} navigation={this.props.navigation} />
         )}
       </View>
     );

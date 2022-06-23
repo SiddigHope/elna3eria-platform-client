@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, ActivityIndicator } from 'react-native';
 import elevations from '../../../config/elevations';
 import { colors } from '../../../config/vars';
+import { Image } from 'react-native-elements';
 
 const { width, height } = Dimensions.get("window")
 
@@ -13,12 +14,14 @@ export default class BannerComponent extends Component {
     }
 
     render() {
+        // console.log(this.props.item)
         return (
             <View style={styles.container}>
                 <View style={[styles.imageBanner, elevations[10]]}>
                     <Image
+                        PlaceholderContent={<ActivityIndicator color={colors.mainColor} size="small" />}
                         style={styles.image}
-                        source={this.props.item.item.image}
+                        source={{ uri: this.props.item.item.file }}
                     />
                 </View>
             </View>
@@ -27,7 +30,7 @@ export default class BannerComponent extends Component {
 }
 
 const styles = StyleSheet.create({
-    container:{
+    container: {
         width,
         alignItems: 'center',
     },

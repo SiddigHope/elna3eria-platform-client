@@ -12,9 +12,11 @@ export default class MessageComponent extends Component {
 
     render() {
         const message = this.props.item.item
+        let sender = message.sender_type == "App\\Models\\Client" ? true: false
+        // console.log(message.sender_type.splice());
         return (
-            <View style={[styles.container, message.sender_id == this.props.user.id && {alignSelf: "flex-end", backgroundColor:colors.mainColor}]}>
-                <Text style={styles.messageText}>{message.message}</Text>
+            <View style={[styles.container, sender  && {alignSelf: "flex-end", backgroundColor:colors.grey}]}>
+                <Text style={[styles.messageText]}>{message.message}</Text>
                 <Text style={styles.messageTime}>{moment(message.created_at).fromNow()}</Text>
             </View>
         );
@@ -23,7 +25,7 @@ export default class MessageComponent extends Component {
 
 const styles = StyleSheet.create({
     container:{
-        backgroundColor: "#ffb142",
+        backgroundColor: colors.ebony,
         // minHeight: 40,
         padding: 10,
         maxWidth: "70%",

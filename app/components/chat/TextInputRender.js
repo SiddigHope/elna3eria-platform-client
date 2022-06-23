@@ -27,14 +27,14 @@ export default class TextInputRender extends Component {
                         onChangeText={(message) => this.props.textChange(message)}
                     />
                     <TouchableOpacity style={styles.imageIconCont}>
-                        <Icon name='image' color={colors.grey} size={20} />
+                        <Icon name='image' color={colors.whiteF7} size={20} />
                     </TouchableOpacity>
                 </View>
                 <TouchableOpacity style={styles.sendBtnCont} onPress={this.props.submitMessage}>
                     {this.props.loading ? (
                         <ActivityIndicator color={colors.white} size="small" />
                     ) : (
-                        <Icon name='send' color={colors.softWhite} size={20} />
+                        <Icon name='send' color={colors.white} size={20} />
                     )}
                 </TouchableOpacity>
             </View>
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
         // backgroundColor: colors.mainColor,
     },
     sendBtnCont: {
-        backgroundColor: mainColorWithOpacity(0.6),
+        backgroundColor: colors.success,
         width: 40,
         height: 40,
         borderRadius: 20,
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     imageIconCont: {
-        backgroundColor: mainColorWithOpacity(0.6),
+        backgroundColor: colors.grey,
         width: 40,
         height: 40,
         borderRadius: 20,

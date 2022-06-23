@@ -49,9 +49,9 @@ export default class MediaContainer extends Component {
     _listHeader = () => <View style={{ height: 20 }} />;
 
     scrollEnd = ({ viewableItems, changed }) => {
-        console.log("Visible items are", viewableItems[0].index);
+        // console.log("Visible items are", viewableItems[0].index);
         this.props.setActive(viewableItems[0].index)
-        console.log("Changed in this iteration", changed);
+        // console.log("Changed in this iteration", changed);
     }
 
     render() {
