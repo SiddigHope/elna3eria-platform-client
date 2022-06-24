@@ -41,18 +41,19 @@ export default class Header extends Component {
   }
 
   whatsapp = () => {
-    const link = "https://wa.me/" + "249920035753"
-    Linking.canOpenURL(link)
-      .then(supported => {
-        if (!supported) {
-          Alert.alert(
-            'قم بتنزيل تطبيق الواتساب للمراسلة الفورية او بامكانك استحدام حاصية الاتصال المباشر'
-          );
-        } else {
-          return Linking.openURL(link);
-        }
-      })
-      .catch(err => console.error('An error occurred', err));
+    goToScreen("Chat", this.props.navigation, { receiver: this.props.store, type: "store" })
+    // const link = "https://wa.me/" + "249920035753"
+    // Linking.canOpenURL(link)
+    //   .then(supported => {
+    //     if (!supported) {
+    //       Alert.alert(
+    //         'قم بتنزيل تطبيق الواتساب للمراسلة الفورية او بامكانك استحدام حاصية الاتصال المباشر'
+    //       );
+    //     } else {
+    //       return Linking.openURL(link);
+    //     }
+    //   })
+    //   .catch(err => console.error('An error occurred', err));
   }
 
   render() {

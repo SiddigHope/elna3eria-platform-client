@@ -6,20 +6,9 @@ import MessageList from './MessageList';
 import TextInputRender from './TextInputRender';
 import Pusher from 'pusher-js/react-native';
 import Echo from 'laravel-echo';
-import { sendChatMessage } from '../../config/apis/posts';
+import { sendChatMessageDoctor, sendChatMessageStore } from '../../config/apis/posts';
 
 const { width, height } = Dimensions.get("window")
-
-const messages = [
-    {
-        sender: 1,
-        message: "this is just a test message sender version"
-    },
-    {
-        sender: 2,
-        message: "this is just a test message receiver version kjlkj qw kjwlkjqwe kjwelkwqje lkwqjelkqjwe ls;dlkflskfl;dskfldskf ldk;lsakdlsak fd skfldskfldskf skfdslkfldskf sdlkf;ldskf;ldsfk"
-    }
-]
 
 export default class ChatComponent extends Component {
     constructor(props) {
@@ -98,7 +87,12 @@ export default class ChatComponent extends Component {
                 message: message,
                 sender_id: this.state.user.id
             }
-            const messageSent = await sendChatMessage(data)
+            let messageSent = false
+            if (this.props.type == 'doctor') {
+                messageSent = await sendChatMessageDoctor(data)
+            } else {
+                messageSent = await sendChatMessageStore(data)
+            }
             if (messageSent) {
                 console.log("message sent successfully")
                 this.setState({ message: "", loading: false })
@@ -116,7 +110,7 @@ export default class ChatComponent extends Component {
         return (
             <ImageBackground source={require('../../../assets/icons/chatBackground.png')} style={styles.container}>
                 <ChatHeader
-                    client={this.props.doctor}
+                    client={this.props.receiver}
                     navigation={this.props.navigation}
                 />
                 <MessageList user={this.props.user} messages={this.state.messages} />

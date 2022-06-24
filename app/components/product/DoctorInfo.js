@@ -30,10 +30,12 @@ export default class DoctorInfo extends Component {
     makeCall = () => {
         const link = "tel:" + this.props.doctor.phone
         Linking.openURL(link)
+        this.showContactOptionToggler()
     }
 
     openChat = () => {
-        goToScreen("Chat", this.props.navigation, { doctor: this.props.doctor })
+        goToScreen("Chat", this.props.navigation, { receiver: this.props.doctor, type:"doctor" })
+        this.showContactOptionToggler()
     }
 
     setAppointment = async (data) => {

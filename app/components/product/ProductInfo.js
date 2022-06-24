@@ -183,7 +183,7 @@ export default class ProductInfo extends Component {
   }
 
   render() {
-    const { product } = this.props
+    const { product, store } = this.props
     let price = product.price
     if (this.state.discount) {
       let discountValue = (product.price * product.discount) / 100
@@ -192,8 +192,8 @@ export default class ProductInfo extends Component {
     // console.log(product)
     // console.log("price")
     // console.log(product.price)
-    // console.log("discount")
-    // console.log(price)
+    // console.log("store")
+    // console.log(store)
     return (
       <View style={[styles.container, elevations[10]]}>
         <Modal

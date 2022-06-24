@@ -325,12 +325,39 @@ export const deleteHrajComment = async (id) => {
 }
 
 
-export const sendChatMessage = async (data) => {
+export const sendChatMessageDoctor = async (data) => {
     const user = await getUser()
     try {
         const options = {
             method: "POST",
             url: mainDomain + "client/hospitals/chat/message",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+                Authorization: "Bearer " + user.token,
+            },
+            data
+        };
+
+        const request = await axios(options)
+            .then((response) => response.data)
+            .catch((error) => console.log(error.response));
+        console.log("send request")
+        // console.log(request)
+        // return
+        return request.id ? true : false;
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+}
+
+export const sendChatMessageStore = async (data) => {
+    const user = await getUser()
+    try {
+        const options = {
+            method: "POST",
+            url: mainDomain + "client/chat/message",
             headers: {
                 "Content-Type": "application/json",
                 Accept: "application/json",

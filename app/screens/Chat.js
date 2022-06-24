@@ -3,9 +3,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import ChatComponent from '../components/chat/ChatComponent';
 import { colors } from '../config/vars';
-
-
-import { getConversation } from '../config/apis/gets';
+import { getDoctorConversation, getStoreConversation } from '../config/apis/gets';
 import UserClass from '../config/authHandler';
 
 export default class Chat extends Component {
@@ -22,7 +20,13 @@ export default class Chat extends Component {
     }
 
     getConversation = async () => {
-        const conversation = await getConversation(this.props.route.params.doctor.id)
+        let conversation = []
+        const id = this.props.route.params.receiver.id
+        if (this.props.route.params.type == "doctor") {
+            conversation = await getDoctorConversation(id)
+        } else {
+            conversation = await getStoreConversation(id)
+        }
         if (conversation) {
             this.setState({
                 conversation,
@@ -33,11 +37,13 @@ export default class Chat extends Component {
 
 
     render() {
+        console.log(this.props.route.params.receiver)
         return (
             <View style={styles.container} >
                 <StatusBar translucent={false} backgroundColor={colors.whiteF7} />
                 <ChatComponent
-                    doctor={this.props.route.params.doctor}
+                    type={this.props.route.params.type}
+                    receiver={this.props.route.params.receiver}
                     navigation={this.props.navigation}
                     conversation={this.state.conversation}
                     user={this.state.user.client}
