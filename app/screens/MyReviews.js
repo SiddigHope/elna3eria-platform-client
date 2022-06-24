@@ -5,6 +5,7 @@ import { StatusBar } from 'expo-status-bar';
 import MiniHeader from '../components/MiniHeader';
 import { getMyReviews } from '../config/apis/gets';
 import MyReviewsList from '../components/myreviews/MyreviewsList';
+import { goToScreen } from '../config/functions';
 
 export default class MyReviews extends Component {
     constructor(props) {
@@ -25,12 +26,20 @@ export default class MyReviews extends Component {
         })
     }
 
+    goToDetails = item => {
+        goToScreen(
+            "ProductDetails",
+            this.props.navigation,
+            { product: item.product, store: item.store, hraj: false, screen: "favorite" }
+        )
+    }
+
     render() {
         return (
             <View style={styles.container}>
                 <StatusBar translucent={false} backgroundColor={colors.whiteF7} />
                 <MiniHeader title={"تقييماتي"} right={"dslk"} navigation={this.props.navigation} />
-                <MyReviewsList reviews={this.state.reviews} navigation={this.props.navigation} />
+                <MyReviewsList onPress={this.goToDetails} reviews={this.state.reviews} navigation={this.props.navigation} />
             </View>
         );
     }

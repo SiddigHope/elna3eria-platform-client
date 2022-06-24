@@ -69,18 +69,23 @@ export default class MyReviewsComponent extends Component {
         }
     }
 
+    goToDetails = () => {
+        const item = this.props.item
+        this.props.onPress(item)
+    }
+
 
     render() {
         const item = this.props.item
-        // console.log("item")
-        // console.log(item)
+        console.log("item")
+        console.log(item)
         return (
             <View style={[styles.container, elevations[5]]}>
                 <View style={styles.infoContainer}>
                     <View style={[styles.ratingStars, { alignItems: "center" }]} >
-                        <View style={[styles.imageContainer, elevations[5]]}>
+                        <Pressable onPress={this.goToDetails} style={[styles.imageContainer, elevations[5]]}>
                             <Image style={styles.image} source={{ uri: item.product.image }} />
-                        </View>
+                        </Pressable>
                         <View style={styles.textContainer}>
                             <Text style={styles.productName}> {item.product.name} </Text>
                             <Text style={styles.storeName}> {item.product.store.name} </Text>
