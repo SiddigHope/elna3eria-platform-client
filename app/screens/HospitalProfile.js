@@ -13,22 +13,25 @@ export default class HospitalProfile extends Component {
 
     _stickyHeaderComponent = () => (
         <View style={styles.header}>
-            <MiniHeader right={"d"} title={hospital.name} navigation={this.props.navigation} />
+            <MiniHeader right={"d"} title={this.props.route.params.store.name} navigation={this.props.navigation} />
         </View>
     )
 
     render() {
         const hospital = this.props.route.params.store
-        // console.log(hospital)
+        console.log("hospital")
+        console.log(hospital)
         return (
             <ScrollView
-                stickyHeaderIndices={[1]}
+                // stickyHeaderIndices={[0]}
                 showsVerticalScrollIndicator={false}
-                StickyHeaderComponent={this._stickyHeaderComponent}
+                // StickyHeaderComponent={this._stickyHeaderComponent}
                 style={styles.container}
             >
-
-
+                {this._stickyHeaderComponent()}
+                <View style={styles.banner}>
+                    <Image source={require("../../assets/images/AC-recovery_herobanner_5_1700.jpg")} style={styles.bannerImage} />
+                </View>
                 <View style={styles.aboutContainer}>
                     <Text style={styles.label}>
                         {"معلومات عامة"}
@@ -43,9 +46,7 @@ export default class HospitalProfile extends Component {
                         {this.state.about}
                     </Text>
                 </View>
-                {/* <View style={styles.banner}>
-                    <Image source={{ uri: hospital.image }} style={styles.bannerImage} />
-                </View> */}
+
             </ScrollView>
         );
     }

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, TextInput, Dimensions, ActivityIndicator, TouchableOpacity } from 'react-native';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 import { colors, fonts, mainColorWithOpacity } from '../../config/vars';
-
+import * as ImagePicker from 'expo-image-picker';
 
 const { width, height } = Dimensions.get("window")
 
@@ -11,6 +11,39 @@ export default class TextInputRender extends Component {
         super(props);
         this.state = {
         };
+    }
+
+    selectImage = async () => {
+        // No permissions request is necessary for launching the image library
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+        });
+
+        console.log(result);
+
+        let localUri = result.uri;
+        let filename = localUri.split('/').pop();
+
+        // Infer the type of the image
+        let match = /\.(\w+)$/.exec(filename);
+
+        let type = match ? `image/${match[1]}` : `image`;
+
+        if (!result.cancelled) {
+            const image = {
+                uri: localUri,
+                name: filename,
+                type,
+            }
+            this.props.submitImage(image)
+        }
+    }
+
+    uploadImage = () => {
+        console.log("uploading image...");
     }
 
     render() {
@@ -26,7 +59,7 @@ export default class TextInputRender extends Component {
                         placeholderTextColor={colors.grey}
                         onChangeText={(message) => this.props.textChange(message)}
                     />
-                    <TouchableOpacity style={styles.imageIconCont}>
+                    <TouchableOpacity onPress={this.selectImage} style={styles.imageIconCont}>
                         <Icon name='image' color={colors.whiteF7} size={20} />
                     </TouchableOpacity>
                 </View>

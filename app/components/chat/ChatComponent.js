@@ -76,6 +76,23 @@ export default class ChatComponent extends Component {
         })
     }
 
+    submitImage = async (image) => {
+        const fromData = new FormData()
+
+        fromData.append("message", image)
+        fromData.append("sender_id", this.state.user.id)
+        fromData.append("type", "image")
+        fromData.append("conversation_id", this.state.conversation.id)
+
+        const messageSent = await sendChatMessageDoctor(fromData)
+        if (messageSent) {
+            console.log("message sent successfully")
+            this.setState({ message: "", loading: false })
+            return
+        }
+        console.log("message not sent")
+    }
+
 
     submitMessage = async () => {
         const { message, loading } = this.state
@@ -115,6 +132,7 @@ export default class ChatComponent extends Component {
                 />
                 <MessageList user={this.props.user} messages={this.state.messages} />
                 <TextInputRender
+                    submitImage={this.submitImage}
                     loading={this.state.loading}
                     message={this.state.message}
                     textChange={this.writeMessage}

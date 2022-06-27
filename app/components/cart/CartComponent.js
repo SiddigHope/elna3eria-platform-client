@@ -7,7 +7,7 @@ import { colors, fonts } from '../../config/vars';
 
 const { width, height } = Dimensions.get("window")
 
-export default class CartComponent extends Component {
+export default class    CartComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
