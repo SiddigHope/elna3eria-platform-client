@@ -76,12 +76,12 @@ export default class ChatComponent extends Component {
         })
     }
 
-    submitImage = async (image) => {
+    submitFile = async (file, type) => {
         const fromData = new FormData()
 
-        fromData.append("message", image)
+        fromData.append("message", file)
         fromData.append("sender_id", this.state.user.id)
-        fromData.append("type", "image")
+        fromData.append("type", type)
         fromData.append("conversation_id", this.state.conversation.id)
 
         const messageSent = await sendChatMessageDoctor(fromData)
@@ -122,6 +122,19 @@ export default class ChatComponent extends Component {
         console.log("the message is empty")
     }
 
+    pushToMessages = (url) => {
+        const { messages } = this.state
+        const message = {
+            message: url,
+            sender_type: "App\\Models\\Doctor",
+            type: "audio",
+            time: "now"
+        }
+        messages.unshift(message)
+        this.setState({ messages })
+        console.log("message is pushed");
+    }
+
     render() {
         // console.log(this.state.messages && this.state.messages.length)
         return (
@@ -132,7 +145,8 @@ export default class ChatComponent extends Component {
                 />
                 <MessageList user={this.props.user} messages={this.state.messages} />
                 <TextInputRender
-                    submitImage={this.submitImage}
+                    submitAudio={this.submitFile}
+                    submitImage={this.submitFile}
                     loading={this.state.loading}
                     message={this.state.message}
                     textChange={this.writeMessage}

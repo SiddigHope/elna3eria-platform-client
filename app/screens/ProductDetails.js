@@ -101,7 +101,8 @@ export default class ProductDetails extends Component {
 
 
   render() {
-    // console.log(this.state.product)
+    console.log("this.state.product")
+    console.log(this.state.product)
     return (
       <View style={styles.container}>
         <StatusBar translucent style="dark" />

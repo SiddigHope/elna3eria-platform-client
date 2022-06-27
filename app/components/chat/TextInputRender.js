@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TextInput, Dimensions, ActivityIndicator, Touch
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 import { colors, fonts, mainColorWithOpacity } from '../../config/vars';
 import * as ImagePicker from 'expo-image-picker';
+import { Audio } from 'expo-av';
 
 const { width, height } = Dimensions.get("window")
 
@@ -10,7 +11,9 @@ export default class TextInputRender extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            recordingActive: false,
         };
+        this.recording = new Audio.Recording()
     }
 
     selectImage = async () => {
@@ -38,12 +41,55 @@ export default class TextInputRender extends Component {
                 name: filename,
                 type,
             }
-            this.props.submitImage(image)
+            console.log(image)
+            // return
+            this.props.submitImage(image, "image")
         }
     }
 
-    uploadImage = () => {
-        console.log("uploading image...");
+    onStartRecord = async () => {
+        try {
+            console.log('Requesting permissions..');
+            await Audio.requestPermissionsAsync();
+            await Audio.setAudioModeAsync({
+                allowsRecordingIOS: true,
+                playsInSilentModeIOS: true,
+            });
+            console.log('Starting recording..');
+            await this.recording.prepareToRecordAsync(
+                Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY
+            );
+            await this.recording.startAsync();
+            console.log('Recording started');
+        } catch (err) {
+            console.error('Failed to start recording', err);
+        }
+    };
+
+    onStopRecord = async () => {
+        console.log('Stopping this.recording..');
+        await this.recording.stopAndUnloadAsync();
+        const uri = this.recording.getURI();
+        console.log('Recording stopped and stored at', uri);
+        ////////
+        let localUri = uri;
+        let filename = localUri.split('/').pop();
+
+        // Infer the type of the audio
+        let match = /\.(\w+)$/.exec(filename);
+
+        let type = match ? `audio/${match[1]}` : `audio`;
+
+        if (uri) {
+            const audio = {
+                uri: localUri,
+                name: filename,
+                type,
+            }
+            // console.log(audio)
+            //////
+            this.props.submitAudio(audio, "audio")
+        }
     }
 
     render() {
@@ -63,7 +109,12 @@ export default class TextInputRender extends Component {
                         <Icon name='image' color={colors.whiteF7} size={20} />
                     </TouchableOpacity>
                 </View>
-                <TouchableOpacity style={styles.sendBtnCont} onPress={this.props.submitMessage}>
+                <TouchableOpacity
+                    onLongPress={this.onStartRecord}
+                    onPressOut={this.onStopRecord}
+                    style={styles.sendBtnCont}
+                    onPress={this.props.submitMessage}
+                >
                     {this.props.loading ? (
                         <ActivityIndicator color={colors.white} size="small" />
                     ) : (

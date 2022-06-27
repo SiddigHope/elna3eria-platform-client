@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Dimensions, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { colors, fonts, mainColorWithOpacity } from '../../config/vars';
 import moment from 'moment';
 import { Image } from 'react-native-elements';
+import { Audio } from 'expo-av';
+import AudioMessage from './AudioMessage';
 
 export default class MessageComponent extends Component {
     constructor(props) {
@@ -24,6 +26,8 @@ export default class MessageComponent extends Component {
                         source={{ uri: message.message }}
                         style={styles.image}
                     />
+                ) : message.type == "audio" ? (
+                    <AudioMessage message={message} />
                 ) : (
                     <Text style={[styles.messageText]}>{message.message}</Text>
                 )}
@@ -61,5 +65,5 @@ const styles = StyleSheet.create({
         height: 250,
         width: 220,
         borderRadius: 20
-    }
+    },
 })
