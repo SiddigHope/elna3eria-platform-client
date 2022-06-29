@@ -18,7 +18,8 @@ export default class ChatComponent extends Component {
             messages: [],
             conversation: [],
             user: {},
-            loading: false
+            loading: false,
+            typing: false
         };
         this.echo = new Echo({
             broadcaster: 'pusher',
@@ -73,6 +74,7 @@ export default class ChatComponent extends Component {
     writeMessage = (message) => {
         this.setState({
             message,
+            typing: message == "" ? false : true
         })
     }
 
@@ -122,19 +124,6 @@ export default class ChatComponent extends Component {
         console.log("the message is empty")
     }
 
-    pushToMessages = (url) => {
-        const { messages } = this.state
-        const message = {
-            message: url,
-            sender_type: "App\\Models\\Doctor",
-            type: "audio",
-            time: "now"
-        }
-        messages.unshift(message)
-        this.setState({ messages })
-        console.log("message is pushed");
-    }
-
     render() {
         // console.log(this.state.messages && this.state.messages.length)
         return (
@@ -149,6 +138,7 @@ export default class ChatComponent extends Component {
                     submitImage={this.submitFile}
                     loading={this.state.loading}
                     message={this.state.message}
+                    typing={this.state.typing}
                     textChange={this.writeMessage}
                     submitMessage={this.submitMessage}
                 />

@@ -4,6 +4,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 import { colors, fonts, mainColorWithOpacity } from '../../config/vars';
 import * as ImagePicker from 'expo-image-picker';
 import { Audio } from 'expo-av';
+import LottieView from 'lottie-react-native';
 
 const { width, height } = Dimensions.get("window")
 
@@ -49,6 +50,9 @@ export default class TextInputRender extends Component {
 
     onStartRecord = async () => {
         try {
+            this.setState({
+                recordingActive: true
+            })
             console.log('Requesting permissions..');
             await Audio.requestPermissionsAsync();
             await Audio.setAudioModeAsync({
@@ -67,6 +71,9 @@ export default class TextInputRender extends Component {
     };
 
     onStopRecord = async () => {
+        this.setState({
+            recordingActive: false
+        })
         console.log('Stopping this.recording..');
         await this.recording.stopAndUnloadAsync();
         const uri = this.recording.getURI();
@@ -92,22 +99,35 @@ export default class TextInputRender extends Component {
         }
     }
 
+
     render() {
         return (
             <View style={styles.container}>
                 <View style={styles.textInputCont}>
-                    <TextInput
-                        textAlign='right'
-                        style={styles.textInput}
-                        placeholder={"أكتب رسالتك..."}
-                        multiline
-                        value={this.props.message}
-                        placeholderTextColor={colors.grey}
-                        onChangeText={(message) => this.props.textChange(message)}
-                    />
-                    <TouchableOpacity onPress={this.selectImage} style={styles.imageIconCont}>
-                        <Icon name='image' color={colors.whiteF7} size={20} />
-                    </TouchableOpacity>
+                    {this.state.recordingActive ? (
+                        <LottieView
+                            style={styles.recording}
+                            source={require('../../../assets/animations/96109-soundwave.json')}
+                            autoPlay
+                            loop
+                        />
+                    ) : (
+                        <>
+                            <TextInput
+                                textAlign='right'
+                                style={styles.textInput}
+                                placeholder={"أكتب رسالتك..."}
+                                multiline
+                                value={this.props.message}
+                                placeholderTextColor={colors.grey}
+                                onChangeText={(message) => this.props.textChange(message)}
+                            />
+                            <TouchableOpacity onPress={this.selectImage} style={styles.imageIconCont}>
+                                <Icon name='image' color={colors.whiteF7} size={20} />
+                            </TouchableOpacity>
+                        </>
+                    )}
+
                 </View>
                 <TouchableOpacity
                     onLongPress={this.onStartRecord}
@@ -118,7 +138,7 @@ export default class TextInputRender extends Component {
                     {this.props.loading ? (
                         <ActivityIndicator color={colors.white} size="small" />
                     ) : (
-                        <Icon name='send' color={colors.white} size={20} />
+                        <Icon name={this.props.typing && this.props.message ? "send" : "microphone"} color={colors.white} size={20} />
                     )}
                 </TouchableOpacity>
             </View>
@@ -174,7 +194,4 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    // btnIcon: {
-    //     transform: [{ rotate: '43deg' }]
-    // },
 })
