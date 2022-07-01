@@ -148,7 +148,7 @@ export default class Home extends Component {
     // TODO show adds is disabled for a short time after backend is done
 
     <>
-      {this.state.showAdds ? (
+      {this.state.showAdds && !this.state.searching ? (
         <View style={{ marginBottom: 65 }}>
           <ShowAdds navigation={this.props.navigation} />
         </View>

@@ -37,9 +37,9 @@ export default class AddsList extends Component {
                     keyExtractor={(item, index) => index.toString()}
                     showsVerticalScrollIndicator={false}
                     numColumns={2}
-                    style={{ width: "95%" }}
+                    style={{ width: (width * 95) / 100 }}
                     ItemSeparatorComponent={this._itemSeparator}
-                    contentContainerStyle={{alignItems: 'flex-end'}}
+                    contentContainerStyle={{ alignItems: 'flex-end' }}
                     ListFooterComponent={this._listFooter}
                     ListHeaderComponent={this._listHeader}
                     renderItem={this._renderItem}

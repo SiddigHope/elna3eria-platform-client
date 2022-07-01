@@ -139,6 +139,7 @@ export default class OrderDetails extends Component {
                     }
                     showsVerticalScrollIndicator={false}>
                     <OrderDetailsComponent
+                        navigation={this.props.navigation}
                         openRating={() => this.setState({ rating: true })}
                         completing={this.state.completing}
                         continuePayment={this.continuePayment}

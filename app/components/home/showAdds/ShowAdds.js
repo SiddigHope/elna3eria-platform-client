@@ -47,7 +47,11 @@ export default class ShowAdds extends Component {
     openModal = (advertisements) => {
         // console.log("open modal")
         // console.log(advertisements)
-        this.setState({ showAdds: true, advertisements: advertisements ? advertisements : [], dotsCount: advertisements ? advertisements.advertisements.length : 0 })
+        this.setState({
+            showAdds: true,
+            advertisements: advertisements ? advertisements : [],
+            dotsCount: advertisements ? advertisements.advertisements.length : 0
+        })
     }
 
     render() {

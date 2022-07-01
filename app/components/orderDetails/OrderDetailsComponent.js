@@ -29,8 +29,8 @@ export default class OrderDetailsComponent extends Component {
     }
 
     render() {
-        // console.log("this.props.order")
-        // console.log(this.props.order)
+        console.log("this.props.order")
+        console.log(this.props.order)
         const order = this.props.order
         let online_paid = true
         if (order.payment_method == "ONLINE") {
@@ -38,6 +38,7 @@ export default class OrderDetailsComponent extends Component {
                 online_paid = false
             }
         }
+        const image = order.payment_method == "CASH" ? require("../../../assets/icons/cash-payment.png") : require("../../../assets/icons/pngegg.png")
         return (
             <View style={styles.container}>
                 <View style={styles.storeInfo}>
@@ -63,7 +64,7 @@ export default class OrderDetailsComponent extends Component {
                     <View style={styles.rowContainer}>
                         <View>
                             {/* <Text style={styles.address}> {"امدرمان - امبدة حارة  14"} </Text> */}
-                            <Text style={styles.orderId}> {this.props.order.address} </Text>
+                            <Text style={styles.address}> {order.pickup ? "من المحل" : order.address} </Text>
                         </View>
                         <View style={styles.iconContainer} >
                             <Icon name="map-marker-radius" color={colors.blueLight} size={20} />
@@ -74,16 +75,33 @@ export default class OrderDetailsComponent extends Component {
 
                     <Text style={styles.label}> {"طريقة الدفع"} </Text>
                     <View style={styles.rowContainer}>
-                        <Text style={[styles.orderId, { fontSize: 14, textAlign: 'center', textAlignVertical: 'center' }]}> {"***** **** ****"} {"9232"} </Text>
+                        <Text style={[styles.orderId, { fontSize: 14, textAlign: 'center', textAlignVertical: 'center' }]}> {order.payment_method == "CASH" ? "كاش عند الإستلام" : "***** **** **** 1234"} </Text>
                         <View style={[styles.iconContainer, { width: 40, height: 40 }]} >
-                            <Image source={require("../../../assets/icons/pngegg.png")} style={{ width: 30, height: 30 }} />
+                            <Image source={image} style={{ width: 30, height: 30 }} />
                         </View>
                     </View>
 
                     <Hr props={{ marginTop: 5, marginBottom: 30 }} />
 
+                    {this.props.order.details.map((product, index) => (
+                        <View key={index}>
+                            <Text style={styles.label}> {product.product.name} </Text>
+                            <View style={[styles.rowContainer, { justifyContent: "flex-start" }]}>
+                                <View style={styles.productContainer}>
+                                    <Text style={[styles.orderId, { flex: 1, fontSize: 14, textAlignVertical: 'center' }]}> {"الكمية :"} {product.quantity} </Text>
+                                    <Text style={[styles.orderId, { flex: 1, fontSize: 14, textAlignVertical: 'center', color: colors.ebony, textAlign: "right" }]}> {product.comment} </Text>
+                                </View>
+                                <View style={[styles.productImageContainer, elevations[5]]} >
+                                    <Image source={{ uri: product.product.image }} style={styles.productImage} />
+                                </View>
+                            </View>
+                        </View>
+                    ))}
+
+                    <Hr props={{ marginTop: 5, marginBottom: 30 }} />
+
                     {online_paid ? (
-                        <OrderFollowUp order={this.props.order} />
+                        <OrderFollowUp navigation={this.props.navigation} order={this.props.order} />
                     ) : (
                         <View style={styles.btnContainer}>
                             <TouchableOpacity onPress={this.props.continuePayment} style={styles.btn}>
@@ -198,6 +216,23 @@ const styles = StyleSheet.create({
     rating: {
         position: "absolute",
         top: 20, right: 0
-    }
+    },
+    productImageContainer: {
+        height: 80,
+        width: 80,
+        borderRadius: 10,
+        backgroundColor: colors.mainColor,
+        elevation: 5
+    },
+    productImage: {
+        height: 80,
+        width: 80,
+        borderRadius: 10,
+    },
+    productContainer: {
+        flex: 1,
+        // backgroundColor: "#e3e3e3",
+        marginLeft: 10
+    },
 })
 

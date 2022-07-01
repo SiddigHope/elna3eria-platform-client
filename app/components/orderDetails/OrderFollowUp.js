@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon2 from 'react-native-vector-icons/Ionicons';
 import { colors, fonts } from '../../config/vars';
 import elevations from '../../config/elevations';
+import { goToScreen } from '../../config/functions';
 
 
 export default class OrderFollowUp extends Component {
@@ -13,8 +14,10 @@ export default class OrderFollowUp extends Component {
         };
     }
 
-    whatsapp = () => {
-        const link = "https://wa.me/24912 473 8344"
+    whatsapp = (phone) => {
+        goToScreen("Chat", this.props.navigation, { receiver: this.props.order.store, type: "store" })
+        return
+        const link = "https://wa.me/" + phone
         Linking.canOpenURL(link)
             .then(supported => {
                 if (!supported) {
@@ -30,8 +33,8 @@ export default class OrderFollowUp extends Component {
     }
 
 
-    phoneCall = () => {
-        const link = "tel:012 473 8344"
+    phoneCall = (phone) => {
+        const link = "tel:" + phone
         Linking.openURL(link)
     }
 
@@ -86,21 +89,24 @@ export default class OrderFollowUp extends Component {
     }
 
     render() {
+        const { order } = this.props
+        const contact = order.delivery_boy ? order.delivery_boy : order.store
         let color = this.setColors(this.props.order.status.code)
+        contact.phone = contact.phone ? contact.phone : "092 003 5753"
         return (
             <View style={styles.container}>
                 <View style={styles.captainContainer}>
-                    <View style={[styles.iconContainer , elevations[5], { marginLeft: 10 }]}>
+                    <View style={[styles.iconContainer, elevations[5], { marginLeft: 10 }]}>
                         <Image style={{ width: 30, height: 30 }} source={require("../../../assets/icons/headset.png")} />
                     </View>
                     <View style={styles.textContainer}>
-                        <Text style={styles.name}> {"محمد صديق"} </Text>
-                        <Text style={styles.phone}> {"رقم"} {"012 473 8344"} </Text>
+                        <Text style={styles.name}> {contact.name} </Text>
+                        <Text style={styles.phone}> {"رقم : "} {contact.phone} </Text>
                     </View>
-                    <TouchableOpacity onPress={this.whatsapp} style={[styles.iconContainer , elevations[5], { marginLeft: 10, marginRight: 5 }]}>
+                    <TouchableOpacity onPress={() => this.whatsapp(contact.phone)} style={[styles.iconContainer, elevations[5], { marginLeft: 10, marginRight: 5 }]}>
                         <Icon2 name="chatbox-ellipses" size={20} color={colors.softGreen} />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={this.phoneCall} style={[styles.iconContainer , elevations[5]]}>
+                    <TouchableOpacity onPress={() => this.phoneCall(contact.phone)} style={[styles.iconContainer, elevations[5]]}>
                         <Icon name="phone-in-talk" size={20} color={colors.softGreen} />
                     </TouchableOpacity>
                 </View>
