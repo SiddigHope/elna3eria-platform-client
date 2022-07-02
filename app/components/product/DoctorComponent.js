@@ -56,7 +56,7 @@ export default class DoctorComponent extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center'
+        alignItems: 'center',
     },
     header: {
         height: "30%",

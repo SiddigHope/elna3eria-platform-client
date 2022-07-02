@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Pressable, Dimensions, Linking, Modal } from 'react-native';
+import { View, Text, StyleSheet, Pressable, Dimensions, Linking, Modal, ActivityIndicator } from 'react-native';
 import { colors, fonts, mainColorWithOpacity } from '../../config/vars';
 import Icon from "react-native-vector-icons/MaterialIcons";
 import Icon1 from "react-native-vector-icons/MaterialCommunityIcons";
@@ -9,6 +9,10 @@ import DoctorAppointmentComponent from './DoctorAppointmentComponent';
 import DoctorAppointmentModal from './DoctorAppointmentModal';
 import { setDoctorAppointment } from '../../config/apis/posts';
 import { goToScreen } from '../../config/functions';
+import WorkList from './doctorWork/WorkList';
+import GestureRecognizer from 'react-native-swipe-gestures';
+import { Image } from 'react-native-elements';
+import { ScrollView } from 'react-native-gesture-handler';
 
 
 const { width, height } = Dimensions.get("window")
@@ -24,6 +28,8 @@ export default class DoctorInfo extends Component {
             star5: "star",
             showModal: false,
             contactModal: false,
+            workModal: false,
+            work: {}
         };
     }
 
@@ -34,8 +40,8 @@ export default class DoctorInfo extends Component {
     }
 
     openChat = () => {
-        goToScreen("Chat", this.props.navigation, { receiver: this.props.doctor, type:"doctor" })
-        this.showContactOptionToggler()
+        goToScreen("Chat", this.props.navigation, { receiver: this.props.doctor, type: "doctor" })
+        // this.showContactOptionToggler()
     }
 
     setAppointment = async (data) => {
@@ -59,6 +65,14 @@ export default class DoctorInfo extends Component {
         })
     }
 
+    onWorkPressed = (work) => {
+        console.log(work);
+        this.setState({
+            work,
+            workModal: true
+        })
+    }
+
     render() {
         // const icon = <View style={{ height: 60, width: 60 }} > <Icon name="clipboard-list" size={25} color={colors.mainColor} /> </View>
         const icon = <Icon1 name="clipboard-list" size={40} color={colors.mainColor} />
@@ -67,6 +81,45 @@ export default class DoctorInfo extends Component {
         const time = this.props.doctor.work_days ? this.props.doctor.work_days[0].from + " - " + this.props.doctor.work_days[0].to : "08:00 - 16:00"
         return (
             <View style={styles.container}>
+
+                <GestureRecognizer
+                    onSwipeDown={() => this.setState({ workModal: false })}
+                >
+                    <Modal
+                        transparent={true}
+                        onBackdropPress={() => this.setState({ workModal: false })}
+                        onSwipeComplete={() => this.setState({ workModal: false })}
+                        onRequestClose={() => this.setState({ workModal: false })}
+                        visible={this.state.workModal}
+                        animationType="fade">
+                        <View style={styles.modalContainer}>
+                            <View style={styles.modal}>
+                                <Pressable onPress={() => this.setState({ workModal: false })} style={styles.workModalC} />
+
+                                <ScrollView showsVerticalScrollIndicator={false}>
+                                    <View style={styles.workImageContainer} >
+                                        <Image
+                                            PlaceholderContent={<ActivityIndicator color={colors.mainColor} size="small" />}
+                                            source={{ uri: this.state.work.attach }}
+                                            style={styles.workImage}
+                                        />
+                                    </View>
+
+                                    <Text style={styles.workTitle}> {this.state.work.title} </Text>
+
+                                    <Text style={styles.workDescription}> {this.state.work.description} </Text>
+
+                                    <DoctorAppointmentComponent onPress={() => this.setState({ showModal: true })} iconBackground={colors.white} title={"حدد الموعد"} subTitle={time} icon={icon} />
+
+                                    <DoctorAppointmentComponent onPress={this.openChat} iconBackground={mainColorWithOpacity(0.5)} title={"دردشة فورية"} subTitle={"تحدث مع الطبيب مباشرة"} icon={icon3} />
+
+                                    {/* <DoctorAppointmentComponent onPress={this.showContactOptionToggler} iconBackground={"#DAD3FD"} title={"تواصل"} subTitle={this.props.doctor.phone} icon={icon2} /> */}
+
+                                </ScrollView>
+                            </View>
+                        </View>
+                    </Modal>
+                </GestureRecognizer>
 
                 <Modal
                     transparent={true}
@@ -114,9 +167,17 @@ export default class DoctorInfo extends Component {
 
                 <Text style={styles.desc}> {this.props.doctor.about} </Text>
 
+                <WorkList
+                    onPress={this.onWorkPressed}
+                    navigation={this.props.navigation}
+                    works={this.props.doctor.works}
+                />
+
                 <DoctorAppointmentComponent onPress={() => this.setState({ showModal: true })} iconBackground={colors.white} title={"حدد الموعد"} subTitle={time} icon={icon} />
 
-                <DoctorAppointmentComponent onPress={this.showContactOptionToggler} iconBackground={"#DAD3FD"} title={"تواصل"} subTitle={this.props.doctor.phone} icon={icon2} />
+                <DoctorAppointmentComponent onPress={this.openChat} iconBackground={mainColorWithOpacity(0.5)} title={"دردشة فورية"} subTitle={"تحدث مع الطبيب مباشرة"} icon={icon3} />
+
+                {/* <DoctorAppointmentComponent onPress={this.showContactOptionToggler} iconBackground={"#DAD3FD"} title={"تواصل"} subTitle={this.props.doctor.phone} icon={icon2} /> */}
 
                 {/* <OrderButton screen={this.props.screen} type={"toggler"} adding={this.state.adding} added={this.state.added} title={"احجز الأن"} onPress={this.onButtonPress} item={this.props.product} /> */}
             </View>
@@ -131,6 +192,8 @@ const styles = StyleSheet.create({
         width: (width * 90) / 100,
         alignItems: 'center',
         alignSelf: 'center',
+        marginBottom: 20,
+
         // backgroundColor: colors.blackTransparent
     },
     miniRow: {
@@ -179,7 +242,7 @@ const styles = StyleSheet.create({
     },
     modal: {
         backgroundColor: colors.ebony,
-        // height: '50%',
+        maxHeight: '90%',
         width: '100%',
         borderTopRightRadius: 30,
         borderTopLeftRadius: 30,
@@ -190,4 +253,40 @@ const styles = StyleSheet.create({
         marginLeft: 20,
         alignSelf: 'flex-start',
     },
+    workImageContainer: {
+        width: (width * 90) / 100,
+        height: 300,
+        borderRadius: 10,
+        elevation: 10
+    },
+    workImage: {
+        width: (width * 90) / 100,
+        height: 300,
+        borderRadius: 10
+    },
+    workModalC: {
+        height: 2,
+        backgroundColor: colors.borderColor,
+        marginBottom: 20,
+        borderRadius: 10,
+        width: "50%",
+        alignSelf: 'center'
+    },
+    workTitle: {
+        fontFamily: fonts.tajawalB,
+        fontSize: 14,
+        textAlign: "right",
+        alignSelf: 'flex-end',
+        color: colors.softWhite,
+        marginVertical: 10,
+    },
+    workDescription: {
+        fontFamily: fonts.tajawalR,
+        fontSize: 14,
+        textAlign: "right",
+        alignSelf: 'flex-end',
+        color: colors.softWhite,
+        lineHeight: 20,
+        marginVertical: 10,
+    }
 })
