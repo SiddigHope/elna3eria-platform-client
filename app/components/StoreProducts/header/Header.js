@@ -123,7 +123,7 @@ export default class Header extends Component {
             searching={this.props.searching}
             hospital={this.props.hospital}
           />
-          {!this.props.hraj && (
+          {!this.props.hraj && !this.props.hospital && (
             <RoundedIcons onPress={this.whatsapp} items={0} type="chat" />
           )}
         </View>

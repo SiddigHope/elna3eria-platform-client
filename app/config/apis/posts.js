@@ -370,7 +370,7 @@ export const sendChatMessageStore = async (data) => {
             .then((response) => response.data)
             .catch((error) => console.log(error.response));
         console.log("send request")
-        // console.log(request)
+        console.log(request)
         // return
         return request.id ? true : false;
     } catch (error) {

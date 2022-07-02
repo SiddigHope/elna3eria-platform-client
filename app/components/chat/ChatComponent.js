@@ -86,7 +86,13 @@ export default class ChatComponent extends Component {
         fromData.append("type", type)
         fromData.append("conversation_id", this.state.conversation.id)
 
-        const messageSent = await sendChatMessageDoctor(fromData)
+        let messageSent = false
+        if (this.props.type == 'doctor') {
+            messageSent = await sendChatMessageDoctor(fromData)
+        } else {
+            messageSent = await sendChatMessageStore(fromData)
+        }
+        // const messageSent = await sendChatMessageDoctor(fromData)
         if (messageSent) {
             console.log("message sent successfully")
             this.setState({ message: "", loading: false })
