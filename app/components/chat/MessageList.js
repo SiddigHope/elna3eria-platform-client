@@ -3,6 +3,8 @@ import { View, Text, StyleSheet, Dimensions, FlatList } from 'react-native';
 import { colors } from '../../config/vars';
 import MessageComponent from './MessageComponent';
 
+const { width, height } = Dimensions.get("window")
+
 export default class MessageList extends Component {
     constructor(props) {
         super(props);
@@ -59,7 +61,8 @@ export default class MessageList extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        // flex: 1,
+        maxHeight: height - 130,
         alignItems: 'center',
         // backgroundColor: colors.blueLight,
     }

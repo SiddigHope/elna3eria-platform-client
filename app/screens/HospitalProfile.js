@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Dimensions, Image, ScrollView } from 'react-native';
-import MiniHeader from '../components/MiniHeader';
+import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
 import { colors, fonts } from '../config/vars';
+
 
 export default class HospitalProfile extends Component {
     constructor(props) {
@@ -11,40 +11,58 @@ export default class HospitalProfile extends Component {
         };
     }
 
-    _stickyHeaderComponent = () => (
-        <View style={styles.header}>
-            <MiniHeader right={"d"} title={this.props.route.params.store.name} navigation={this.props.navigation} />
-        </View>
-    )
 
     render() {
-        const hospital = this.props.route.params.store
+        const { hospital } = this.props
         console.log("hospital")
         console.log(hospital)
         return (
             <ScrollView
-                // stickyHeaderIndices={[0]}
                 showsVerticalScrollIndicator={false}
-                // StickyHeaderComponent={this._stickyHeaderComponent}
                 style={styles.container}
             >
-                {this._stickyHeaderComponent()}
                 <View style={styles.banner}>
                     <Image source={require("../../assets/images/AC-recovery_herobanner_5_1700.jpg")} style={styles.bannerImage} />
                 </View>
+                <View style={styles.hospital}>
+                    <View style={styles.hospitalImageContainer}>
+                        <Image source={{ uri: hospital.image }} style={styles.hospitalImage} />
+                    </View>
+                    <View style={styles.textContainer}>
+                        <Text style={styles.hospitalName}> {hospital.name} </Text>
+                        <Text style={styles.hospitalEmail}> {"email@email.com"} </Text>
+                    </View>
+                </View>
                 <View style={styles.aboutContainer}>
-                    <Text style={styles.label}>
+                    <Text style={[styles.label, { marginVertical: 20 }]}>
                         {"معلومات عامة"}
                     </Text>
                     <Text style={styles.about}>
                         {this.state.about}
                     </Text>
-                    <Text style={styles.label}>
+                    {/* <Text style={styles.label}>
                         {"للتواصل"}
-                    </Text>
-                    <Text style={styles.about}>
-                        {this.state.about}
-                    </Text>
+                    </Text> */}
+                    <View style={styles.miniRow}>
+                        <Text style={styles.contact}>{"الايميل : "}</Text>
+                        <Text style={styles.label}>
+                            {"email@email.com"}
+                        </Text>
+                    </View>
+
+                    <View style={styles.miniRow}>
+                        <Text style={styles.contact}>{"رقم الهاتف : "}</Text>
+                        <Text style={styles.label}>
+                            {"0123456789 - 0123456789"}
+                        </Text>
+                    </View>
+
+                    <View style={styles.miniRow}>
+                        <Text style={styles.contact}>{"العنوان : "}</Text>
+                        <Text style={styles.label}>
+                            {"عنوان المستشفى"}
+                        </Text>
+                    </View>
                 </View>
 
             </ScrollView>
@@ -53,9 +71,14 @@ export default class HospitalProfile extends Component {
 }
 
 const styles = StyleSheet.create({
+    miniRow: {
+        marginVertical: 5,
+        flexDirection: "row-reverse",
+        alignItems: 'center',
+    },
     container: {
-        flex: 1,
-        backgroundColor: colors.whiteF7,
+        // flex: 1,
+        backgroundColor: colors.ebony,
     },
     header: {
         // position: "absolute",
@@ -69,22 +92,73 @@ const styles = StyleSheet.create({
         height: "100%",
         backgroundColor: colors.softWhite
     },
+    hospital: {
+        // backgroundColor: "blue",
+        marginTop: -30,
+        flexDirection: "row-reverse",
+        // alignItems: 'center',
+        width: "90%",
+        alignSelf: 'center'
+    },
+    textContainer: {
+        marginHorizontal: 10,
+        // backgroundColor: "red",
+        justifyContent: "flex-end",
+        paddingBottom: 10
+    },
+    hospitalName: {
+        textAlign: "right",
+        fontFamily: fonts.tajawalB,
+        fontSize: 14,
+        lineHeight: 20,
+        color: colors.softWhite,
+    },
+    hospitalEmail: {
+        textAlign: "right",
+        fontFamily: fonts.tajawalR,
+        fontSize: 14,
+        lineHeight: 20,
+        color: colors.softWhite,
+    },
+    hospitalImageContainer: {
+        width: 85,
+        height: 85,
+        borderRadius: 50,
+        backgroundColor: colors.white,
+        justifyContent: 'center',
+        alignItems: 'center',
+        elevation: 5
+    },
+    hospitalImage: {
+        width: 80,
+        height: 80,
+        borderRadius: 50,
+    },
+
     aboutContainer: {
         width: "90%",
         alignSelf: "center",
+        marginBottom: 20,
     },
     about: {
         textAlign: "justify",
         fontFamily: fonts.tajawalR,
         lineHeight: 20,
-        color: colors.ebony,
+        color: colors.whiteF7,
     },
     label: {
         textAlign: "right",
         fontFamily: fonts.tajawalB,
         fontSize: 16,
         lineHeight: 20,
-        color: colors.softBlack,
-        marginVertical: 20
+        color: colors.softWhite,
+        // marginVertical: 20
     },
+    contact: {
+        textAlign: "right",
+        fontFamily: fonts.tajawalB,
+        fontSize: 16,
+        // lineHeight: 30,
+        color: colors.grey
+    }
 })

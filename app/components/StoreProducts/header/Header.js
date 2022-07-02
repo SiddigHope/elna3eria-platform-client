@@ -7,7 +7,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 import Icon1 from "react-native-vector-icons/Feather";
 import { getCartItem, goToScreen } from "../../../config/functions";
 
-const {width, height} = Dimensions.get("window")
+const { width, height } = Dimensions.get("window")
 
 export default class Header extends Component {
   constructor(props) {
@@ -57,13 +57,13 @@ export default class Header extends Component {
   }
 
   render() {
-    console.log("store")
-    console.log(this.props.fav)
+    // console.log("store")
+    // console.log(this.props.store)
     return (
       <View
         style={[styles.container]}
       >
-        <View style={[styles.headerContainer, {minHeight: 50}]}>
+        <View style={[styles.headerContainer, { minHeight: 50 }]}>
           <View style={styles.icons}>
             {!this.props.hraj && !this.props.hospital && (
               <>
@@ -103,12 +103,12 @@ export default class Header extends Component {
           </View>
           <View style={styles.headerTextContainer}>
             <Text style={styles.hello}> {"مرحبا بك في"} </Text>
-            <Text style={[styles.storeTitle, this.props.hospital && {fontSize: 16}]}>{this.props.hraj && "حراج"} {this.props.store.name} </Text>
+            <Text style={[styles.storeTitle, this.props.hospital && { fontSize: 16 }]}>{this.props.hraj && "حراج"} {this.props.store.name} </Text>
           </View>
           {this.props.hospital && (
             <>
               <RoundedIcons
-                onPress={() => goToScreen("HospitalProfile", this.props.navigation, { store: this.props.store })}
+                onPress={this.props.showHospitalProfile}
                 type="hospitalProfile"
                 items={0}
                 fav={this.props.fav}

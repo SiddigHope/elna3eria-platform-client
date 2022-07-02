@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, FlatList } from "react-native";
+import { View, Text, StyleSheet, FlatList, Modal, Pressable } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import BannerList from "../components/home/BannerList";
 import ProductsList from "../components/StoreProducts/products/ProductsList";
@@ -9,6 +9,9 @@ import { colors } from "../config/vars";
 import { productsSearch } from "../config/data";
 import { goToScreen } from "../config/functions";
 import { setFavStore, checkInFav, deleteFavStore } from "../config/apis/posts";
+import GestureRecognizer from 'react-native-swipe-gestures';
+import HospitalProfile from "./HospitalProfile";
+
 
 export default class StoreProducts extends Component {
   constructor(props) {
@@ -17,7 +20,8 @@ export default class StoreProducts extends Component {
       stores: [],
       searching: false,
       searchText: "",
-      fav: false
+      fav: false,
+      showHospitalProfile: true
     };
   }
 
@@ -85,6 +89,7 @@ export default class StoreProducts extends Component {
   _listHeader = () => (
     <Header
       store={this.props.route.params.store}
+      showHospitalProfile={() => this.setState({ showHospitalProfile: true })}
       navigation={this.props.navigation}
       hraj={this.props.route.params.hraj}
       hospital={this.props.route.params.hospital}
@@ -124,6 +129,29 @@ export default class StoreProducts extends Component {
   render() {
     return (
       <View style={styles.container}>
+        {this.props.route.params.hospital && (
+          <GestureRecognizer
+            onSwipeDown={() => this.setState({ showHospitalProfile: false })}
+          >
+            <Modal
+              transparent={true}
+              onBackdropPress={() => this.setState({ showHospitalProfile: false })}
+              onSwipeComplete={() => this.setState({ showHospitalProfile: false })}
+              onRequestClose={() => this.setState({ showHospitalProfile: false })}
+              visible={this.state.showHospitalProfile}
+              animationType="slide">
+              <View style={styles.modalContainer}>
+                <View style={styles.modal}>
+                  <Pressable onPress={() => this.setState({ showHospitalProfile: false })} style={styles.closeLine} />
+                  <HospitalProfile
+                    hospital={this.props.route.params.store}
+                    navigation={this.props.navigation} />
+                </View>
+              </View>
+            </Modal>
+          </GestureRecognizer>
+        )}
+
         <FlatList
           data={[1]}
           keyExtractor={(item, index) => index.toString()}
@@ -141,5 +169,29 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.whiteF7,
+  },
+  modalContainer: {
+    height: '100%',
+    width: '100%',
+    // backgroundColor: colors.blackTransparent2,
+    alignItems: "center",
+    justifyContent: "flex-end"
+  },
+  modal: {
+    backgroundColor: colors.ebony,
+    maxHeight: '90%',
+    width: '100%',
+    borderTopRightRadius: 30,
+    borderTopLeftRadius: 30,
+    paddingVertical: 20,
+    // paddingHorizontal: 20,
+  },
+  closeLine: {
+    height: 2,
+    backgroundColor: colors.borderColor,
+    marginBottom: 20,
+    borderRadius: 10,
+    width: "50%",
+    alignSelf: 'center'
   },
 });

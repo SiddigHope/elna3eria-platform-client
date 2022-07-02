@@ -149,6 +149,8 @@ export default class TextInputRender extends Component {
 
 const styles = StyleSheet.create({
     container: {
+        position: "absolute",
+        bottom: 0,
         width,
         height: 50,
         flexDirection: "row",
