@@ -40,8 +40,6 @@ export default class CommentsList extends Component {
         <View style={{ height: 10 }} />
     )
 
-
-
     submitForm = async (comment) => {
         const data = {
             hraj_product_id: this.props.productId,
@@ -49,8 +47,13 @@ export default class CommentsList extends Component {
         }
         const submitted = await submitHrajComment(data);
         if (submitted) {
-            this.getComments()
-            this.flatlist.scrollToEnd()
+            // this.getComments()
+            // console.log("******submitted*******")
+            // console.log(submitted)
+            this.setState((prevState) => {
+                comments: prevState.comments.push(submitted)
+            })
+            this.props.scrollToEnd()
         }
         this.setState({
             loading: false
@@ -64,7 +67,7 @@ export default class CommentsList extends Component {
     )
 
     _renderEmptyContainer = () => (
-        <View style={[styles.labelContainer, {borderTopWidth: 0, borderBottomWidth: 0}]}>
+        <View style={[styles.labelContainer, { borderTopWidth: 0, borderBottomWidth: 0 }]}>
             <Text style={[styles.label, { fontFamily: fonts.tajawalR, fontSize: 14, textAlign: "center" }]}> {"لا توجد تعليقات حتى الان..."} </Text>
         </View>
     )
@@ -82,7 +85,7 @@ export default class CommentsList extends Component {
     )
 
     render() {
-        console.log(this.state.comments)
+        // console.log(this.state.comments)
         return (
             <View style={styles.container}>
                 {this.state.comments ?

@@ -10,7 +10,8 @@ import {
     Image,
     Pressable,
     Linking,
-    TouchableOpacity
+    TouchableOpacity,
+    TouchableHighlight
 } from "react-native";
 import { colors, fonts } from "../../config/vars";
 import OrderButton from "./OrderButton";
@@ -81,6 +82,11 @@ export default class HrajProductInfo extends Component {
         Linking.openURL(link)
     }
 
+    goToHrajProfile = () => {
+        const { product } = this.props
+
+    }
+
     render() {
         const { product } = this.props
         let price = product.price
@@ -88,10 +94,12 @@ export default class HrajProductInfo extends Component {
             let discountValue = (product.price * product.discount) / 100
             price -= discountValue
         }
-
+        // console.log("product")
+        // console.log(product)
         return (
             <View style={[styles.container]}>
                 <View style={styles.infoContainer}>
+
                     <View style={styles.headerInfo}>
                         <View style={styles.miniRow}>
                             <Text style={styles.price}>
@@ -107,6 +115,7 @@ export default class HrajProductInfo extends Component {
                         </View>
                         <Text style={styles.name}> {this.props.product.title} </Text>
                     </View>
+
                     {/* <ScrollView> */}
                     <Text style={styles.desc}> {this.props.product.description} </Text>
                     <View style={styles.miniRow}>
@@ -119,7 +128,19 @@ export default class HrajProductInfo extends Component {
                     </View>
                     {/* </ScrollView> */}
                 </View>
-                <CommentsList productId={this.props.product.id} />
+                {product.client && (
+                    <TouchableOpacity onPress={this.goToHrajProfile} style={styles.clientContainer}>
+                        <View style={styles.imageContainer}>
+                            <Image source={{ uri: product.client.image }} style={styles.image} />
+                        </View>
+                        <View style={styles.clientInfo}>
+                            <Text style={styles.clientName}>{product.client.name}</Text>
+                            <Text style={styles.clientEmail}>{product.client.email}</Text>
+                        </View>
+                        <Icon3 size={25} color={colors.grey} name="ios-chevron-back-outline" />
+                    </TouchableOpacity>
+                )}
+                <CommentsList scrollToEnd={this.props.scrollToEnd} productId={this.props.product.id} />
             </View>
         );
     }
@@ -133,22 +154,64 @@ const styles = StyleSheet.create({
         backgroundColor: colors.white,
         // elevation: 10,
         paddingVertical: 20,
-        paddingTop: 50,
+        // paddingTop: 50,
+    },
+    clientContainer: {
+        flexDirection: "row-reverse",
+        alignItems: "center",
+        height: 50,
+        backgroundColor: colors.whiteF7,
+        elevation: 10,
+        borderRadius: 10,
+        marginVertical: 10,
+        marginHorizontal: 10,
+        paddingHorizontal: 10,
+    },
+    imageContainer: {
+        width: 40,
+        height: 40,
+        backgroundColor: colors.borderColor,
+        elevation: 5,
+        borderRadius: 50,
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    image: {
+        width: 35,
+        height: 35,
+        borderRadius: 50
+    },
+    clientInfo: {
+        marginHorizontal: 10,
+        flex: 1,
+    },
+    clientName: {
+        fontFamily: fonts.tajawalB,
+        fontSize: 14,
+        color: colors.softBlack,
+        textAlign: "right"
+    },
+    clientEmail: {
+        fontFamily: fonts.tajawalR,
+        fontSize: 12,
+        color: colors.grey,
+        textAlign: "right"
     },
     name: {
-        fontFamily: "Tajawal-Bold",
+        fontFamily: fonts.tajawalB,
         fontSize: 20,
         color: colors.softBlack,
+        textAlign: "right"
     },
     price: {
-        fontFamily: "Tajawal-Bold",
+        fontFamily: fonts.tajawalB,
         color: colors.softGreen,
         fontSize: 24,
-        textAlign: "right",
+        textAlign: "left",
         marginBottom: 10,
     },
     desc: {
-        fontFamily: "Tajawal-Regular",
+        fontFamily: fonts.tajawalR,
         fontSize: 18,
         textAlign: "right",
         color: colors.softBlack,
@@ -180,7 +243,8 @@ const styles = StyleSheet.create({
     infoContainer: {
         // backgroundColor: "#e3e3e3",
         // flex: 1,
-        padding: 20
+        padding: 20,
+        // paddingTop: 0,
     },
     headerInfo: {
         // backgroundColor: "red",

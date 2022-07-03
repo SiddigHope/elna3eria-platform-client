@@ -91,6 +91,7 @@ export default class ProductDetails extends Component {
 
   _renderItem = (item, index) => (
     <HrajProductInfo
+      scrollToEnd={() => this.hrajFlatList.scrollToOffset({ offset: 10000, animated: true })}
       showReviews={() => this.setState({ showReviews: !this.state.showReviews })}
       navigation={this.props.navigation}
       screen={this.props.route.params.screen}
@@ -101,8 +102,8 @@ export default class ProductDetails extends Component {
 
 
   render() {
-    console.log("this.state.product")
-    console.log(this.state.product)
+    // console.log("this.state.product")
+    // console.log(this.state.product)
     return (
       <View style={styles.container}>
         <StatusBar translucent style="dark" />
@@ -134,6 +135,7 @@ export default class ProductDetails extends Component {
         ) : this.props.route.params.hraj ? (
           <>
             <FlatList
+              ref={ref => this.hrajFlatList = ref}
               data={[1]}
               keyExtractor={(item, index) => index.toString()}
               showsVerticalScrollIndicator={false}

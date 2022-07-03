@@ -288,9 +288,9 @@ export const submitHrajComment = async (data) => {
             .then((response) => response.data)
             .catch((error) => console.log(error.response));
         console.log("request")
-        // console.log(request)
+        // console.log(request.data)
         // return
-        return request.data ? true : false;
+        return request.data ? request.data : false;
     } catch (error) {
         console.log(error);
         return false;
