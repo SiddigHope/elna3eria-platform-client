@@ -50,25 +50,36 @@ export default class ProductComponent extends Component {
         console.log("item not deleted")
     }
 
-    render() {
-        let margin = 0;
-        if (this.props.item.index % 2 == 0) {
-            margin = 10;
+    handlePress = () => {
+        const {screen, item} = this.props
+        if(screen=="pManagement"){
+            this.props._productScreen("edit", { item: item })
+        }else if(screen == "profile"){
+            this.props.goToScreen(item.item)
         }
+    }
+
+    render() {
+        // let margin = 0;
+        // if (this.props.item.index % 2 == 0) {
+        //     margin = 10;
+        // }
 
         const item = this.props.item.item;
         // console.log(item.images[0])
         return (
             <View
-                style={[styles.container, elevations[5], { marginRight: margin }]}
+                style={[styles.container, elevations[5], {  }]}
             >
-                <TouchableOpacity onPress={() => this.deleteItem(item)} style={[styles.deleteIcon, elevations[6]]} >
-                    <View>
-                        <Icon name="trash-can-outline" size={20} color={colors.danger} />
-                    </View>
-                </TouchableOpacity>
-                <Image source={{ uri: item.images.length != 0? item.images[0].image: ""}} style={styles.image} />
-                <Pressable onPress={() => this.props._productScreen("edit", { item: item })} style={styles.contentContainer}>
+                {this.props.screen == "pManagement" && (
+                    <TouchableOpacity onPress={() => this.deleteItem(item)} style={[styles.deleteIcon, elevations[6]]} >
+                        <View>
+                            <Icon name="trash-can-outline" size={20} color={colors.danger} />
+                        </View>
+                    </TouchableOpacity>
+                )}
+                <Image source={{ uri: item.images.length != 0 ? item.images[0].image : "" }} style={styles.image} />
+                <Pressable onPress={this.handlePress} style={styles.contentContainer}>
                     <View style={styles.nameContainer}>
                         <View style={styles.miniRow}>
                             <Text
@@ -98,15 +109,15 @@ export default class ProductComponent extends Component {
 const styles = StyleSheet.create({
     container: {
         width: ((width * 85) / 100) / 2,
-        height: 220,
+        height: 240,
         backgroundColor: colors.white,
-        borderRadius: 20,
+        borderRadius: 10,
         elevation: 5,
     },
     image: {
         width: ((width * 85) / 100) / 2,
         height: 180,
-        borderRadius: 20,
+        borderRadius: 10,
     },
     contentContainer: {
         position: "absolute",
@@ -114,8 +125,8 @@ const styles = StyleSheet.create({
         height: "35%",
         width: "100%",
         bottom: 0,
-        borderBottomRightRadius: 20,
-        borderBottomLeftRadius: 20,
+        borderBottomRightRadius: 10,
+        borderBottomLeftRadius: 10,
     },
     nameContainer: {
         flexDirection: "row",

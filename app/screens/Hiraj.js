@@ -77,7 +77,12 @@ export default class Hiraj extends Component {
           </View>
         ) : (
           <>
-            <Products getData={this.getData} products={this.state.products} navigation={this.props.navigation} />
+            <Products
+              getData={this.getData}
+              products={this.state.products}
+              navigation={this.props.navigation}
+              screen={"pManagement"}
+            />
           </>
         )}
       </View>

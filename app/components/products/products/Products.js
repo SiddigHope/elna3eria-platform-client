@@ -26,7 +26,13 @@ export default class Products extends Component {
     )
 
     _renderItems = (item, index) => (
-        <ProductComponent updateData={this.props.getData} item={item} index={index} _productScreen={this._productScreen} />
+        <ProductComponent
+            goToScreen={this.props.goToScreen}
+            screen={this.props.screen}
+            updateData={this.props.getData}
+            item={item} index={index}
+            _productScreen={this._productScreen}
+        />
     )
 
     _productScreen = (type, args) => {
@@ -42,15 +48,17 @@ export default class Products extends Component {
                     showsVerticalScrollIndicator={false}
                     renderItem={this._renderItems}
                     numColumns={2}
-                    style={{width:"90%"}}
-                    contentContainerStyle={{alignItems: 'flex-end'}}
+                    style={{ width: "90%" }}
+                    contentContainerStyle={{ alignItems: 'flex-end' }}
                     ListHeaderComponent={this._listHeader}
                     ListFooterComponent={this._listFooter}
                     ItemSeparatorComponent={this._itemSeparator}
                 />
-                <Pressable onPress={() => this._productScreen("new")} style={[styles.btnContainer, elevations[5]]}>
-                    <Icon name="plus" size={30} color={colors.mainColor} />
-                </Pressable>
+                {this.props.screen == "pManagement" && (
+                    <Pressable onPress={() => this._productScreen("new")} style={[styles.btnContainer, elevations[5]]}>
+                        <Icon name="plus" size={30} color={colors.mainColor} />
+                    </Pressable>
+                )}
             </View>
         );
     }

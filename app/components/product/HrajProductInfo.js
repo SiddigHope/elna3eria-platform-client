@@ -129,7 +129,7 @@ export default class HrajProductInfo extends Component {
                     {/* </ScrollView> */}
                 </View>
                 {product.client && (
-                    <TouchableOpacity onPress={this.goToHrajProfile} style={styles.clientContainer}>
+                    <TouchableOpacity onPress={this.props.openProfileModal} style={styles.clientContainer}>
                         <View style={styles.imageContainer}>
                             <Image source={{ uri: product.client.image }} style={styles.image} />
                         </View>

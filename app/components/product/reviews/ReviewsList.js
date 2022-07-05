@@ -38,7 +38,7 @@ export default class ReviewsList extends Component {
 
     _listHeader = () => (
         <View style={{ height: 20, justifyContent: 'center', alignItems: 'center', width: "100%" }}>
-            <View style={{ height: 2, width: 100, backgroundColor: colors.grey, borderRadius: 2, elevation: 2 }} />
+            <View style={{ height: 2, width: 100, backgroundColor: colors.borderColor, borderRadius: 2, elevation: 2 }} />
         </View>
     )
 

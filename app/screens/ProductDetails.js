@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { Component } from "react";
-import { View, Text, StyleSheet, ScrollView, ActivityIndicator, Modal, Dimensions, FlatList } from "react-native";
+import { View, Text, StyleSheet, ScrollView, ActivityIndicator, Modal, Dimensions, FlatList, Pressable } from "react-native";
 import { colors } from "../config/vars";
 import ImageComponent from "../components/product/ImageComponent";
 import ProductInfo from "../components/product/ProductInfo";
@@ -11,6 +11,9 @@ import GestureRecognizer from "react-native-swipe-gestures";
 import DoctorComponent from "../components/product/DoctorComponent";
 import HrajProductInfo from '../components/product/HrajProductInfo';
 import CommentsList from '../components/product/comments/CommentsList';
+import { getHrajUserProducts } from "../config/apis/gets";
+import HrajUserProfile from '../components/products/HrajUserProfile';
+import { goToScreen } from '../config/functions';
 
 
 const { width, height } = Dimensions.get("window")
@@ -24,7 +27,10 @@ export default class ProductDetails extends Component {
       loading: false,
       showReviews: false,
       fav: false,
-      hraj: false
+      hraj: false,
+      showProfile: false,
+      userProducts: [],
+      hrajUser: {}
     };
   }
 
@@ -72,6 +78,26 @@ export default class ProductDetails extends Component {
     const success = await deleteFavProduct(this.state.product.id)
   }
 
+  openProfileModal = async () => {
+    const user = this.state.product.client
+    const products = await getHrajUserProducts(user.id)
+    this.setState({
+      showProfile: true,
+      userProducts: products,
+      hrajUser: user
+    })
+  }
+
+  goToScreen = (product) => {
+    console.log("product")
+    console.log(product)
+    this.setState({
+      product,
+      showProfile: false
+    })
+    // goToScreen("ProductDetails", this.props.navigation, { store:this.state.store, product, screen: "storeProducts", hraj: true, hospital: false });
+  };
+
 
   _listFooter = () => (
     <CommentsList productId={this.state.product.id} />
@@ -94,6 +120,7 @@ export default class ProductDetails extends Component {
       scrollToEnd={() => this.hrajFlatList.scrollToOffset({ offset: 10000, animated: true })}
       showReviews={() => this.setState({ showReviews: !this.state.showReviews })}
       navigation={this.props.navigation}
+      openProfileModal={this.openProfileModal}
       screen={this.props.route.params.screen}
       store={this.state.store}
       product={this.state.product}
@@ -103,7 +130,7 @@ export default class ProductDetails extends Component {
 
   render() {
     // console.log("this.state.product")
-    // console.log(this.state.product)
+    // console.log(this.state.store)
     return (
       <View style={styles.container}>
         <StatusBar translucent style="dark" />
@@ -123,6 +150,34 @@ export default class ProductDetails extends Component {
                 <ReviewsList
                   closeModal={() => this.setState({ showReviews: false })}
                   reviews={this.state.product && this.state.product.reviews}
+                />
+              </View>
+            </View>
+          </Modal>
+        </GestureRecognizer>
+
+        <GestureRecognizer
+          // style={{ flex: 1 }}
+          onSwipeDown={() => this.setState({ showProfile: false })}
+        >
+          <Modal
+            transparent={true}
+            onBackdropPress={() => this.setState({ showProfile: false })}
+            onSwipeComplete={() => this.setState({ showProfile: false })}
+            onRequestClose={() => this.setState({ showProfile: false })}
+            visible={this.state.showProfile}
+            animationType="slide">
+            <View style={styles.modalContainer}>
+              <View style={styles.modal}>
+                <Pressable
+                  onPress={() => this.setState({ showProfile: false })}
+                  style={styles.closeLine}
+                />
+                <HrajUserProfile
+                  goToScreen={this.goToScreen}
+                  products={this.state.userProducts}
+                  user={this.state.hrajUser}
+                  navigation={this.props.navigation}
                 />
               </View>
             </View>
@@ -191,12 +246,21 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
   },
   modal: {
-    maxHeight: '80%',
+    maxHeight: '95%',
     minHeight: '30%',
     width: '100%',
-    backgroundColor: colors.white,
+    backgroundColor: colors.ebony,
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,
     elevation: 10,
+    paddingVertical: 20,
+  },
+  closeLine: {
+    height: 2,
+    backgroundColor: colors.borderColor,
+    marginBottom: 20,
+    borderRadius: 10,
+    width: "50%",
+    alignSelf: 'center'
   },
 });
