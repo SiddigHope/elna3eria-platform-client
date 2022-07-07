@@ -8,7 +8,9 @@ import {
   Modal,
   ScrollView,
   Image,
-  Pressable
+  Pressable,
+  KeyboardAvoidingView,
+  Platform
 } from "react-native";
 import { colors, fonts } from "../../config/vars";
 import OrderButton from "./OrderButton";
@@ -195,6 +197,7 @@ export default class ProductInfo extends Component {
     // console.log("store")
     // console.log(store)
     return (
+
       <View style={[styles.container, elevations[10]]}>
         <Modal
           transparent={true}
@@ -283,15 +286,20 @@ export default class ProductInfo extends Component {
               </View>
             </Pressable>
             <Text style={styles.desc}> {this.props.product.description} </Text>
-            <View style={styles.textInputContainer}>
-              <TextInput
-                style={styles.textInput}
-                value={this.state.orderText}
-                placeholder={"اضف تفاصيل طلبك هنا..."}
-                placeholderTextColor="#515C6F"
-                onChangeText={(orderText) => this.setState({ orderText })}
-              />
-            </View>
+            <KeyboardAvoidingView
+              behavior={(Platform.OS === 'ios') ? "padding" : undefined}
+              keyboardVerticalOffset={Platform.select({ ios: 0, android: 500 })}
+            >
+              <View style={styles.textInputContainer}>
+                <TextInput
+                  style={styles.textInput}
+                  value={this.state.orderText}
+                  placeholder={"اضف تفاصيل طلبك هنا..."}
+                  placeholderTextColor="#515C6F"
+                  onChangeText={(orderText) => this.setState({ orderText })}
+                />
+              </View>
+            </KeyboardAvoidingView>
             <OrderButton screen={this.props.screen} type={"toggler"} adding={this.state.adding} added={this.state.added} title={"اطلب الأن"} onPress={this.onButtonPress} item={this.props.product} />
           </ScrollView>
         </View>

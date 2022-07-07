@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, Dimensions, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, Text, TextInput, Platform, TouchableOpacity, StyleSheet, ActivityIndicator, KeyboardAvoidingView } from 'react-native';
 import Icon from "react-native-vector-icons/Feather"
 import { colors, fonts } from '../../../config/vars';
 
@@ -21,25 +21,30 @@ export default class CommentForm extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
-                <View style={styles.textInputContainer}>
-                    <TextInput
-                        placeholder={"اكتب تعليقك هنا..."}
-                        value={this.state.comment}
-                        multiline
-                        style={styles.textInput}
-                        placeholderTextColor={colors.grey}
-                        onChangeText={(comment) => this.setState({ comment })}
-                    />
+            <KeyboardAvoidingView
+                behavior={(Platform.OS === 'ios') ? "padding" : null}
+                keyboardVerticalOffset={Platform.select({ ios: 0, android: 500 })}
+            >
+                <View style={styles.container}>
+                    <View style={styles.textInputContainer}>
+                        <TextInput
+                            placeholder={"اكتب تعليقك هنا..."}
+                            value={this.state.comment}
+                            multiline
+                            style={styles.textInput}
+                            placeholderTextColor={colors.grey}
+                            onChangeText={(comment) => this.setState({ comment })}
+                        />
+                    </View>
+                    <TouchableOpacity onPress={this.submitForm}>
+                        {this.props.loading ? (
+                            <ActivityIndicator color={colors.mainColor} size="small" />
+                        ) : (
+                            <Icon name='send' style={styles.btnIcon} color={colors.grey} size={30} />
+                        )}
+                    </TouchableOpacity>
                 </View>
-                <TouchableOpacity onPress={this.submitForm}>
-                    {this.props.loading ? (
-                        <ActivityIndicator color={colors.mainColor} size="small" />
-                    ) : (
-                        <Icon name='send' style={styles.btnIcon} color={colors.grey} size={30} />
-                    )}
-                </TouchableOpacity>
-            </View>
+            </KeyboardAvoidingView>
         );
     }
 }

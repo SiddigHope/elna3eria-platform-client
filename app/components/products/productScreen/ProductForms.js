@@ -6,6 +6,8 @@ import {
   Pressable,
   Dimensions,
   ActivityIndicator,
+  KeyboardAvoidingView,
+  Platform
 } from "react-native";
 import { colors, fonts } from "../../../config/vars";
 import { LinearGradient } from "expo-linear-gradient";
@@ -98,7 +100,12 @@ export default class ProductForms extends Component {
     // console.log("this.props.subCategories")
     // console.log(this.props.subCategories)
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView
+        behavior={(Platform.OS === 'ios') ? "padding" : null}
+        keyboardVerticalOffset={Platform.select({ ios: 0, android: 500 })}
+        style={styles.container}
+      >
+
         <View style={styles.rowInputs} >
           <TextInputRender
             type="name"
@@ -224,7 +231,7 @@ export default class ProductForms extends Component {
           show={this.state.showSnackbar}
           closeSnackbar={() => this.setState({ showSnackbar: false })}
         />
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }

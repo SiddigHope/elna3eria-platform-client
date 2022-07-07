@@ -1,5 +1,15 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TextInput, Dimensions, ActivityIndicator, TouchableOpacity } from 'react-native';
+import {
+    View,
+    Text,
+    StyleSheet,
+    TextInput,
+    Dimensions,
+    ActivityIndicator,
+    TouchableOpacity,
+    KeyboardAvoidingView,
+    Platform
+} from 'react-native';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 import { colors, fonts, mainColorWithOpacity } from '../../config/vars';
 import * as ImagePicker from 'expo-image-picker';
@@ -102,7 +112,12 @@ export default class TextInputRender extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
+            <KeyboardAvoidingView
+                behavior={(Platform.OS === 'ios') ? "padding" : null}
+                keyboardVerticalOffset={Platform.select({ ios: 0, android: 500 })}
+                style={styles.container}
+            >
+                {/* <View > */}
                 <View style={styles.textInputCont}>
                     {this.state.recordingActive ? (
                         <LottieView
@@ -141,7 +156,8 @@ export default class TextInputRender extends Component {
                         <Icon name={this.props.typing && this.props.message ? "send" : "microphone"} color={colors.white} size={20} />
                     )}
                 </TouchableOpacity>
-            </View>
+                {/* </View> */}
+            </KeyboardAvoidingView>
         );
     }
 }
