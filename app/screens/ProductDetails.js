@@ -79,8 +79,14 @@ export default class ProductDetails extends Component {
   }
 
   openProfileModal = async () => {
+    // this.setState({
+    //   loading: true
+    // })
     const user = this.state.product.client
     const products = await getHrajUserProducts(user.id)
+
+
+
     this.setState({
       showProfile: true,
       userProducts: products,
@@ -89,13 +95,23 @@ export default class ProductDetails extends Component {
   }
 
   goToScreen = (product) => {
-    console.log("product")
-    console.log(product)
+    // console.log("product")
+    // console.log(product)
+    product.client = this.state.product.client
+
+
+    console.log("product.name")
+    console.log(product.title)
+    console.log("this.props")
+    this.props.route.params.product = product
+    console.log(this.props.route.params.product.title)
     this.setState({
-      product,
-      showProfile: false
+      // product,
+      showProfile: false,
+      loading: true
     })
-    // goToScreen("ProductDetails", this.props.navigation, { store:this.state.store, product, screen: "storeProducts", hraj: true, hospital: false });
+    // goToScreen("ProductDetails", this.props.navigation, { store: this.state.store, product, screen: "storeProducts", hraj: true, hospital: false });
+    this.setProduct()
   };
 
 

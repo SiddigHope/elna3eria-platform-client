@@ -51,25 +51,26 @@ export default class ProductComponent extends Component {
     }
 
     handlePress = () => {
-        const {screen, item} = this.props
-        if(screen=="pManagement"){
-            this.props._productScreen("edit", { item: item })
-        }else if(screen == "profile"){
+        const { screen, item } = this.props
+        console.log(screen)
+        if (screen == "pManagement") {
+            this.props._productScreen("edit", { item: item.item })
+        } else if (screen == "profile") {
             this.props.goToScreen(item.item)
         }
     }
 
     render() {
-        // let margin = 0;
-        // if (this.props.item.index % 2 == 0) {
-        //     margin = 10;
-        // }
+        let margin = 0;
+        if (this.props.item.index % 2 == 1) {
+            margin = 10;
+        }
 
         const item = this.props.item.item;
         // console.log(item.images[0])
         return (
             <View
-                style={[styles.container, elevations[5], {  }]}
+                style={[styles.container, elevations[5], { marginLeft: margin }]}
             >
                 {this.props.screen == "pManagement" && (
                     <TouchableOpacity onPress={() => this.deleteItem(item)} style={[styles.deleteIcon, elevations[6]]} >

@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
     },
 
     aboutContainer: {
-        width: "90%",
+        width: "100%",
         alignSelf: "center",
         marginBottom: 20,
     },
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         lineHeight: 20,
         color: colors.softWhite,
-        // marginVertical: 20
+        marginHorizontal: 20
     },
     contact: {
         textAlign: "right",
