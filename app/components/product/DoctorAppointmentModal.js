@@ -29,7 +29,8 @@ export default class DoctorAppointmentModal extends Component {
 
     onButtonPress = () => {
         const { day, hour } = this.state
-        if (day != 0 && hour != 0) {
+        console.log(hour)
+        if (day != undefined && day != 0 && hour != 'Invalid date' && hour != 0) {
             const data = {
                 doctor_id: this.props.doctor.id,
                 date: String(day),
@@ -83,12 +84,12 @@ export default class DoctorAppointmentModal extends Component {
                     onSwipeComplete={this.props.hideModal}
                     onRequestClose={this.props.hideModal}
                     visible={this.props.showModal}
-                    animationType="fade">
+                    animationType="slide">
                     <View style={styles.modalContainer}>
                         <View style={styles.modal}>
-
-                            <View style={styles.topBar} />
-
+                            <Pressable onPress={this.props.hideModal} style={styles.topBar}>
+                                <Icon name='chevron-down' size={30} color={colors.mainColor} />
+                            </Pressable>
                             {this.state.doctorTimeTable ? (
                                 <>
                                     <View style={styles.contentContainer}>
@@ -102,6 +103,7 @@ export default class DoctorAppointmentModal extends Component {
                                             </View>
                                         ))}
                                         <TouchableOpacity onPress={this.toggleTimeTable} style={styles.goToAppointment}>
+                                            <Text style={[styles.label, {color:colors.mainColor, fontFamily: fonts.tajawalB}]}> {"احجز من هنا"} </Text>
                                             <Icon name="arrow-forward-outline" size={25} color={colors.mainColor} />
                                         </TouchableOpacity>
                                     </View>
@@ -153,15 +155,23 @@ export default class DoctorAppointmentModal extends Component {
                                             // minuteInterval={interval}
                                             />
                                         )}
-                                        <OrderButton width={"100%"} type={"toggler"} title={"احجز الأن"} onPress={this.onButtonPress} item={this.props.doctor} />
+                                        <OrderButton
+                                            width={"100%"}
+                                            type={"appointment"}
+                                            adding={this.props.adding}
+                                            added={this.props.added}
+                                            title={"احجز الأن"}
+                                            onPress={this.onButtonPress}
+                                            item={this.props.doctor}
+                                        />
                                     </View>
 
                                 </>
                             )}
                         </View>
                     </View>
-                </Modal >
-            </GestureRecognizer >
+                </Modal>
+            </GestureRecognizer>
         );
     }
 }
@@ -176,8 +186,8 @@ const styles = StyleSheet.create({
         justifyContent: "flex-end"
     },
     modal: {
-        backgroundColor: colors.whiteF7,
-        minHeight: '60%',
+        backgroundColor: colors.ebony,
+        height: '70%',
         width: '100%',
         borderTopRightRadius: 30,
         borderTopLeftRadius: 30,
@@ -186,8 +196,17 @@ const styles = StyleSheet.create({
     },
     topBar: {
         width: "50%",
+        height: 30,
+        alignItems: 'center',
+        // flexDirection: "row-reverse",
+        // backgroundColor: colors.borderColor,
+        alignSelf: 'center',
+        borderRadius: 10,
+    },
+    line: {
+        flex: 1,
         height: 2,
-        backgroundColor: colors.borderColor,
+        // backgroundColor: colors.borderColor,
         alignSelf: 'center',
         borderRadius: 10,
     },
@@ -202,7 +221,9 @@ const styles = StyleSheet.create({
     label: {
         fontFamily: fonts.tajawalR,
         fontSize: 14,
-        color: colors.ebony,
+        // color: colors.ebony,
+        color: colors.softWhite,
+
         textAlign: 'center'
     },
     textInputContainer: {
@@ -234,7 +255,7 @@ const styles = StyleSheet.create({
     },
     rowContent: {
         flexDirection: 'row-reverse',
-        backgroundColor: colors.borderColor,
+        // backgroundColor: colors.borderColor,
         justifyContent: "space-between",
         alignItems: 'center',
         marginVertical: 5,
@@ -244,20 +265,26 @@ const styles = StyleSheet.create({
     },
     day: {
         fontFamily: fonts.tajawalR,
-        fontSize: 16
+        fontSize: 16,
+        color: colors.softWhite
+
     },
     time: {
         fontFamily: fonts.tajawalR,
-        fontSize: 16
+        fontSize: 16,
+        color: colors.softWhite
     },
     goToAppointment: {
         backgroundColor: colors.white,
         elevation: 5,
         height: 40,
-        width: 40,
+        paddingHorizontal: 20,
+        flexDirection: "row",
+        // width: 40,
         borderRadius: 20,
         alignSelf: 'flex-end',
         marginBottom: 30,
+        marginHorizontal: 20,
         justifyContent: 'center',
         alignItems: 'center'
     },

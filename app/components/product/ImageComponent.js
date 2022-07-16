@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { View, Text, Image, StyleSheet, Dimensions, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, Dimensions, TouchableOpacity, ActivityIndicator } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { colors } from "../../config/vars";
 import MiniHeader from "../MiniHeader";
+import { Image } from 'react-native-elements';
 
 const { width, height } = Dimensions.get('window')
 
@@ -57,9 +58,17 @@ export default class ImageComponent extends Component {
           <MiniHeader title={""} backgroundColor={this.props.hraj ? "" : colors.white} navigation={this.props.navigation} />
         </View>
         {this.props.hraj ? (
-          <Image source={{ uri: this.state.image }} style={styles.image} />
+          <Image
+            PlaceholderContent={<ActivityIndicator color={colors.mainColor} size="small" />}
+            source={{ uri: this.state.image }}
+            style={styles.image}
+          />
         ) : (
-          <Image source={{ uri: this.props.image }} style={styles.image} />
+          <Image
+            PlaceholderContent={<ActivityIndicator color={colors.mainColor} size="small" />}
+            source={{ uri: this.props.image }}
+            style={styles.image}
+          />
         )}
         {!this.props.hraj && (
           <TouchableOpacity onPress={this.props.setFav} style={[styles.favCont]}>
@@ -75,7 +84,7 @@ const styles = StyleSheet.create({
   container: {
     width,
     height: (height * 55) / 100,
-    backgroundColor: colors.mainColor
+    backgroundColor: colors.white
   },
   image: {
     width: '100%',

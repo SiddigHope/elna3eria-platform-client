@@ -64,15 +64,14 @@ export default class ProductsList extends Component {
       <View style={styles.container}>
         <FlatList
           data={this.props.stores}
-          numColumns={2}
-          ListHeaderComponent={this._listHeader}
-          showsVerticalScrollIndicator={false}
-          style={{ width: "95%", alignItems: "flex-end" }}
-          contentContainerStyle={{ alignItems: "flex-start" }}
           keyExtractor={(item, index) => index.toString()}
-          ItemSeparatorComponent={this._itemSeparator}
-          //   ListFooterComponent={this._listFooter}
+          showsVerticalScrollIndicator={false}
           renderItem={this._renderItem}
+          numColumns={2}
+          style={{ width: "90%" }}
+          contentContainerStyle={{ alignItems: 'flex-end' }}
+          ListHeaderComponent={this._listHeader}
+          ItemSeparatorComponent={this._itemSeparator}
         />
       </View>
     );
@@ -82,9 +81,6 @@ export default class ProductsList extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: "100%",
-    // backgroundColor: 'red',
-    // alignSelf: "center",
     alignItems: "center"
   },
   titleContainer: {

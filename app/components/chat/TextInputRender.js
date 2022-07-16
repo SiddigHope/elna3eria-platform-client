@@ -115,7 +115,7 @@ export default class TextInputRender extends Component {
             <KeyboardAvoidingView
                 behavior={(Platform.OS === 'ios') ? "padding" : null}
                 keyboardVerticalOffset={Platform.select({ ios: 0, android: 500 })}
-                style={styles.container}
+                style={[styles.container, { bottom: Platform.select({ ios: 10, android: 0 }), height: Platform.select({ ios: 60, android: 50 }) }]}
             >
                 {/* <View > */}
                 <View style={styles.textInputCont}>

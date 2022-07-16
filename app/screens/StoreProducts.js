@@ -11,6 +11,7 @@ import { goToScreen } from "../config/functions";
 import { setFavStore, checkInFav, deleteFavStore } from "../config/apis/posts";
 import GestureRecognizer from 'react-native-swipe-gestures';
 import HospitalProfile from "./HospitalProfile";
+import Icon3 from "react-native-vector-icons/Ionicons"
 
 
 export default class StoreProducts extends Component {
@@ -142,7 +143,13 @@ export default class StoreProducts extends Component {
               animationType="slide">
               <View style={styles.modalContainer}>
                 <View style={styles.modal}>
-                  <Pressable onPress={() => this.setState({ showHospitalProfile: false })} style={styles.closeLine} />
+                  {/* <Pressable onPress={() => this.setState({ showHospitalProfile: false })} style={styles.closeLine} /> */}
+                  <Pressable
+                    onPress={() => this.setState({ showHospitalProfile: false })}
+                    style={styles.topBar}
+                  >
+                    <Icon3 name='chevron-down' size={30} color={colors.mainColor} />
+                  </Pressable>
                   <HospitalProfile
                     hospital={this.props.route.params.store}
                     navigation={this.props.navigation} />
@@ -193,5 +200,15 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: "50%",
     alignSelf: 'center'
+  },
+  topBar: {
+    width: "50%",
+    height: 30,
+    alignItems: 'center',
+    marginBottom: 10,
+    // flexDirection: "row-reverse",
+    // backgroundColor: colors.borderColor,
+    alignSelf: 'center',
+    borderRadius: 10,
   },
 });

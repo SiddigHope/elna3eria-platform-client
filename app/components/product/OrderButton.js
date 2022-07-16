@@ -17,16 +17,19 @@ export default class OrderButton extends Component {
 
   render() {
     return (
-      <Pressable onPress={this.props.onPress} style={[styles.container, elevations[10], this.props.width ? { width: this.props.width, borderRadius: 10 } : {}]} >
+      <TouchableOpacity onPress={this.props.onPress} style={[styles.container, elevations[10], this.props.width ? { width: this.props.width, borderRadius: 10 } : {}]} >
         {this.props.type == "cart" && this.props.added ? (
           <Icon name="check-circle-outline" size={25} color={colors.white} />
         ) :
-          this.props.type == "cart" && this.props.adding ? (
-            <ActivityIndicator size="small" color={colors.white} />
-          ) : (
-            <Text style={styles.btnText}> {this.props.title} </Text>
-          )}
-      </Pressable>
+          this.props.type == "appointment" && this.props.added ? (
+            <Icon name="check-circle-outline" size={25} color={colors.white} />
+          ) :
+            this.props.adding ? (
+              <ActivityIndicator size="small" color={colors.white} />
+            ) : (
+              <Text style={styles.btnText}> {this.props.title} </Text>
+            )}
+      </TouchableOpacity>
     );
   }
 }

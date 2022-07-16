@@ -14,6 +14,7 @@ import CommentsList from '../components/product/comments/CommentsList';
 import { getHrajUserProducts } from "../config/apis/gets";
 import HrajUserProfile from '../components/products/HrajUserProfile';
 import { goToScreen } from '../config/functions';
+import Icon from "react-native-vector-icons/Ionicons"
 
 
 const { width, height } = Dimensions.get("window")
@@ -163,8 +164,10 @@ export default class ProductDetails extends Component {
             animationType="slide">
             <View style={styles.modalContainer}>
               <View style={styles.modal}>
+                <Pressable onPress={() => this.setState({ showReviews: false })} style={styles.topBar}>
+                  <Icon name='chevron-down' size={30} color={colors.mainColor} />
+                </Pressable>
                 <ReviewsList
-                  closeModal={() => this.setState({ showReviews: false })}
                   reviews={this.state.product && this.state.product.reviews}
                 />
               </View>
@@ -185,10 +188,9 @@ export default class ProductDetails extends Component {
             animationType="slide">
             <View style={styles.modalContainer}>
               <View style={styles.modal}>
-                <Pressable
-                  onPress={() => this.setState({ showProfile: false })}
-                  style={styles.closeLine}
-                />
+                <Pressable onPress={() => this.setState({ showProfile: false })} style={styles.topBar}>
+                  <Icon name='chevron-down' size={30} color={colors.mainColor} />
+                </Pressable>
                 <HrajUserProfile
                   goToScreen={this.goToScreen}
                   products={this.state.userProducts}
@@ -263,13 +265,13 @@ const styles = StyleSheet.create({
   },
   modal: {
     maxHeight: '95%',
-    minHeight: '30%',
+    minHeight: '35%',
     width: '100%',
     backgroundColor: colors.ebony,
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,
     elevation: 10,
-    paddingVertical: 20,
+    paddingVertical: 10,
   },
   closeLine: {
     height: 2,
@@ -278,5 +280,14 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: "50%",
     alignSelf: 'center'
+  },
+  topBar: {
+    width: "50%",
+    height: 30,
+    alignItems: 'center',
+    // flexDirection: "row-reverse",
+    // backgroundColor: colors.borderColor,
+    alignSelf: 'center',
+    borderRadius: 10,
   },
 });

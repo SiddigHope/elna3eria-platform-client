@@ -76,8 +76,8 @@ export default class ProductComponent extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    width: ((width * 92) / 100) / 2,
-    height: 220,
+    width: ((width * 85) / 100) / 2,
+    height: 240,
     backgroundColor: colors.white,
     borderRadius: 10,
     elevation: 2,

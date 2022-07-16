@@ -11,15 +11,15 @@ export default class MiniHeader extends Component {
     }
     render() {
         return (
-            <View style={[styles.header, Platform.OS == "ios" && {marginTop: 20}]}>
+            <View style={[styles.header, Platform.OS == "ios" && { marginTop: 20 }]}>
                 {this.props.backgroundColor ? (
                     <View style={styles.background}>
-                        <Icon onPress={() => this.props.navigation.goBack()} name="arrow-back-outline" size={30} color={colors.ebony} />
+                        <Icon onPress={() => this.props.navigation.goBack()} name="close" size={25} color={colors.ebony} />
                     </View>
                 ) : (
-                    <Icon onPress={() => this.props.navigation.goBack()} style={{ flex: 0.3, zIndex: 1111 }} name="arrow-back-outline" size={30} color={colors.ebony} />
+                    <Icon onPress={() => this.props.navigation.goBack()} style={{ flex: 0.3, zIndex: 1111 }} name="close" size={30} color={colors.mainColor} />
                 )}
-                {/* <Icon onPress={() => this.props.navigation.goBack()} style={{ flex: 0.3 }} name="arrow-back-outline" size={30} color={colors.ebony} /> */}
+                {/* <Icon onPress={() => this.props.navigation.goBack()} style={{ flex: 0.3 }} name="close" size={25} color={colors.ebony} /> */}
                 <Text style={[styles.title, this.props.right && !this.props.icon ? { textAlign: 'right' } : {}]}> {this.props.title} </Text>
                 {this.props.right ? this.props.icon ? (
                     <View style={styles.rightIcon}>

@@ -40,26 +40,26 @@ export default class HospitalProfile extends Component {
                     <Text style={styles.about}>
                         {this.state.about}
                     </Text>
-                    {/* <Text style={styles.label}>
+                    {/* <Text selectable style={styles.label}>
                         {"للتواصل"}
                     </Text> */}
                     <View style={styles.miniRow}>
                         <Text style={styles.contact}>{"الايميل : "}</Text>
-                        <Text style={styles.label}>
+                        <Text selectable style={styles.label}>
                             {"email@email.com"}
                         </Text>
                     </View>
 
                     <View style={styles.miniRow}>
                         <Text style={styles.contact}>{"رقم الهاتف : "}</Text>
-                        <Text style={styles.label}>
+                        <Text selectable style={styles.label}>
                             {"0123456789 - 0123456789"}
                         </Text>
                     </View>
 
                     <View style={styles.miniRow}>
                         <Text style={styles.contact}>{"العنوان : "}</Text>
-                        <Text style={styles.label}>
+                        <Text selectable style={styles.label}>
                             {"عنوان المستشفى"}
                         </Text>
                     </View>

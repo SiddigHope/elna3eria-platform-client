@@ -4,6 +4,7 @@ import { colors, fonts, mainColorWithOpacity } from '../../config/vars';
 import Icon from "react-native-vector-icons/MaterialIcons";
 import Icon1 from "react-native-vector-icons/MaterialCommunityIcons";
 import Icon2 from "react-native-vector-icons/Feather";
+import Icon3 from "react-native-vector-icons/Ionicons"
 import OrderButton from './OrderButton';
 import DoctorAppointmentComponent from './DoctorAppointmentComponent';
 import DoctorAppointmentModal from './DoctorAppointmentModal';
@@ -29,7 +30,9 @@ export default class DoctorInfo extends Component {
             showModal: false,
             contactModal: false,
             workModal: false,
-            work: {}
+            work: {},
+            adding: false,
+            added: false
         };
     }
 
@@ -47,15 +50,30 @@ export default class DoctorInfo extends Component {
     setAppointment = async (data) => {
         console.log(data)
         // return
+        this.setState({ adding: true })
         const appointment = await setDoctorAppointment(data)
 
         if (appointment) {
             console.log("appointment set successfully");
-            this.setState({
-                showModal: false
-            })
+            setTimeout(() => {
+                this.setState({
+                    // showModal: false,
+                    adding: false,
+                    added: true
+                })
+            }, 2000)
+            setTimeout(() => {
+                this.setState({
+                    showModal: false,
+                })
+            }, 3000)
+
         } else {
             console.log("appointment not set");
+            this.setState({
+                showModal: false,
+                adding: false,
+            })
         }
     }
 
@@ -94,8 +112,13 @@ export default class DoctorInfo extends Component {
                         animationType="fade">
                         <View style={styles.modalContainer}>
                             <View style={styles.modal}>
-                                <Pressable onPress={() => this.setState({ workModal: false })} style={styles.workModalC} />
-
+                                {/* <Pressable onPress={() => this.setState({ workModal: false })} style={styles.workModalC} /> */}
+                                <Pressable
+                                    onPress={() => this.setState({ workModal: false })}
+                                    style={styles.topBar}
+                                >
+                                    <Icon3 name='chevron-down' size={30} color={colors.mainColor} />
+                                </Pressable>
                                 <ScrollView showsVerticalScrollIndicator={false}>
                                     <View style={styles.workImageContainer} >
                                         <Image
@@ -145,6 +168,8 @@ export default class DoctorInfo extends Component {
                 <DoctorAppointmentModal
                     doctor={this.props.doctor}
                     showModal={this.state.showModal}
+                    adding={this.state.adding}
+                    added={this.state.added}
                     hideModal={() => this.setState({ showModal: false })}
                     setAppointment={this.setAppointment}
                 />
@@ -193,8 +218,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         alignSelf: 'center',
         marginBottom: 20,
-
-        // backgroundColor: colors.blackTransparent
     },
     miniRow: {
         flexDirection: "row",
@@ -288,5 +311,15 @@ const styles = StyleSheet.create({
         color: colors.softWhite,
         lineHeight: 20,
         marginVertical: 10,
-    }
+    },
+    topBar: {
+        width: "50%",
+        height: 30,
+        alignItems: 'center',
+        marginBottom: 10,
+        // flexDirection: "row-reverse",
+        // backgroundColor: colors.borderColor,
+        alignSelf: 'center',
+        borderRadius: 10,
+    },
 })

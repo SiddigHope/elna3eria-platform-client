@@ -26,7 +26,7 @@ export default class HrajComponent extends Component {
 
     render() {
         let margin = 0;
-        if (this.props.item.index % 2 == 0) {
+        if (this.props.item.index % 2 == 1) {
             margin = 10;
         }
 
@@ -35,7 +35,7 @@ export default class HrajComponent extends Component {
         return (
             <Pressable
                 onPress={() => this.props.goToScreen(this.props.store, item)}
-                style={[styles.container, elevations[5], { marginRight: margin }]}
+                style={[styles.container, elevations[5], { marginLeft: margin }]}
             >
                 <Image source={{ uri: item.images.length != 0 ? item.images[0].image : "" }} style={styles.image} />
                 <View style={styles.contentContainer}>
@@ -68,7 +68,7 @@ export default class HrajComponent extends Component {
 const styles = StyleSheet.create({
     container: {
         width: ((width * 85) / 100) / 2,
-        height: 220,
+        height: 240,
         backgroundColor: colors.white,
         borderRadius: 10,
         elevation: 5,
