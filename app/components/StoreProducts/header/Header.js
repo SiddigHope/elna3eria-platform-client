@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, Image, Linking, Alert, Dimensions } from "react-native";
+import { View, Text, StyleSheet, Image, Linking, Alert, Dimensions, Platform, KeyboardAvoidingView } from "react-native";
 import { colors } from "../../../config/vars";
 import RoundedIcons from "./RoundedIcons";
 import Input from "./Input";
@@ -116,17 +116,23 @@ export default class Header extends Component {
             </>
           )}
         </View>
-        <View style={styles.headerContainer}>
-          <Input
-            closeSearching={this.props.closeSearching}
-            onChangeText={this.props.onChangeText}
-            searching={this.props.searching}
-            hospital={this.props.hospital}
-          />
-          {!this.props.hraj && !this.props.hospital && (
-            <RoundedIcons onPress={this.whatsapp} items={0} type="chat" />
-          )}
-        </View>
+        <KeyboardAvoidingView
+          behavior={(Platform.OS === 'ios') ? "padding" : undefined}
+          keyboardVerticalOffset={Platform.select({ ios: 0, android: 500 })}
+        >
+          <View style={styles.headerContainer}>
+            <Input
+              closeSearching={this.props.closeSearching}
+              onChangeText={this.props.onChangeText}
+              searching={this.props.searching}
+              hospital={this.props.hospital}
+            />
+            {!this.props.hraj && !this.props.hospital && (
+              <RoundedIcons onPress={this.whatsapp} items={0} type="chat" />
+            )}
+          </View>
+        </KeyboardAvoidingView>
+
       </View>
     );
   }
