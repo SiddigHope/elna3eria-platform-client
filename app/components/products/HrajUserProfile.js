@@ -2,23 +2,77 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
 import { colors, fonts } from '../../config/vars';
 import Products from './products/Products';
+import Icon from "react-native-vector-icons/MaterialIcons";
 
 
 export default class HrajUserProfile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            about: 'من هو البروفسير سليمان صالح فضي   سليمان صالح فضيل من أشهر اختصاصيي الجهاز الهضمي والمناظير عالمياً، وأسهم في هذا المجال كثيراً، وتتلمذ على يديه عشرات من اختصاصيي المناظير.. لطيفٌ في تعامله، بسيطٌ.. إنجازاته تتحدث عنه.. لديه أكثر من (54) بحثاً في مجال علم المناظير نُشر معظمها عالميا.  ـ البروفيسور “سليمان صالح فضيل” من مواليد مدينة الفاشر، درس الابتدائية بتلس، والوسطى بالجنينة، والثانوي بالفاشر الثانوية، ثم جامعة الخرطوم كلية الطب، ومن ثم عمل بمستشفى الخرطوم، ثم التحق بكلية الطب جامعة الخرطوم قسم الباطنية 1972م، ذهب في بعثة دراسية إلى بريطانيا لنيل درجة التخصص في الطب الباطني 1974م–1978، ثم بدأ التخصص في أمراض الجهاز الهضمي.نال درجة الأطباء الملكية في الباطنية، وحصل على درجة الدكتوراه في الجهاز الهضمي من جامعة “برستول” ببريطانيا، تدرج في مجال الطب إلى أن نال درجة الأستاذية في جامعة الخرطوم ومستشفى سوبا ومستشفى ابن سينا، عمل عميداً لكلية الطب جامعة الخرطوم في 1992م-1994م، وعمل مديراً للمركز القومي للجهاز الهضمي بمستشفى ابن سينا 1995م-2003م. ويعد بروفيسور “سليمان صالح فضيل”صاحب مبادرات متفردة في مجال العمل الصحي والانساني ،وسبق ان تبرع بوحدة مناظير وعناية مكثفة لمستشفى الفاشر، وتَبرّعَ بالمالَ لبِناء عديد من المَدارِسِ في دارفور، ويحتفظ فضيل بموقع مميز وسط اطباء العالم وتم منحه أرفع جائزة عالمية فى مجال الجهاز الهضمى وهى شهادة التميز العليا وذلك فى الاجتماع العام للجمعية العالميه للجهاز الهضمي، وهو لقب يمنح  لعشرة علماء فقط علي نطاق العالم وذلك لإسهامهم في تطوير المعرفة في الجهاز الهضمي بفضل ابحاثهم ودراساتهم وجهدهم في اعداد الطلاب والعاملين في المجال .'
+            about: 'من هو البروفسير سليمان صالح فضي   سليمان صالح فضيل من أشهر اختصاصيي الجهاز الهضمي والمناظير عالمياً، وأسهم في هذا المجال كثيراً، وتتلمذ على يديه عشرات من اختصاصيي المناظير.. لطيفٌ في تعامله، بسيطٌ.. إنجازاته تتحدث عنه.. لديه أكثر من (54) بحثاً في مجال علم المناظير نُشر معظمها عالميا.  ـ البروفيسور “سليمان صالح فضيل” من مواليد مدينة الفاشر، درس الابتدائية بتلس، والوسطى بالجنينة، والثانوي بالفاشر الثانوية، ثم جامعة الخرطوم كلية الطب، ومن ثم عمل بمستشفى الخرطوم، ثم التحق بكلية الطب جامعة الخرطوم قسم الباطنية 1972م، ذهب في بعثة دراسية إلى بريطانيا لنيل درجة التخصص في الطب الباطني 1974م–1978، ثم بدأ التخصص في أمراض الجهاز الهضمي.نال درجة الأطباء الملكية في الباطنية، وحصل على درجة الدكتوراه في الجهاز الهضمي من جامعة “برستول” ببريطانيا، تدرج في مجال الطب إلى أن نال درجة الأستاذية في جامعة الخرطوم ومستشفى سوبا ومستشفى ابن سينا، عمل عميداً لكلية الطب جامعة الخرطوم في 1992م-1994م، وعمل مديراً للمركز القومي للجهاز الهضمي بمستشفى ابن سينا 1995م-2003م. ويعد بروفيسور “سليمان صالح فضيل”صاحب مبادرات متفردة في مجال العمل الصحي والانساني ،وسبق ان تبرع بوحدة مناظير وعناية مكثفة لمستشفى الفاشر، وتَبرّعَ بالمالَ لبِناء عديد من المَدارِسِ في دارفور، ويحتفظ فضيل بموقع مميز وسط اطباء العالم وتم منحه أرفع جائزة عالمية فى مجال الجهاز الهضمى وهى شهادة التميز العليا وذلك فى الاجتماع العام للجمعية العالميه للجهاز الهضمي، وهو لقب يمنح  لعشرة علماء فقط علي نطاق العالم وذلك لإسهامهم في تطوير المعرفة في الجهاز الهضمي بفضل ابحاثهم ودراساتهم وجهدهم في اعداد الطلاب والعاملين في المجال .',
+            star1: "star-outline",
+            star2: "star-outline",
+            star3: "star-outline",
+            star4: "star-outline",
+            star5: "star-outline",
         };
     }
 
+    componentDidMount() {
+        this.checkRating(this.props.rating)
+    }
+
+    checkRating = (rating) => {
+        switch (rating) {
+            case 1:
+                this.setState({
+                    star1: "star"
+                })
+                break;
+            case 2:
+                this.setState({
+                    star1: "star",
+                    star2: "star",
+                })
+                break;
+            case 3:
+                this.setState({
+                    star1: "star",
+                    star2: "star",
+                    star3: "star",
+                })
+                break;
+            case 4:
+                this.setState({
+                    star1: "star",
+                    star2: "star",
+                    star3: "star",
+                    star4: "star",
+                })
+                break;
+            case 5:
+                this.setState({
+                    star1: "star",
+                    star2: "star",
+                    star3: "star",
+                    star4: "star",
+                    star5: "star",
+                })
+                break;
+
+            default:
+                break;
+        }
+    }
 
     render() {
         const { products, user } = this.props
+        console.log(user)
         return (
             <ScrollView
                 showsVerticalScrollIndicator={false}
                 style={styles.container}
+                nestedScrollEnabled={true}
             >
                 <View style={styles.banner}>
                     <Image source={require("../../../assets/images/hraj.jpg")} style={styles.bannerImage} />
@@ -29,7 +83,14 @@ export default class HrajUserProfile extends Component {
                     </View>
                     <View style={styles.textContainer}>
                         <Text style={styles.hospitalName}> {user.name} </Text>
-                        <Text style={styles.hospitalEmail}> {user.email} </Text>
+                        {/* <Text style={styles.hospitalEmail}> {user.email} </Text> */}
+                        <View style={styles.ratingStars}>
+                            <Icon name={this.state.star1} color={colors.ratingYellow} size={20} />
+                            <Icon name={this.state.star2} color={colors.ratingYellow} size={20} />
+                            <Icon name={this.state.star3} color={colors.ratingYellow} size={20} />
+                            <Icon name={this.state.star4} color={colors.ratingYellow} size={20} />
+                            <Icon name={this.state.star5} color={colors.ratingYellow} size={20} />
+                        </View>
                     </View>
                 </View>
                 <View style={styles.aboutContainer}>
@@ -56,6 +117,9 @@ const styles = StyleSheet.create({
         marginVertical: 5,
         flexDirection: "row-reverse",
         alignItems: 'center',
+    },
+    ratingStars: {
+        flexDirection: "row-reverse",
     },
     container: {
         // flex: 1,

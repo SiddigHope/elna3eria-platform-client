@@ -285,7 +285,7 @@ export const getHrajUserProducts = async (id) => {
         // console.log("request")
         // console.log(request)
         // return
-        return request.success ? request.data : [];
+        return request.data ? request : [];
     } catch (error) {
         console.log(error);
         return [];

@@ -45,9 +45,6 @@ export default class HrajProductInfo extends Component {
                 discount: true
             })
         }
-        if (this.props.product.rating) {
-            this.checkRating(this.props.product.rating.average)
-        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -102,18 +99,26 @@ export default class HrajProductInfo extends Component {
 
                     <View style={styles.headerInfo}>
                         <View style={styles.miniRow}>
-                            <Text style={styles.price}>
-                                {"SR"} {price}
+                            <Icon name="star" color={colors.ratingYellow} size={35} />
+                            <Text style={styles.ratingText}>
+                                {"("}
+                                {product.rating ? product.rating.average : 0}
+                                {")"}
                             </Text>
-                            {this.state.discount && (
-                                <View style={styles.discountContainer}>
-                                    <Text style={styles.discountPrice}>
-                                        {"SR"} {this.props.product.price}
-                                    </Text>
-                                </View>
-                            )}
                         </View>
                         <Text style={styles.name}> {this.props.product.title} </Text>
+                    </View>
+                    <View style={[styles.miniRow, {alignSelf: "flex-end", marginRight: 5}]}>
+                        <Text style={styles.price}>
+                            {"SR"} {price}
+                        </Text>
+                        {this.state.discount && (
+                            <View style={styles.discountContainer}>
+                                <Text style={styles.discountPrice}>
+                                    {"SR"} {this.props.product.price}
+                                </Text>
+                            </View>
+                        )}
                     </View>
 
                     {/* <ScrollView> */}

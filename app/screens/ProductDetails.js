@@ -31,7 +31,8 @@ export default class ProductDetails extends Component {
       hraj: false,
       showProfile: false,
       userProducts: [],
-      hrajUser: {}
+      hrajUser: {},
+      rating: 0
     };
   }
 
@@ -90,7 +91,8 @@ export default class ProductDetails extends Component {
 
     this.setState({
       showProfile: true,
-      userProducts: products,
+      userProducts: products.data,
+      rating: products.rating,
       hrajUser: user
     })
   }
@@ -195,6 +197,7 @@ export default class ProductDetails extends Component {
                   goToScreen={this.goToScreen}
                   products={this.state.userProducts}
                   user={this.state.hrajUser}
+                  rating={this.state.rating}
                   navigation={this.props.navigation}
                 />
               </View>

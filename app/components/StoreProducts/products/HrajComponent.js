@@ -40,19 +40,26 @@ export default class HrajComponent extends Component {
                 <Image source={{ uri: item.images.length != 0 ? item.images[0].image : "" }} style={styles.image} />
                 <View style={styles.contentContainer}>
                     <View style={styles.nameContainer}>
+
+                        <Text style={styles.title} numberOfLines={1}>
+                            {" "}
+                            {item.title}{" "}
+                        </Text>
+                    </View>
+                    <View style={[styles.nameContainer]}>
+                        <View style={styles.miniRow}>
+                            <Icon name="star" color={colors.ratingYellow} size={15} />
+                            <Text style={styles.rating}> {item.rating ? item.rating.average : 0} </Text>
+                        </View>
                         <View style={styles.miniRow}>
                             <Text
                                 numberOfLines={1}
-                                style={[styles.price, { maxWidth: 35 }]}
+                                style={[styles.price, { maxWidth: 80 }]}
                             >
                                 {item.price}
                             </Text>
                             <Text style={[styles.price]}>{" SR"}</Text>
                         </View>
-                        <Text style={styles.title} numberOfLines={1}>
-                            {" "}
-                            {item.title}{" "}
-                        </Text>
                     </View>
                     <View style={[styles.nameContainer, { marginHorizontal: 10, marginTop: 0 }]}>
                         <Text numberOfLines={3} style={styles.desc}>
@@ -117,5 +124,10 @@ const styles = StyleSheet.create({
         fontSize: 12,
         textAlign: 'right',
         width: "100%"
+    },
+    rating: {
+        fontFamily: "Tajawal-Regular",
+        fontSize: 12,
+        color: colors.softBlack,
     },
 });
