@@ -115,10 +115,10 @@ export default class Cart extends Component {
             if (!this.props.route.params.oneItem) {
                 removeAllCart(this.props.route.params.store.id)
             }
-            this.setState({ orderPlaced: true, ordering: true })
+            this.setState({ orderPlaced: true, ordering: false })
             setTimeout(() => {
                 this.setState({
-                    ordering: false,
+                    // ordering: false,
                     showModal: false,
                     items: [],
                     total: 0
@@ -163,7 +163,7 @@ export default class Cart extends Component {
                         <StatusBar translucent={false} backgroundColor={colors.myFatoraBlue} style="light" />
                         <View style={[styles.fakeHeader, Platform.OS === "ios" && { height: 80 }]}>
                             <Pressable onPress={this.closeModal} style={styles.closeModal}>
-                                <Icon name="arrow-back-outline" size={25} color={colors.ebony} />
+                                <Icon name="close" size={30} color={colors.ebony} />
                             </Pressable>
                         </View>
                         <WebView
