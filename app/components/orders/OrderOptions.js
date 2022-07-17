@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, Dimensions, TextInput, Pressable } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, Dimensions, TextInput, Pressable, ActivityIndicator } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon2 from 'react-native-vector-icons/Ionicons';
 import elevations from '../../config/elevations';
 import { colors, fonts } from '../../config/vars';
 import RadioButtonComponent from './RadioButtonComponent';
@@ -60,7 +61,7 @@ export default class OrderOptions extends Component {
         return (
             <View style={[styles.container, elevations[10]]}>
                 <Pressable onPress={this.props.closeModal} style={styles.closeModal}>
-                    <Icon name="close-circle" size={25} color={colors.mainColor} />
+                    <Icon2 name="chevron-down" size={30} color={colors.mainColor} />
                 </Pressable>
 
                 <RadioButtonRN
@@ -94,9 +95,13 @@ export default class OrderOptions extends Component {
                     <RadioButtonComponent key={item.id} item={item} selected={this.props.paymentMethod} setSelected={this.props.setPaymentMethod} />
                 ))}
 
-                <Pressable onPress={this.props.onCheckout} style={[styles.btn, elevations[10]]}>
-                    <Text style={styles.btnText}> {"دفع"} </Text>
-                </Pressable>
+                <TouchableOpacity onPress={this.props.onCheckout} style={[styles.btn, elevations[10]]}>
+                    {this.props.loading ? (
+                        <ActivityIndicator color={colors.white} size={"small"} />
+                    ) : (
+                        <Text style={styles.btnText}> {"دفع"} </Text>
+                    )}
+                </TouchableOpacity>
 
             </View>
         );
@@ -107,10 +112,10 @@ export default class OrderOptions extends Component {
 const styles = StyleSheet.create({
     container: {
         // flex: 1,
-        paddingTop: 50,
+        paddingTop: 10,
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
-        backgroundColor: colors.white,
+        backgroundColor: colors.ebony,
         width: "100%",
         justifyContent: 'center',
         alignItems: 'center',
@@ -153,10 +158,12 @@ const styles = StyleSheet.create({
         color: colors.white,
     },
     closeModal: {
-        left: 20,
-        top: 10,
-        position: 'absolute',
-        // alignSelf: 'flex-start',
+        width: "50%",
+        height: 30,
+        alignItems: 'center',
+        // flexDirection: "row-reverse",
+        // backgroundColor: colors.borderColor,
+        alignSelf: 'center',
     },
     boxStyle: {
         flex: 1,

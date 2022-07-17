@@ -52,6 +52,11 @@ export default class CartList extends Component {
         <CartComponent oneItem={this.props.oneItem} deleteItem={this.props.deleteItem} onPress={this.props.onPress} item={item} index={index} />
     )
 
+    checkout = () => {
+        if (this.props.items.length == 0) return
+        this.props.checkout()
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -66,8 +71,8 @@ export default class CartList extends Component {
                     ItemSeparatorComponent={this._itemSeparator}
                     renderItem={this._renderItem}
                 />
-                <View style={[styles.checkoutContainer,elevations[10]]}>
-                    <Pressable onPress={this.props.checkout} style={[styles.btn,elevations[5]]}>
+                <View style={[styles.checkoutContainer, elevations[10]]}>
+                    <Pressable onPress={this.checkout} style={[styles.btn, elevations[5]]}>
                         <Icon name="logout" size={20} color={colors.white} />
                         <Text style={styles.btnText}> {"الدفع"} </Text>
                     </Pressable>

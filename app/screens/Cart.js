@@ -11,6 +11,7 @@ import { checkout, onlinePayment } from '../config/apis/posts';
 import OrderOptions from '../components/orders/OrderOptions';
 import WebView from 'react-native-webview';
 import MiniHeader from '../components/MiniHeader';
+import GestureRecognizer from 'react-native-swipe-gestures';
 
 export default class Cart extends Component {
     constructor(props) {
@@ -26,7 +27,8 @@ export default class Cart extends Component {
             payingLink: "",
             paymentMethod: "CASH",
             visible: true,
-            pickup: false
+            pickup: false,
+            loading: false
         };
     }
 
@@ -118,7 +120,8 @@ export default class Cart extends Component {
                 this.setState({
                     ordering: false,
                     showModal: false,
-                    items: []
+                    items: [],
+                    total: 0
                 })
             }, 3000)
         } else {
@@ -195,25 +198,31 @@ export default class Cart extends Component {
                         {/* </View> */}
                     </View>
                 </Modal>
-                <Modal
-                    transparent={true}
-                    onBackdropPress={() => this.setState({ showModal: false })}
-                    onSwipeComplete={() => this.setState({ showModal: false })}
-                    onRequestClose={() => this.setState({ showModal: false })}
-                    visible={this.state.showModal}
-                    animationType="slide">
-                    <View style={styles.modal}>
-                        <OrderOptions
-                            paymentMethod={this.state.paymentMethod}
-                            setPaymentMethod={(paymentMethod) => this.setState({ paymentMethod })}
-                            address={this.state.address}
-                            setPickup={this.setPickup}
-                            setAddress={(address) => this.setState({ address })}
-                            onCheckout={this.checkout}
-                            closeModal={() => this.setState({ showModal: false })}
-                        />
-                    </View>
-                </Modal>
+                <GestureRecognizer
+                    // style={{ flex: 1 }}
+                    onSwipeDown={() => this.setState({ showModal: false })}
+                >
+                    <Modal
+                        transparent={true}
+                        onBackdropPress={() => this.setState({ showModal: false })}
+                        onSwipeComplete={() => this.setState({ showModal: false })}
+                        onRequestClose={() => this.setState({ showModal: false })}
+                        visible={this.state.showModal}
+                        animationType="slide">
+                        <View style={styles.modal}>
+                            <OrderOptions
+                                paymentMethod={this.state.paymentMethod}
+                                setPaymentMethod={(paymentMethod) => this.setState({ paymentMethod })}
+                                address={this.state.address}
+                                setPickup={this.setPickup}
+                                loading={this.state.ordering}
+                                setAddress={(address) => this.setState({ address })}
+                                onCheckout={this.checkout}
+                                closeModal={() => this.setState({ showModal: false })}
+                            />
+                        </View>
+                    </Modal>
+                </GestureRecognizer>
                 <MiniHeader right={"dkj"} title={"عربة التسوق"} navigation={this.props.navigation} />
                 <CartList
                     oneItem={this.props.route.params.oneItem}
