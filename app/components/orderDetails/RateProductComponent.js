@@ -17,9 +17,9 @@ export default class RateProductComponent extends Component {
     }
 
     setRating = (rating) => {
-        const { item } = this.props
-        
-        this.props.setRatingStars(rating, item.product.id)
+        const { item, screen } = this.props
+
+        this.props.setRatingStars(rating, screen == "hraj" ? item.id : item.product.id)
 
         switch (rating) {
             case 1:
@@ -74,22 +74,25 @@ export default class RateProductComponent extends Component {
     }
 
     render() {
-        const { item } = this.props
+        const { item, screen } = this.props
+        // console.log(item)
         return (
             <View style={styles.itemContainer}>
                 <View style={styles.imageContainer} >
-                    <Image style={styles.image} source={{ uri: item.product.image }} />
+                    <Image style={styles.image} source={{ uri: screen == "hraj" ? item.images && item.images[0].image : item.product.image }} />
                 </View>
                 <View style={styles.ratingContainer}>
-                    <View style={styles.textInputContainer}>
-                        <TextInput
-                            style={styles.textInput}
-                            multiline
-                            placeholder={"اكتب تعليقاً"}
-                            // value={this.state.ratingComment}
-                            onChangeText={(ratingComment) => this.props.setCommentText(ratingComment, item.product.id)}
-                        />
-                    </View>
+                    {screen != "hraj" && (
+                        <View style={styles.textInputContainer}>
+                            <TextInput
+                                style={styles.textInput}
+                                multiline
+                                placeholder={"اكتب تعليقاً"}
+                                // value={this.state.ratingComment}
+                                onChangeText={(ratingComment) => this.props.setCommentText(ratingComment, item.product.id)}
+                            />
+                        </View>
+                    )}
                     <View style={styles.ratingStars}>
                         <Icon2 onPress={() => this.setRating(1)} name={this.state.star1} color={colors.ratingYellow} size={25} />
                         <Icon2 onPress={() => this.setRating(2)} name={this.state.star2} color={colors.ratingYellow} size={25} />
@@ -134,7 +137,7 @@ const styles = StyleSheet.create({
         height: 80,
         width: 80,
         borderRadius: 10,
-        backgroundColor: colors.mainColor,
+        backgroundColor: colors.whiteF7,
         elevation: 5,
         // alignSelf: "flex-end"
     },

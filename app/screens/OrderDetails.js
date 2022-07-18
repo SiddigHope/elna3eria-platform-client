@@ -96,7 +96,7 @@ export default class OrderDetails extends Component {
 
                         <View style={[styles.fakeHeader, Platform.OS === "ios" && { height: 80 }]}>
                             <Pressable onPress={this.closeModal} style={styles.closeModal}>
-                                <Icon name="arrow-back-outline" size={25} color={colors.ebony} />
+                                <Icon name="close" size={25} color={colors.ebony} />
                             </Pressable>
                         </View>
                         <WebView
@@ -124,7 +124,11 @@ export default class OrderDetails extends Component {
                     animationIn="slideInLeft"
                     animationOut="slideOutRight">
                     <View style={styles.modalContainer}>
-                        <RateProduct order={this.state.order} closeModal={this.closeModal} />
+                        <RateProduct
+                            screen={"order"}
+                            order={this.state.order}
+                            closeModal={this.closeModal}
+                        />
                     </View>
                 </Modal>
 
@@ -164,22 +168,20 @@ const styles = StyleSheet.create({
         backgroundColor: colors.myFatoraBlue
     },
     closeModal: {
-        // left: 20,
-        // top: 40,
+        width: 30,
+        height: 30,
+        justifyContent: 'center',
+        alignItems: 'center',
         marginLeft: 20,
         backgroundColor: colors.white,
-        // zIndex: 1111,
         elevation: 5,
         borderRadius: 20,
-        padding: 5,
         marginBottom: 5
-        // alignSelf: 'flex-start',
     },
     modalContainer: {
         height: '100%',
         width: '100%',
-
-        // backgroundColor: colors.white,
+        // backgroundColor: colors.blackTransparent2,
         alignItems: "center",
         justifyContent: "center"
     },

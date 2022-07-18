@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text, Modal, StyleSheet, Image, TextInput } from 'react-native';
+import { View, Text, Modal, StyleSheet, Image, TextInput, Pressable } from 'react-native';
 import { colors, fonts } from '../../config/vars';
 import GestureRecognizer from "react-native-swipe-gestures";
 import { elevations } from '../../config/elevations';
 import OrderButton from '../product/OrderButton';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import Icon from "react-native-vector-icons/Ionicons"
 
 
 export default class AskMeModal extends Component {
@@ -41,10 +42,12 @@ export default class AskMeModal extends Component {
                     onSwipeComplete={this.props.toggleModal}
                     onRequestClose={this.props.toggleModal}
                     visible={this.props.showModal}
-                    animationType="fade">
+                    animationType="slide">
                     <View style={styles.modalContainer}>
                         <View style={styles.modal}>
-                            <View style={styles.topBar} />
+                            <Pressable onPress={this.props.toggleModal} style={styles.topBar}>
+                                <Icon name='chevron-down' size={30} color={colors.mainColor} />
+                            </Pressable>
 
                             <KeyboardAwareScrollView>
                                 <View style={styles.contentContainer}>
@@ -157,8 +160,10 @@ const styles = StyleSheet.create({
     },
     topBar: {
         width: "50%",
-        height: 2,
-        backgroundColor: colors.borderColor,
+        height: 30,
+        alignItems: 'center',
+        // flexDirection: "row-reverse",
+        // backgroundColor: colors.borderColor,
         alignSelf: 'center',
         borderRadius: 10,
     },
@@ -174,9 +179,10 @@ const styles = StyleSheet.create({
         backgroundColor: "#F0F1F3",
         width: "100%",
         alignSelf: "center",
-        borderRadius: 20,
+        borderRadius: 10,
         marginBottom: 10,
-        marginTop: 20
+        marginTop: 20,
+        elevation: 5
     },
     textInput: {
         width: "100%",

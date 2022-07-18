@@ -60,12 +60,18 @@ export const onlinePayment = async (data) => {
 }
 
 
-export const rateProduct = async (data, id) => {
+export const rateProduct = async (data, id, type) => {
+    let url = mainDomain + "client/products/review/" + id
+
+    if (type == "hraj") {
+        url = mainDomain + "client/hraj/review"
+    }
+
     const user = await getUser()
     try {
         const options = {
             method: "POST",
-            url: mainDomain + "client/products/review/" + id,
+            url,
             headers: {
                 "Content-Type": "application/json",
                 Accept: "application/json",

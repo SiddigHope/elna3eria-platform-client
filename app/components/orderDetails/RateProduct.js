@@ -80,7 +80,13 @@ export default class RateProduct extends Component {
                 review: item.comment,
                 rating: item.stars
             }
-            let rated = await rateProduct(data, item.id)
+            if (this.props.screen == "hraj") {
+                data = {
+                    product_id: this.props.order.id,
+                    rating: item.stars
+                }
+            }
+            let rated = await rateProduct(data, item.id, this.props.screen)
         })
 
         this.props.closeModal()
@@ -103,27 +109,36 @@ export default class RateProduct extends Component {
     )
 
     _renderItem = (item, index) => (
-        <RateProductComponent item={item.item} setRatingStars={this.setRating} setCommentText={this.setCommentText} />
+        <RateProductComponent screen="product" item={item.item} setRatingStars={this.setRating} setCommentText={this.setCommentText} />
     )
 
 
     render() {
-        const { order } = this.props
+        const { order, screen } = this.props
 
         return (
-            <View style={styles.container}>
+            <View style={[styles.container]}>
                 <Text style={styles.subtitle} > {"رأيك يهمنا ..."} </Text>
-                <FlatList
-                    data={order.details}
-                    keyExtractor={(item, index) => index.toString()}
-                    showsVerticalScrollIndicator={false}
-                    ListHeaderComponent={this._listHeader}
-                    style={{ width: "100%" }}
-                    contentContainerStyle={{ alignItems: 'center' }}
-                    ListFooterComponent={this._listFooter}
-                    ItemSeparatorComponent={this._itemSeparator}
-                    renderItem={this._renderItem}
-                />
+                {this.props.screen == "hraj" ? (
+                    <RateProductComponent
+                        screen="hraj"
+                        item={this.props.order}
+                        setRatingStars={this.setRating}
+                        setCommentText={this.setCommentText}
+                    />
+                ) : (
+                    <FlatList
+                        data={order.details}
+                        keyExtractor={(item, index) => index.toString()}
+                        showsVerticalScrollIndicator={false}
+                        ListHeaderComponent={this._listHeader}
+                        style={{ width: "100%" }}
+                        contentContainerStyle={{ alignItems: 'center' }}
+                        ListFooterComponent={this._listFooter}
+                        ItemSeparatorComponent={this._itemSeparator}
+                        renderItem={this._renderItem}
+                    />
+                )}
                 <View style={styles.btnContainer}>
                     <Pressable onPress={this.rateProducts} style={styles.btn} >
                         <Text style={styles.btnText} > {"تقييم الأن"} </Text>
@@ -140,9 +155,9 @@ export default class RateProduct extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: colors.softWhite,
+        backgroundColor: colors.ebony,
         elevation: 10,
-        width: "100%",
+        width: "90%",
         // alignItems: 'center',
         // alignSelf: 'center',
         padding: 20,

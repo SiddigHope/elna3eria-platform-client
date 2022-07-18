@@ -22,6 +22,7 @@ import Icon3 from 'react-native-vector-icons/Ionicons';
 import { addToCart, removeItemFromCart } from "../../config/functions";
 import elevations from "../../config/elevations";
 import CommentsList from './comments/CommentsList';
+import RateProduct from '../orderDetails/RateProduct';
 
 const { width, height } = Dimensions.get("window");
 
@@ -36,6 +37,7 @@ export default class HrajProductInfo extends Component {
             adding: false,
             added: false,
             discount: false,
+            rating: false
         };
     }
 
@@ -95,20 +97,38 @@ export default class HrajProductInfo extends Component {
         // console.log(product)
         return (
             <View style={[styles.container]}>
+
+                <Modal
+                    transparent={true}
+                    onBackdropPress={() => this.setState({ rating: false })}
+                    onSwipeComplete={() => this.setState({ rating: false })}
+                    onRequestClose={() => this.setState({ rating: false })}
+                    visible={this.state.rating}
+                    animationIn="slideInLeft"
+                    animationOut="slideOutRight">
+                    <View style={styles.modalContainer}>
+                        <RateProduct
+                            order={product}
+                            screen={"hraj"}
+                            closeModal={() => this.setState({ rating: false })}
+                        />
+                    </View>
+                </Modal>
+
                 <View style={styles.infoContainer}>
 
                     <View style={styles.headerInfo}>
-                        <View style={styles.miniRow}>
+                        <TouchableOpacity onPress={() => this.setState({ rating: true })} style={styles.miniRow}>
                             <Icon name="star" color={colors.ratingYellow} size={35} />
                             <Text style={styles.ratingText}>
                                 {"("}
                                 {product.rating ? product.rating.average : 0}
                                 {")"}
                             </Text>
-                        </View>
+                        </TouchableOpacity>
                         <Text style={styles.name}> {this.props.product.title} </Text>
                     </View>
-                    <View style={[styles.miniRow, {alignSelf: "flex-end", marginRight: 5}]}>
+                    <View style={[styles.miniRow, { alignSelf: "flex-end", marginRight: 5 }]}>
                         <Text style={styles.price}>
                             {"SR"} {price}
                         </Text>
@@ -262,5 +282,13 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",
+    },
+    modalContainer: {
+        height: '100%',
+        width: '100%',
+
+        // backgroundColor: colors.white,
+        alignItems: "center",
+        justifyContent: "center"
     },
 });

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, Dimensions, TextInput, Pressable, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, Pressable, ActivityIndicator, Platform, KeyboardAvoidingView } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon2 from 'react-native-vector-icons/Ionicons';
 import elevations from '../../config/elevations';
@@ -59,6 +59,7 @@ export default class OrderOptions extends Component {
 
     render() {
         return (
+
             <View style={[styles.container, elevations[10]]}>
                 <Pressable onPress={this.props.closeModal} style={styles.closeModal}>
                     <Icon2 name="chevron-down" size={30} color={colors.mainColor} />
@@ -75,18 +76,23 @@ export default class OrderOptions extends Component {
                 />
 
                 {this.state.delivery == 1 && (
-                    <View style={[styles.textContainer, elevations[5]]}>
-                        {/* <View style={styles.iconContainer} > */}
-                        <Icon name="map-marker-radius" color={colors.blueLight} size={20} />
-                        {/* </View> */}
-                        <TextInput
-                            style={styles.textInput}
-                            value={this.props.address}
-                            placeholder="ادخل عنوانك للاستلام"
-                            placeholderTextColor={colors.grey}
-                            onChangeText={(text) => this.props.setAddress(text)}
-                        />
-                    </View>
+                    <KeyboardAvoidingView
+                        behavior={(Platform.OS === 'ios') ? "padding" : null}
+                        keyboardVerticalOffset={Platform.select({ ios: 0, android: 500 })}
+                    >
+                        <View style={[styles.textContainer, elevations[5]]}>
+                            {/* <View style={styles.iconContainer} > */}
+                            <Icon name="map-marker-radius" color={colors.blueLight} size={20} />
+                            {/* </View> */}
+                            <TextInput
+                                style={styles.textInput}
+                                value={this.props.address}
+                                placeholder="ادخل عنوانك للاستلام"
+                                placeholderTextColor={colors.grey}
+                                onChangeText={(text) => this.props.setAddress(text)}
+                            />
+                        </View>
+                    </KeyboardAvoidingView>
                 )}
 
 
