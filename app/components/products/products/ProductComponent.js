@@ -82,25 +82,35 @@ export default class ProductComponent extends Component {
                 <Image source={{ uri: item.images.length != 0 ? item.images[0].image : "" }} style={styles.image} />
                 <Pressable onPress={this.handlePress} style={styles.contentContainer}>
                     <View style={styles.nameContainer}>
-                        <View style={styles.miniRow}>
-                            <Text
-                                numberOfLines={1}
-                                style={[styles.price, { maxWidth: 35 }]}
-                            >
-                                {item.price}
-                            </Text>
-                            <Text style={[styles.price]}>{" SR"}</Text>
-                        </View>
                         <Text style={styles.title} numberOfLines={1}>
                             {" "}
                             {item.title}{" "}
                         </Text>
                     </View>
+                    <View style={[styles.nameContainer]}>
+                        <View style={styles.miniRow}>
+                            <Icon name="star" color={colors.ratingYellow} size={15} />
+                            <Text style={styles.rating}>{item.rating ? item.rating.average : 0}</Text>
+                        </View>
+                        <View style={styles.miniRow}>
+                            <Text
+                                numberOfLines={1}
+                                style={[styles.price, { maxWidth: 80 }]}
+                            >
+                                {item.price}
+                            </Text>
+                            <Text style={[styles.price]}>{" SR"}</Text>
+                        </View>
+                    </View>
                     <View style={[styles.nameContainer, { marginHorizontal: 10, marginTop: 0 }]}>
-                        <Text numberOfLines={3} style={styles.desc}>
+                        <Text numberOfLines={1} style={styles.desc}>
                             {item.description}
                         </Text>
+
                     </View>
+                    <Text style={styles.time}>
+                        {item.time}
+                    </Text>
                 </Pressable>
             </View>
         );
@@ -172,5 +182,16 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         zIndex: 11
-    }
+    },
+    rating: {
+        fontFamily: fonts.tajawalR,
+        fontSize: 12,
+        color: colors.softBlack,
+    },
+    time: {
+        fontFamily: fonts.tajawalR,
+        fontSize: 10,
+        color: colors.grey,
+        marginHorizontal: 10
+    },
 });

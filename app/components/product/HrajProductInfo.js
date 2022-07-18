@@ -143,6 +143,7 @@ export default class HrajProductInfo extends Component {
 
                     {/* <ScrollView> */}
                     <Text style={styles.desc}> {this.props.product.description} </Text>
+                    <Text style={styles.time}> {this.props.product.time} </Text>
                     <View style={styles.miniRow}>
                         <TouchableOpacity onPress={this.whatsapp} style={[styles.iconContainer, elevations[5], { marginLeft: 10, marginRight: 5 }]}>
                             <Icon3 name="chatbox-ellipses" size={20} color={colors.mainColor} />
@@ -290,5 +291,10 @@ const styles = StyleSheet.create({
         // backgroundColor: colors.white,
         alignItems: "center",
         justifyContent: "center"
+    },
+    time: {
+        fontFamily: fonts.tajawalR,
+        fontSize: 12,
+        color: colors.grey,
     },
 });

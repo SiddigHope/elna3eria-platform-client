@@ -49,7 +49,7 @@ export default class HrajComponent extends Component {
                     <View style={[styles.nameContainer]}>
                         <View style={styles.miniRow}>
                             <Icon name="star" color={colors.ratingYellow} size={15} />
-                            <Text style={styles.rating}> {item.rating ? item.rating.average : 0} </Text>
+                            <Text style={styles.rating}>{item.rating ? item.rating.average : 0}</Text>
                         </View>
                         <View style={styles.miniRow}>
                             <Text
@@ -62,10 +62,14 @@ export default class HrajComponent extends Component {
                         </View>
                     </View>
                     <View style={[styles.nameContainer, { marginHorizontal: 10, marginTop: 0 }]}>
-                        <Text numberOfLines={3} style={styles.desc}>
+                        <Text numberOfLines={1} style={styles.desc}>
                             {item.description}
                         </Text>
+
                     </View>
+                    <Text style={styles.time}>
+                        {item.time}
+                    </Text>
                 </View>
             </Pressable>
         );
@@ -126,8 +130,14 @@ const styles = StyleSheet.create({
         width: "100%"
     },
     rating: {
-        fontFamily: "Tajawal-Regular",
+        fontFamily: fonts.tajawalR,
         fontSize: 12,
         color: colors.softBlack,
+    },
+    time: {
+        fontFamily: fonts.tajawalR,
+        fontSize: 10,
+        color: colors.grey,
+        marginHorizontal: 10
     },
 });
