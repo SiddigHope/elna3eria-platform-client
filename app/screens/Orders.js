@@ -117,6 +117,7 @@ export default class Orders extends Component {
                     title="طلباتي"
                     closeSearching={() => console.log("closing")}
                     searching={false}
+                    navigation={this.props.navigation}
                     onChangeText={(text) => console.log(text)}
                 />
                 <CatList selected={this.state.status} changeSelected={this.filterOrders} data={statusCodes} />

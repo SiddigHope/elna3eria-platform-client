@@ -31,6 +31,7 @@ import AskMeOrders from './app/screens/AskMeOrders';
 import DoctorAppointments from './app/screens/DoctorAppointments';
 import HospitalProfile from './app/screens/HospitalProfile';
 import Chat from './app/screens/Chat';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
 // I18nManager.forceRTL(false);
 // I18nManager.allowRTL(false);
@@ -53,6 +54,7 @@ const loadFonts = () => {
 };
 
 const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
 
 function Stacks() {
   return (

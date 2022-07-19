@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, Image, Platform } from "react-native";
+import { View, Text, StyleSheet, Image, Platform, Pressable } from "react-native";
 import elevations from "../elevations";
 import { colors, fonts } from "../vars";
 import Avatar from "./Avatar";
@@ -23,7 +23,7 @@ export default class Header extends Component {
   }
   render() {
     return (
-      <View style={[styles.container, this.props.searching ? { height: 50 } :Platform.OS == "ios" ? { marginTop: 40 } :  {}]}>
+      <View style={[styles.container, this.props.searching ? { height: 50 } : Platform.OS == "ios" ? { marginTop: 40 } : {}]}>
         <View style={styles.headerContainer}>
           <Avatar user={this.state.user} />
           {this.props.screen == "home" || this.props.screen == "discount" ? (
@@ -31,11 +31,11 @@ export default class Header extends Component {
           ) : (
             <Text style={styles.title}> {this.props.title} </Text>
           )}
-          <View style={styles.barsContainer}>
+          <Pressable onPress={() => this.props.navigation.openDrawer()} style={styles.barsContainer}>
             <View style={[styles.bars, elevations[5]]}></View>
             <View style={[styles.bars, elevations[5], { width: "70%" }]}></View>
             <View style={[styles.bars, elevations[5]]}></View>
-          </View>
+          </Pressable>
         </View>
         {this.props.searching || this.props.screen != "home" ? null : (
           <View style={[styles.imageBanner, elevations[10]]}>
