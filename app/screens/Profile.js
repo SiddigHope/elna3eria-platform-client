@@ -5,6 +5,7 @@ import MiniHeader from "../components/MiniHeader";
 import ProfileComponent from "../components/profile/ProfileComponent";
 import Header from "../config/header/Header";
 import { colors } from '../config/vars';
+import { DrawerContentScrollView } from '@react-navigation/drawer';
 
 export default class Profile extends Component {
   constructor(props) {
@@ -49,20 +50,22 @@ export default class Profile extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <DrawerContentScrollView contentContainerStyle={{ alignItems: "center", }} style={styles.container}>
         <StatusBar backgroundColor={colors.whiteF7} translucent={false} />
         <MiniHeader title="profile" navigation={this.props.navigation} />
+        {/* <ScrollView> */}
         <ProfileComponent navigation={this.props.navigation} />
-      </View>
+        {/* </ScrollView> */}
+      </DrawerContentScrollView>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: "center",
+    // flex: 1,
+
     // justifyContent: "center",
-    backgroundColor: colors.whiteF7
+    backgroundColor: colors.ebony
   }
 })

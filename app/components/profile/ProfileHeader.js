@@ -51,11 +51,12 @@ const styles = StyleSheet.create({
         width: "100%",
         backgroundColor: colors.white,
         elevation: 5,
-        borderRadius: 20,
+        borderRadius: 10,
         flexDirection: 'row-reverse',
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: 10,
+        marginBottom: 20
     },
     imageContainer: {
         height: 80,

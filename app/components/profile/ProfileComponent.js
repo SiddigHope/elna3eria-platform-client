@@ -32,14 +32,38 @@ export default class ProfileComponent extends Component {
                 onPress: "FavProducts",
                 icon: <Icon1 name="heart-outline" size={25} color={colors.mainColor} />,
             },
-            // {
-            //     id: 3,
-            //     title: "الحراج",
-            //     onPress: "Hiraj",
-            //     icon: <Icon name="storefront-outline" size={25} color={colors.mainColor} />,
-            // },
+            {
+                id: 3,
+                title: "الحراج",
+                onPress: "Hiraj",
+                icon: <Icon name="storefront-outline" size={25} color={colors.mainColor} />,
+            },
             {
                 id: 4,
+                title: "تقيماتي",
+                onPress: "MyReviews",
+                icon: <Icon name="star-face" size={25} color={colors.mainColor} />,
+            },
+            {
+                id: 5,
+                title: "المتاجر المفضلة",
+                onPress: "FavStores",
+                icon: <Icon1 name="heart" size={25} color={colors.mainColor} />,
+            },
+            {
+                id: 6,
+                title: "المنتحات المفضلة",
+                onPress: "FavProducts",
+                icon: <Icon1 name="heart-outline" size={25} color={colors.mainColor} />,
+            },
+            {
+                id: 7,
+                title: "الحراج",
+                onPress: "Hiraj",
+                icon: <Icon name="storefront-outline" size={25} color={colors.mainColor} />,
+            },
+            {
+                id: 8,
                 title: "تقيماتي",
                 onPress: "MyReviews",
                 icon: <Icon name="star-face" size={25} color={colors.mainColor} />,
@@ -79,11 +103,14 @@ export default class ProfileComponent extends Component {
         return (
             <View style={styles.container}>
                 <ProfileHeader user={this.state.user} navigation={this.props.navigation} />
-                <View style={[styles.listContainer, elevations[10]]} >
-                    {/* {this.list.map(item => (
-                        <ListComponent item={item} key={item.id} />
-                    ))} */}
-                    <FlatList
+                {/* <View style={[styles.listContainer, elevations[10]]} > */}
+                {this.list.map(item => (
+                    <>
+                        <ListComponent item={item} navigation={this.props.navigation} key={item.id} />
+                        <View style={[styles.hr, elevations[1]]} />
+                    </>
+                ))}
+                {/* <FlatList
                         data={this.list}
                         keyExtractor={(item, index) => index.toString()}
                         showsVerticalScrollIndicator={false}
@@ -93,8 +120,8 @@ export default class ProfileComponent extends Component {
                         ListFooterComponent={this._listFooter}
                         ItemSeparatorComponent={this._itemSeparator}
                         renderItem={this._renderItem}
-                    />
-                </View>
+                    /> */}
+                {/* </View> */}
             </View>
         );
     }
@@ -105,16 +132,18 @@ const styles = StyleSheet.create({
         height: 0.5,
         width: 170,
         alignSelf: 'center',
-        backgroundColor: "#DFEAED",
+        backgroundColor: colors.grey,
         elevation: 1,
-        marginVertical: 10
+        marginVertical: 10,
     },
     container: {
         flex: 1,
         alignItems: "center",
-        marginTop: 30,
+        // marginTop: 30,
         // justifyContent:  'center',
         width: "90%",
+        marginBottom: 20 ,
+
         // marginBottom: 55
         // backgroundColor: colors.white
     },
