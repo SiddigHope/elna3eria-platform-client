@@ -5,6 +5,7 @@ import { colors, fonts } from "../vars";
 import Avatar from "./Avatar";
 import Input from "./Input";
 import UserClass from '../authHandler';
+import { openDrawer } from '../functions';
 
 export default class Header extends Component {
   constructor(props) {
@@ -21,6 +22,11 @@ export default class Header extends Component {
       user: await UserClass.getUser()
     })
   }
+
+  openDrawer = () => {
+    openDrawer(this.props.navigation)
+  }
+
   render() {
     return (
       <View style={[styles.container, this.props.searching ? { height: 50 } : Platform.OS == "ios" ? { marginTop: 40 } : {}]}>
@@ -31,7 +37,7 @@ export default class Header extends Component {
           ) : (
             <Text style={styles.title}> {this.props.title} </Text>
           )}
-          <Pressable onPress={() => this.props.navigation.openDrawer()} style={styles.barsContainer}>
+          <Pressable onPress={this.openDrawer} style={styles.barsContainer}>
             <View style={[styles.bars, elevations[5]]}></View>
             <View style={[styles.bars, elevations[5], { width: "70%" }]}></View>
             <View style={[styles.bars, elevations[5]]}></View>

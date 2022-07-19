@@ -58,6 +58,7 @@ export default class DoctorAppointments extends Component {
                     title="حجوزاتي"
                     closeSearching={() => console.log("closing")}
                     searching={false}
+                    navigation={this.props.navigation}
                     onChangeText={(text) => console.log(text)}
                 />
 

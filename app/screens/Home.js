@@ -130,6 +130,7 @@ export default class Home extends Component {
       showAdds={this.state.showAdds}
       searching={this.state.searching}
       onChangeText={this.onChangeText}
+      navigation={this.props.navigation}
       screen={"home"}
     />
   );

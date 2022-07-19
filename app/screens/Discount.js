@@ -126,6 +126,7 @@ export default class Discount extends Component {
                 <Header screen={"discount"}
                     closeSearching={this.closeSearching}
                     searching={this.state.searching}
+                    navigation={this.props.navigation}
                     onChangeText={this.onChangeText}
                 />
 

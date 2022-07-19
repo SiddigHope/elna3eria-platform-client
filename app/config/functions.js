@@ -28,6 +28,10 @@ export function ShowSnackbar({ text, backgroundColor, show, closeSnackbar }) {
   );
 }
 
+export const openDrawer = (navigation) => {
+  navigation.openDrawer()
+}
+
 export const addToCart = async (item, store_id) => {
   const stringCart = await AsyncStorage.getItem("cart" + store_id)
   if (stringCart != null) {

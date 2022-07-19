@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, Image, Platform } from "react-native";
+import { View, Text, StyleSheet, Image, Platform, Pressable } from "react-native";
 import elevations from "../../../config/elevations";
 import { colors } from "../../../config/vars";
 import Avatar from "./Avatar";
@@ -8,6 +8,7 @@ import UserClass from '../../../config/authHandler';
 import { StatusBar } from 'expo-status-bar';
 import BannerList from './BannerList';
 import { getAdvertisements } from '../../../config/data';
+import { openDrawer } from "../../../config/functions";
 
 const images = [
   {
@@ -47,6 +48,10 @@ export default class Header extends Component {
     })
   }
 
+  openDrawer = () => {
+    openDrawer(this.props.navigation)
+  }
+
   render() {
     return (
       <View style={[styles.container, this.props.searching ? { height: 50 } : Platform.OS == "ios" ? { marginTop: 40 } : {}]}>
@@ -54,11 +59,11 @@ export default class Header extends Component {
         <View style={styles.headerContainer}>
           <Avatar user={this.state.user} />
           <Input closeSearching={this.props.closeSearching} onChangeText={this.props.onChangeText} searching={this.props.searching} />
-          <View style={styles.barsContainer}>
+          <Pressable onPress={this.openDrawer} style={styles.barsContainer}>
             <View style={[styles.bars, elevations[5]]}></View>
             <View style={[styles.bars, elevations[5], { width: "70%" }]}></View>
             <View style={[styles.bars, elevations[5]]}></View>
-          </View>
+          </Pressable>
         </View>
         {this.props.searching ? null : (
           <BannerList adds={this.state.adds.length != 0 ? this.state.adds[0] : images} navigation={this.props.navigation} />

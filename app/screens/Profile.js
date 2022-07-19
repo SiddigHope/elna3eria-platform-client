@@ -1,6 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import React, { Component } from "react";
 import { View, Text, StyleSheet, ScrollView, Alert, BackHandler } from "react-native";
+import MiniHeader from "../components/MiniHeader";
 import ProfileComponent from "../components/profile/ProfileComponent";
 import Header from "../config/header/Header";
 import { colors } from '../config/vars';
@@ -12,18 +13,18 @@ export default class Profile extends Component {
   }
 
   componentDidMount() {
-    const navigation = this.props.navigation
-    navigation.addListener("focus", () => {
-      this.setState(this.state)
-    })
-    BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
+    // const navigation = this.props.navigation
+    // navigation.addListener("focus", () => {
+    //   this.setState(this.state)
+    // })
+    // BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
   }
 
-  componentWillUnmount() {
-    const navigation = this.props.navigation
-    navigation.removeListener("focus")
-    BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
-  }
+  // componentWillUnmount() {
+  //   const navigation = this.props.navigation
+  //   navigation.removeListener("focus")
+  //   BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
+  // }
 
   handleBackPress = () => {
     if (this.props.navigation.isFocused()) {
@@ -50,7 +51,7 @@ export default class Profile extends Component {
     return (
       <View style={styles.container}>
         <StatusBar backgroundColor={colors.whiteF7} translucent={false} />
-        <Header title={"بروفايل"} />
+        <MiniHeader title="profile" navigation={this.props.navigation} />
         <ProfileComponent navigation={this.props.navigation} />
       </View>
     );

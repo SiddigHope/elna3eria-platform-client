@@ -67,6 +67,7 @@ export default class AskMeOrders extends Component {
                 <Header
                     screen="orders"
                     title="طلباتي"
+                    navigation={this.props.navigation}
                     closeSearching={() => console.log("closing")}
                     searching={false}
                     onChangeText={(text) => console.log(text)}

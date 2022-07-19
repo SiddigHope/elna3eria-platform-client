@@ -68,6 +68,7 @@ export default class Hiraj extends Component {
           title="منتجاتي"
           closeSearching={() => console.log("closing")}
           searching={false}
+          navigation={this.props.navigation}
           onChangeText={(text) => console.log(text)}
         />
         <CatList selected={this.state.selected} changeSelected={this.filterProducts} data={this.state.categories} />

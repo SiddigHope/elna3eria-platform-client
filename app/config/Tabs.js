@@ -96,7 +96,7 @@ function Tabs({ navigation }) {
           },
         }}
       >
-        <Tab.Screen
+        {/* <Tab.Screen
           name="Profile"
           component={Profile}
           options={{
@@ -117,7 +117,7 @@ function Tabs({ navigation }) {
               />
             ),
           }}
-        />
+        /> */}
 
         <Tab.Screen
           name="Discount"
@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
     paddingRight: 5,
     borderRadius: 30,
     // flex: 1,
-    minHeight:50,
+    minHeight: 50,
   },
   focusedTab: {
     // justifyContent: "flex-start",

@@ -32,6 +32,8 @@ import DoctorAppointments from './app/screens/DoctorAppointments';
 import HospitalProfile from './app/screens/HospitalProfile';
 import Chat from './app/screens/Chat';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import AppStack from './app/config/navigation/AppStack';
+import DrawerStack from './app/config/navigation/DrawerStack';
 
 // I18nManager.forceRTL(false);
 // I18nManager.allowRTL(false);
@@ -53,182 +55,182 @@ const loadFonts = () => {
   });
 };
 
-const Stack = createStackNavigator();
-const Drawer = createDrawerNavigator();
+// const Stack = createStackNavigator();
+// const Drawer = createDrawerNavigator();
 
-function Stacks() {
-  return (
-    <Stack.Navigator
-      // initialRouteName={"Chat"}
-      screenOptions={{
-        cardStyleInterpolator: CardStyleInterpolators.forRevealFromBottomAndroid,
-      }}
-    >
-      {/* <Stack.Screen
-        name="SplashScreen"
-        component={SplashScreen}
-        options={{
-          headerShown: false,
-        }}
-      /> */}
-      <Stack.Screen
-        name="Signin"
-        component={Signin}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="Tabs"
-        component={Tabs}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="HospitalProfile"
-        component={HospitalProfile}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="Home"
-        component={Home}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="AskMe"
-        component={AskMe}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="Chat"
-        component={Chat}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="AskMeOrders"
-        component={AskMeOrders}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="DoctorAppointments"
-        component={DoctorAppointments}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="Categories"
-        component={Categories}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="Profile"
-        component={Profile}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="EditProfile"
-        component={EditProfile}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="StoreProducts"
-        component={StoreProducts}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="ProductDetails"
-        component={ProductDetails}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="ProductScreen"
-        component={ProductScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="Signup"
-        component={Signup}
-        options={{
-          headerShown: false,
-        }}
-      />
+// function Stacks() {
+//   return (
+//     <Stack.Navigator
+//       // initialRouteName={"Chat"}
+//       screenOptions={{
+//         cardStyleInterpolator: CardStyleInterpolators.forRevealFromBottomAndroid,
+//       }}
+//     >
+//       {/* <Stack.Screen
+//         name="SplashScreen"
+//         component={SplashScreen}
+//         options={{
+//           headerShown: false,
+//         }}
+//       /> */}
+//       <Stack.Screen
+//         name="Signin"
+//         component={Signin}
+//         options={{
+//           headerShown: false,
+//         }}
+//       />
+//       <Stack.Screen
+//         name="Tabs"
+//         component={Tabs}
+//         options={{
+//           headerShown: false,
+//         }}
+//       />
+//       <Stack.Screen
+//         name="HospitalProfile"
+//         component={HospitalProfile}
+//         options={{
+//           headerShown: false,
+//         }}
+//       />
+//       <Stack.Screen
+//         name="Home"
+//         component={Home}
+//         options={{
+//           headerShown: false,
+//         }}
+//       />
+//       <Stack.Screen
+//         name="AskMe"
+//         component={AskMe}
+//         options={{
+//           headerShown: false,
+//         }}
+//       />
+//       <Stack.Screen
+//         name="Chat"
+//         component={Chat}
+//         options={{
+//           headerShown: false,
+//         }}
+//       />
+//       <Stack.Screen
+//         name="AskMeOrders"
+//         component={AskMeOrders}
+//         options={{
+//           headerShown: false,
+//         }}
+//       />
+//       <Stack.Screen
+//         name="DoctorAppointments"
+//         component={DoctorAppointments}
+//         options={{
+//           headerShown: false,
+//         }}
+//       />
+//       <Stack.Screen
+//         name="Categories"
+//         component={Categories}
+//         options={{
+//           headerShown: false,
+//         }}
+//       />
+//       <Stack.Screen
+//         name="Profile"
+//         component={Profile}
+//         options={{
+//           headerShown: false,
+//         }}
+//       />
+//       <Stack.Screen
+//         name="EditProfile"
+//         component={EditProfile}
+//         options={{
+//           headerShown: false,
+//         }}
+//       />
+//       <Stack.Screen
+//         name="StoreProducts"
+//         component={StoreProducts}
+//         options={{
+//           headerShown: false,
+//         }}
+//       />
+//       <Stack.Screen
+//         name="ProductDetails"
+//         component={ProductDetails}
+//         options={{
+//           headerShown: false,
+//         }}
+//       />
+//       <Stack.Screen
+//         name="ProductScreen"
+//         component={ProductScreen}
+//         options={{
+//           headerShown: false,
+//         }}
+//       />
+//       <Stack.Screen
+//         name="Signup"
+//         component={Signup}
+//         options={{
+//           headerShown: false,
+//         }}
+//       />
 
-      <Stack.Screen
-        name="Verification"
-        component={Verification}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="Cart"
-        component={Cart}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="OrderDetails"
-        component={OrderDetails}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="FavStores"
-        component={FavStores}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="FavProducts"
-        component={FavProducts}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="MyReviews"
-        component={MyReviews}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="Hiraj"
-        component={Hiraj}
-        options={{
-          headerShown: false,
-        }}
-      />
-    </Stack.Navigator>
-  );
-}
+//       <Stack.Screen
+//         name="Verification"
+//         component={Verification}
+//         options={{
+//           headerShown: false,
+//         }}
+//       />
+//       <Stack.Screen
+//         name="Cart"
+//         component={Cart}
+//         options={{
+//           headerShown: false,
+//         }}
+//       />
+//       <Stack.Screen
+//         name="OrderDetails"
+//         component={OrderDetails}
+//         options={{
+//           headerShown: false,
+//         }}
+//       />
+//       <Stack.Screen
+//         name="FavStores"
+//         component={FavStores}
+//         options={{
+//           headerShown: false,
+//         }}
+//       />
+//       <Stack.Screen
+//         name="FavProducts"
+//         component={FavProducts}
+//         options={{
+//           headerShown: false,
+//         }}
+//       />
+//       <Stack.Screen
+//         name="MyReviews"
+//         component={MyReviews}
+//         options={{
+//           headerShown: false,
+//         }}
+//       />
+//       <Stack.Screen
+//         name="Hiraj"
+//         component={Hiraj}
+//         options={{
+//           headerShown: false,
+//         }}
+//       />
+//     </Stack.Navigator>
+//   );
+// }
 
 function MainScreen() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -246,7 +248,8 @@ function MainScreen() {
   return (
     <NavigationContainer>
       <NativeBaseProvider>
-        <Stacks />
+        {/* <AppStack /> */}
+        <DrawerStack />
       </NativeBaseProvider>
     </NavigationContainer>
   );
