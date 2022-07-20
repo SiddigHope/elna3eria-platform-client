@@ -17,7 +17,7 @@ export default class MiniHeader extends Component {
                         <Icon onPress={() => this.props.navigation.goBack()} name="close" size={25} color={colors.ebony} />
                     </View>
                 ) : this.props.title == "profile" ? (
-                    <Icon onPress={() => this.props.navigation.closeDrawer()} style={{ flex: 0.3, zIndex: 1111 }} name="close" size={30} color={colors.mainColor} />
+                    <Icon onPress={() => this.props.navigation.closeDrawer()} style={{ flex: 0.3, zIndex: 1111 }} name="close" size={30} color={colors.white} />
 
                 ) : (
                     <Icon onPress={() => this.props.navigation.goBack()} style={{ flex: 0.3, zIndex: 1111 }} name="close" size={30} color={colors.mainColor} />

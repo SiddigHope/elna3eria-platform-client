@@ -38,17 +38,14 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         width: "100%",
         height: 60,
-        // backgroundColor: colors.ebony,
-        // marginVertical: 5,
         elevation: 5,
-        // borderRadius: 10
     },
     title: {
         flex: 1,
         textAlign: 'right',
         textAlignVertical: "center",
         fontFamily: fonts.tajawalR,
-        fontSize: 16,
+        fontSize: 14,
         color: colors.white,
         marginHorizontal: 20
     }
