@@ -23,7 +23,10 @@ import Profile from "../../screens/Profile";
 import FavStores from '../../screens/FavStores';
 import FavProducts from '../../screens/FavProducts';
 import MyReviews from '../../screens/MyReviews';
-// import Hiraj from '../../screens/Hiraj';
+import Support from '../../screens/Support';
+import DoctorAppointmentDetails from '../../screens/DoctorAppointmentDetails';
+
+
 const Stack = createStackNavigator();
 
 function AppStack() {
@@ -42,6 +45,10 @@ function AppStack() {
             <Stack.Screen
                 name="Tabs"
                 component={Tabs}
+            />
+            <Stack.Screen
+                name="Support"
+                component={Support}
             />
             <Stack.Screen
                 name="HospitalProfile"
@@ -66,6 +73,10 @@ function AppStack() {
             <Stack.Screen
                 name="DoctorAppointments"
                 component={DoctorAppointments}
+            />
+            <Stack.Screen
+                name="DoctorAppointmentDetails"
+                component={DoctorAppointmentDetails}
             />
             <Stack.Screen
                 name="Categories"

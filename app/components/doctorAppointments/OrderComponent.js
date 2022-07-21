@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import elevations from '../../config/elevations';
 import { colors, fonts } from '../../config/vars';
 import moment from 'moment';
+import { goToScreen } from '../../config/functions';
 
 
 const { width, height } = Dimensions.get("window")
@@ -52,7 +53,7 @@ export default class OrderComponent extends Component {
         let color = colors.mainColor
 
         return (
-            <Pressable style={[styles.container, elevations[10]]}>
+            <Pressable onPress={() => this.props.onPress(item)} style={[styles.container, elevations[10]]}>
                 <View style={[styles.imageContainer, elevations[5]]}>
                     <Image style={styles.image} source={{ uri: item.doctor.image }} />
                 </View>

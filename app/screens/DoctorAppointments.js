@@ -45,7 +45,7 @@ export default class DoctorAppointments extends Component {
     }
 
     onOrderPressed = (order) => {
-        goToScreen("OrderDetails", this.props.navigation, { order })
+        goToScreen("DoctorAppointmentDetails", this.props.navigation, { order })
     }
 
     render() {

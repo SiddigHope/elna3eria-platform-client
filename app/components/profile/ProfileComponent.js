@@ -52,13 +52,13 @@ export default class ProfileComponent extends Component {
                 {
                     id: 1,
                     title: "عن التطبيق",
-                    onPress: "FavStores",
+                    onPress: "about",
                     icon: <Icon1 name="ios-information-circle-sharp" size={25} color={colors.mainColor} />,
                 },
                 {
                     id: 2,
                     title: "الدعم الفني",
-                    onPress: "FavProducts",
+                    onPress: "Support",
                     icon: <Icon4 name="contact-support" size={25} color={colors.mainColor} />,
                 },
                 {
@@ -87,6 +87,15 @@ export default class ProfileComponent extends Component {
         if (item == "Signin") {
             UserClass.logout()
             goToScreen(item, this.props.navigation)
+            return
+        }
+
+        if (item == "Support") {
+            // goToScreen(item, this.props.navigation)
+            return
+        }
+
+        if (item == "about") {
             return
         }
         goToScreen(item, this.props.navigation)
